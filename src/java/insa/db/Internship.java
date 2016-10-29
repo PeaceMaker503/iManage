@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.Pattern;
@@ -21,31 +22,26 @@ import javax.validation.constraints.Pattern;
  * @author Halim
  */
 @Entity
-public class UserProfile implements Serializable {
+public class Internship implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String lastName;
-    private String firstName;
-    @Column(columnDefinition="char(10)")
-    @Pattern(regexp="[0-9]{10}")
-    private String phone;
-    @Pattern(regexp="[0-9A-Za-z_]+[@][0-9A-Za-z_]+[.]fr")
-    private String mail;
+    private String name;
     @Pattern(regexp="C:/([0-9A-Za-z_]+/)*[0-9A-Za-z_]+[.]pdf")
-    private String cvPath;
+    private String pdfPath;
+    @ManyToOne
+    @JoinColumn(referencedColumnName="id")
+    private Company id_company;
     
-    public UserProfile() {}
-    
-    public UserProfile(Long id, String lastName, String firstName, String phone, String mail, String cvPath) {
+    public Internship() {}
+
+    public Internship(Long id, String name, String pdfPath, Company id_company) {
         this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
-        this.phone = phone;
-        this.mail = mail;
-        this.cvPath = cvPath;
+        this.name = name;
+        this.pdfPath = pdfPath;
+        this.id_company = id_company;
     }
 
     public Long getId() {
@@ -56,45 +52,30 @@ public class UserProfile implements Serializable {
         this.id = id;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getName() {
+        return name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getPdfPath() {
+        return pdfPath;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setPdfPath(String pdfPath) {
+        this.pdfPath = pdfPath;
     }
 
-    public String getPhone() {
-        return phone;
+    public Company getId_company() {
+        return id_company;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setId_company(Company id_company) {
+        this.id_company = id_company;
     }
-
-    public String getMail() {
-        return mail;
-    }
-
-    public void setMail(String mail) {
-        this.mail = mail;
-    }
-
-    public String getCvPath() {
-        return cvPath;
-    }
-
-    public void setCvPath(String cvPath) {
-        this.cvPath = cvPath;
-    }
+    
     
     @Override
     public int hashCode() {
@@ -106,15 +87,13 @@ public class UserProfile implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserProfile)) {
+        if (!(object instanceof Internship)) {
             return false;
         }
-        UserProfile other = (UserProfile) object;
+        Internship other = (Internship) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
     }
-
-    
 }

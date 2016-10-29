@@ -5,8 +5,11 @@
  */
 package insa.ws;
 
+import insa.dao.DaoImpl;
+import insa.dao.IDao;
 import insa.db.*;
 import insa.metier.IMetier;
+import insa.metier.MetierImpl;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -27,7 +30,7 @@ public class ManageWS {
         ApplicationContext ap = new ClassPathXmlApplicationContext("../../WEB-INF/applicationContext.xml");
         metier = (IMetier)ap.getBean("metier");
     }
-
+    
     /**
      * Web service operation
      * @param firstName
@@ -41,5 +44,29 @@ public class ManageWS {
     public UserProfile addUserProfile(@WebParam(name = "firstName") String firstName, @WebParam(name = "lastName") String lastName, @WebParam(name = "mail") String mail, @WebParam(name = "phone") String phone, @WebParam(name = "cvPath") String cvPath) 
     {
         return metier.addUserProfile(firstName, lastName, mail, phone, cvPath);
+    }
+
+    /**
+     * Web service operation
+     * @return 
+     */
+    @WebMethod(operationName = "debugInitDatabase")
+    public String debugInitDatabase() {
+        IDao dao = ((MetierImpl)metier).getDao();
+        
+        UserAccount ua = new UserAccount();
+        ua.setLogin("Halim");
+        ua.setPassword("I<3DannyMare");
+        ua = dao.addUserAccount(ua);
+        UserProfile up = new UserProfile();
+        up.setFirstName("Halim");
+        up.setLastName("Chellal");
+        up.setMail("chellal@guermouche.fr");
+        up.setPhone("0645259233");
+        up.setCvPath("C:/chellal.pdf");
+        up = dao.addUserProfile(up);
+        ua.setId_profile(up);
+        dao.updateUserAccount(ua);
+        return "OK";
     }
 }

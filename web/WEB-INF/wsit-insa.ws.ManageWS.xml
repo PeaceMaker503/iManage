@@ -7,15 +7,25 @@
  >
     <message name="addUserProfile"/>
     <message name="addUserProfileResponse"/>
+    <message name="debugInitDatabase"/>
+    <message name="debugInitDatabaseResponse"/>
     <portType name="ManageWS">
         <operation name="addUserProfile">
             <input message="tns:addUserProfile"/>
             <output message="tns:addUserProfileResponse"/>
         </operation>
+        <operation name="debugInitDatabase">
+            <input message="tns:debugInitDatabase"/>
+            <output message="tns:debugInitDatabaseResponse"/>
+        </operation>
     </portType>
     <binding name="ManageWSPortBinding" type="tns:ManageWS">
         <wsp:PolicyReference URI="#ManageWSPortBindingPolicy"/>
         <operation name="addUserProfile">
+            <input/>
+            <output/>
+        </operation>
+        <operation name="debugInitDatabase">
             <input/>
             <output/>
         </operation>

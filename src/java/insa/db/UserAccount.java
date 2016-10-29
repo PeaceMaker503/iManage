@@ -32,6 +32,15 @@ public class UserAccount implements Serializable {
     @JoinColumn(referencedColumnName="id")
     private UserProfile id_profile;
 
+    public UserAccount() {}
+    
+    public UserAccount(Long id, String login, String password, UserProfile id_profile) {
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.id_profile = id_profile;
+    }
+
     public Long getId() {
         return id;
     }

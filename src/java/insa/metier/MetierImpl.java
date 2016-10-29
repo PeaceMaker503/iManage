@@ -27,6 +27,8 @@ public class MetierImpl implements IMetier {
     public void setDao(IDao dao) {
         this.dao = dao;
     }
+    
+    @Override
     public UserProfile addUserProfile(String firstName, String lastName, String mail, String phone, String cvPath)
     {
         UserProfile u = new UserProfile();

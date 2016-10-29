@@ -13,6 +13,24 @@ import insa.db.*;
  */
 public interface IDao {
     
+    public UserAccount getUserAccount(Long id);
     public UserAccount addUserAccount(UserAccount userAccount);
+    public UserAccount deleteUserAccount(Long id);
+    public UserAccount updateUserAccount(UserAccount id);
+    
+    public UserProfile getUserProfile(Long id);
     public UserProfile addUserProfile(UserProfile userProfile);
+    public UserProfile deleteUserProfile(Long id);
+    public UserProfile updateUserProfile(UserProfile userProfile);
+    
+    public Internship getInternship(Long id);
+    public Internship addInternship(Internship internship);
+    public Internship deleteInternship(Long id);
+    public Internship updateInternship(Internship internship);
+    
+    public Company getCompany(Long id);
+    public Company addCompany(Company company);
+    public Company deleteCompany(Long id);
+    public Company updateCompany(Company company);
+    
 }

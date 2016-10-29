@@ -21,31 +21,28 @@ import javax.validation.constraints.Pattern;
  * @author Halim
  */
 @Entity
-public class UserProfile implements Serializable {
+public class Company implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private String lastName;
-    private String firstName;
+    private String name;
     @Column(columnDefinition="char(10)")
     @Pattern(regexp="[0-9]{10}")
     private String phone;
     @Pattern(regexp="[0-9A-Za-z_]+[@][0-9A-Za-z_]+[.]fr")
     private String mail;
-    @Pattern(regexp="C:/([0-9A-Za-z_]+/)*[0-9A-Za-z_]+[.]pdf")
-    private String cvPath;
+    private String address;
+
+    public Company() {}
     
-    public UserProfile() {}
-    
-    public UserProfile(Long id, String lastName, String firstName, String phone, String mail, String cvPath) {
+    public Company(Long id, String name, String phone, String mail, String address) {
         this.id = id;
-        this.lastName = lastName;
-        this.firstName = firstName;
+        this.name = name;
         this.phone = phone;
         this.mail = mail;
-        this.cvPath = cvPath;
+        this.address = address;
     }
 
     public Long getId() {
@@ -56,20 +53,12 @@ public class UserProfile implements Serializable {
         this.id = id;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getName() {
+        return name;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getPhone() {
@@ -88,14 +77,14 @@ public class UserProfile implements Serializable {
         this.mail = mail;
     }
 
-    public String getCvPath() {
-        return cvPath;
+    public String getAddress() {
+        return address;
     }
 
-    public void setCvPath(String cvPath) {
-        this.cvPath = cvPath;
+    public void setAddress(String address) {
+        this.address = address;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -106,10 +95,10 @@ public class UserProfile implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserProfile)) {
+        if (!(object instanceof Company)) {
             return false;
         }
-        UserProfile other = (UserProfile) object;
+        Company other = (Company) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
