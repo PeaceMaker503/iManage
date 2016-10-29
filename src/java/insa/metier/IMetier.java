@@ -5,11 +5,13 @@
  */
 package insa.metier;
 
+import insa.db.UserProfile;
+
 /**
  *
  * @author Halim
  */
 public interface IMetier {
     
-    public String mHello();
+    public UserProfile addUserProfile(String firstName, String lastName, String mail, String phone, String cvPath);
 }

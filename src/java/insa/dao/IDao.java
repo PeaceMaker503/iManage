@@ -5,12 +5,14 @@
  */
 package insa.dao;
 
+import insa.db.*;
+
 /**
  *
  * @author Halim
  */
 public interface IDao {
     
-    public String daoHello();
-    
+    public UserAccount addUserAccount(UserAccount userAccount);
+    public UserProfile addUserProfile(UserProfile userProfile);
 }
