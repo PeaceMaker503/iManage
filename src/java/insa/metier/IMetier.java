@@ -6,12 +6,14 @@
 package insa.metier;
 
 import insa.db.UserProfile;
-
+import insa.db.UserAccount;
 /**
  *
  * @author Halim
  */
-public interface IMetier {
-    
+public interface IMetier 
+{
+    public boolean connectUser(String login, String password);
     public UserProfile addUserProfile(String firstName, String lastName, String mail, String phone, String cvPath);
+    public UserAccount addUserAccount(String login , String mail , String password); 
 }

@@ -5,10 +5,13 @@
  */
 package insa.utils;
 
+import insa.db.UserAccount;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
+import org.hibernate.Query;
 import org.hibernate.SessionFactory;
 import org.hibernate.Transaction;
+import java.util.*;
 
 /**
  *
@@ -155,5 +158,31 @@ public class HibernateManager {
 
         }
         return res;
+    }
+    
+    
+    public List<UserAccount> runQuery(String theQuery)
+    {
+        try
+        {
+            //System.out.println("query to run : "+ theQuery);
+            Session s = sessionFactory.openSession();
+            Transaction tx = s.beginTransaction();
+            Query query = s.createQuery( "select * from UserAccount as u where u.login=abdi and u.password=toto");
+            List<UserAccount> list = query.list();
+            for(UserAccount row : list)
+            {
+                System.out.print("==================="+row.getLogin());
+            }
+            return list;
+        } catch(HibernateException e)
+        {
+        }
+        finally
+        {
+
+        }
+        //System.out.println("passage return ");
+        return null;
     }
 }

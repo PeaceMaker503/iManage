@@ -19,14 +19,16 @@ import org.springframework.stereotype.Service;
 public class MetierImpl implements IMetier {
     
     private IDao dao;
-
-    public IDao getDao() {
-        return dao;
+    private welcomeManager welcomeM;
+    
+   
+    
+    @Override
+    public boolean connectUser(String login, String password)
+    {
+        return welcomeM.connectUser(login, password);
     }
-
-    public void setDao(IDao dao) {
-        this.dao = dao;
-    }
+    
     
     @Override
     public UserProfile addUserProfile(String firstName, String lastName, String mail, String phone, String cvPath)
@@ -39,4 +41,35 @@ public class MetierImpl implements IMetier {
         u.setCvPath(cvPath);
         return dao.addUserProfile(u);
     }
+    
+    public UserAccount addUserAccount(String login , String mail , String password)
+    {
+        UserAccount a = new UserAccount();
+        a.setLogin(login);
+        a.setPassword(password);
+        a.setMail(mail);
+        return dao.addUserAccount(a);
+    }
+
+    
+    public welcomeManager getWelcomeM() 
+    {
+        return welcomeM;
+    }
+
+    
+    public void setWelcomeM(welcomeManager welcomeM) {
+        this.welcomeM = welcomeM;
+    }
+    
+    public IDao getDao() 
+    {
+        return dao;
+    }
+
+    public void setDao(IDao dao) 
+    {
+        this.dao = dao;
+    }
+    
 }
