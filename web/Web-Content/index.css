@@ -9,8 +9,7 @@ and open the template in the editor.
 */
 
 
-
-body, #main{
+html,body, #main{
     height: 100%;
     width: 100%;
     padding: 0px;
@@ -19,7 +18,6 @@ body, #main{
 #videoPlayer{
     position: absolute;
     z-index: -1;
-    
 }
 
 #cadreTransparent{
@@ -32,13 +30,16 @@ body, #main{
 }
 
 #homePage{
-   height: 40%;
+   height: 70%;
 }
 
+#insideHomePage{
+    height: 100%;
+}
 
 #titleMain{
     margin-top: 10vh; 
-    height: 20%;
+    height: 35%;
     text-align: center;
 }
 
@@ -68,12 +69,24 @@ body, #main{
 }
 
 #connexion{
-    height: 100%;
+    height: 60%;
 }
 
 #insideConnexion{
     height: 100%;
 
+}
+
+#formulaireConnexion, #formulaireCreationCompte{
+    height: 80%;
+}
+
+#liens, #liensCr{
+    height: 20%;
+}
+
+#insideLiens{
+    height: 100%;
 }
 
 #motDeaPasse{

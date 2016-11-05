@@ -20,10 +20,8 @@
     <body>
         <article id="main" class="col-xs-12">
             <!--div id="videoPlayer"></div-->
-            <div id="cadreTransparent" class="col-xs-12 col-sm-push-1 col-sm-10 col-md-push-2 col-md-8 col-lg-push-3 col-lg-6">
-            </div>
             <div id="homePage" class="container-fluid col-xs-12 col-sm-push-2 col-sm-8 col-md-push-2 col-md-8 col-lg-push-2 col-lg-8">
-                <div class="row">
+                <div id ="insideHomePage" class="row">
                     <div id="titleMain" class="col-lg-12">
                         <img id="logoCompany" src="http://ibewmain.atstestweb.com/wp-content/uploads/sites/8/2015/04/handshake.png"/><p id="titleApp" class="centrerVerticalement">iManage</p>
                     </div>
@@ -43,7 +41,7 @@
                                 </div>
                             </form>
                             <div id="liens" class="container-fluid col-xs-12">
-                                <div class="row"> 
+                                <div id="insideLiens" class="row"> 
                                     <button id="creationCompte" class="col-xs-6 boutonsCompte" onclick="clicCreationCompte()">Create an account</button>
                                     <a id="motDePasseOublie" class="col-xs-6 boutonsCompte">Forgot your password?</a>
                                 </div>
