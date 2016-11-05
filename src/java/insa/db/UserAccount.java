@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.validation.constraints.Pattern;
 
 /**
  *
@@ -27,6 +28,8 @@ public class UserAccount implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String login;
+    @Pattern(regexp="[0-9A-Za-z_]+[@][0-9A-Za-z_]+[.]fr")
+    private String mail; 
     private String password;
     @OneToOne
     @JoinColumn(referencedColumnName="id")
@@ -34,9 +37,10 @@ public class UserAccount implements Serializable {
 
     public UserAccount() {}
     
-    public UserAccount(Long id, String login, String password, UserProfile id_profile) {
+    public UserAccount(Long id, String login,  String mail , String password, UserProfile id_profile) {
         this.id = id;
         this.login = login;
+        this.mail=mail;
         this.password = password;
         this.id_profile = id_profile;
     }
@@ -92,6 +96,20 @@ public class UserAccount implements Serializable {
             return false;
         }
         return true;
+    }
+
+    /**
+     * @return the mail
+     */
+    public String getMail() {
+        return mail;
+    }
+
+    /**
+     * @param mail the mail to set
+     */
+    public void setMail(String mail) {
+        this.mail = mail;
     }
 
     

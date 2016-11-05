@@ -33,4 +33,8 @@ public interface IDao {
     public Company deleteCompany(Long id);
     public Company updateCompany(Company company);
     
+    /*welcome class functions*/
+    public boolean connectToAccount(String login, String password);
+    
+    
 }

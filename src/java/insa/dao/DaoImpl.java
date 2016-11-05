@@ -10,7 +10,7 @@ import insa.db.Internship;
 import insa.db.UserAccount;
 import insa.db.UserProfile;
 import insa.utils.HibernateManager;
-
+import java.util.*;
 /**
  *
  * @author Halim
@@ -175,5 +175,24 @@ public class DaoImpl implements IDao {
             return company;
         else
             return null;
+    }
+    
+    @Override
+    public boolean connectToAccount(String login, String password)
+    {
+       boolean res =false;
+       String query = "select * from UserAccount as u where u.login=abdi and u.password=toto";
+       System.out.println("query to run : "+ query);
+       List<UserAccount> associateUserList=(List<UserAccount>)(List<?>)hibernateManager.runQuery(query);
+       
+      if (associateUserList!=null)
+      {
+            if (associateUserList.size()==1)
+                res=true;
+      }else 
+      {
+          System.out.println("===========lsit nulle ");
+      }
+       return res;
     }
 }

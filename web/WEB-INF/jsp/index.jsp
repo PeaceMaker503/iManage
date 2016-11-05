@@ -1,3 +1,6 @@
+<%@page import="insa.client.Controller"%>
+<%@page import="insa.db.UserProfile"%>
+<%@page import="insa.ws.ManageWS"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">

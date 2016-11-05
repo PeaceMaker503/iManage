@@ -48,7 +48,7 @@
 
             formConnPere.removeChild(formConn);
 
-            formConnPere.innerHTML = '<form id="formulaireCreationCompte" class="col-xs-push-1 col-xs-10 col-sm-push-2 col-sm-8 col-md-push-3 col-md-6 col-lg-push-3 col-lg-6 centrerVerticalementForm" method="post">'
+            formConnPere.innerHTML = '<form id="formulaireCreationCompte" action="welcomeServlet" class="col-xs-push-1 col-xs-10 col-sm-push-2 col-sm-8 col-md-push-3 col-md-6 col-lg-push-3 col-lg-6 centrerVerticalementForm" method="post">'
             +   '<div class="labelForm form-group">'
             +       '<label for="motDePasse">Login</label>'
             +       '<input type="text" id="loginCr" name="loginCr" class="form-control">'
