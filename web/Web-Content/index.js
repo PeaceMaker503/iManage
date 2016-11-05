@@ -51,7 +51,7 @@
                 //form
             //}
 
-            formConnPere.innerHTML = '<form id="formulaireCreationCompte" class="col-xs-push-1 col-xs-10 col-sm-push-2 col-sm-8 col-md-push-3 col-md-6 col-lg-push-3 col-lg-6 centrerVerticalementForm" method="post">'
+            formConnPere.innerHTML = '<form id="formulaireCreationCompte" action="welcomeServlet" class="col-xs-push-1 col-xs-10 col-sm-push-2 col-sm-8 col-md-push-3 col-md-6 col-lg-push-3 col-lg-6 centrerVerticalementForm" method="post">'
             +   '<div class="labelForm form-group">'
             +       '<label for="motDePasse">Login</label>'
             +       '<input type="text" id="loginCr" name="loginCr" class="form-control">'
@@ -62,7 +62,7 @@
             +   '</div>'
             +   '<div class="labelForm form-group">'
             +       '<label class="labelForm" for="emailAddressCr">E-mail address</label>'
-            +       '<input type="password" id="emailAddressCr" name="emailAddressCr" class="form-control">'
+            +       '<input type="email" id="emailAddressCr" name="emailAddressCr" class="form-control">'
             +   '</div>'               
             +   '<div>'
             +       '<button type="submit" class="btn btn-primary col-xs-push-2 col-xs-8 col-sm-push-3 col-sm-6 col-md-push-3 col-md-6 col-lg-push-3 col-lg-6">Sign up</button>'

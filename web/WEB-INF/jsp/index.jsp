@@ -8,66 +8,53 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
-        <title>Welcome to Spring Web MVC project</title>
+        <title>iManage homepage</title>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+        <link rel="stylesheet" media="screen" type="text/css" href="/iManage/Web-Content/index.css"> 
+        <script async src="https://www.youtube.com/iframe_api"></script>
+        <script type="text/javascript" src="/iManage/Web-Content/index.js"></script>
     </head>
 
     <body>
-        <p>Hello! This is the default welcome page for a Spring Web MVC project.</p>
-        <p><i>To display a different welcome page for this project, modify</i>
-            <tt>index.jsp</tt> <i>, or create your own welcome page then change
-                the redirection in</i> <tt>redirect.jsp</tt> <i>to point to the new
-                welcome page and also update the welcome-file setting in</i>
-            <tt>web.xml</tt>.</p>
-        
-            <button type="submit" onclick="callSOAPWS()" class="btn btn-primary">bouton</button>
-
-            <script>
-                
-                function callSOAPWS()
-                {
-                  var soapMessage =
-                      `<?xml version="1.0" encoding="UTF-8"?><S:Envelope xmlns:S="http://schemas.xmlsoap.org/soap/envelope/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/">
-                        <SOAP-ENV:Header/>
-                        <S:Body>
-                            <ns2:addUserProfile xmlns:ns2="http://ws.insa/">
-                                <firstName>a</firstName>
-                                <lastName>a</lastName>
-                                <mail>a@a.fr</mail>
-                                <phone>0645259233</phone>
-                                <cvPath>C:/p.pdf</cvPath>
-                            </ns2:addUserProfile>
-                        </S:Body>
-                    </S:Envelope>`;
-
-                  alert("Check SOAP: [" + soapMessage + "]");
-
-                  $.ajax({
-                          url: "http://localhost:8080/iManage/ManageWS",
-                          type: "POST",
-                          dataType: "xml",
-                          data: soapMessage,
-                          contentType: "text/xml; charset=\"utf-8\"",
-
-                          //processData: false,   // what is it for? may be should be true when using 'complete:' ?
-                          //timeout: 5000,
-
-                          // below I first try to have only 'complete:' then I tried to have 'success:' + 'error:', then the 3. Nothing seems to be ok. I do not find which one i should use.
-                          complete: function( response ){
-                              alert(response.responseText);
-                          },
-
-                          success: function( response ){
-                              alert(response.responseText);
-                          },
-
-                          error: function(XMLHttpRequest,textStatus, errorThrown){
-                              alert("error:");
-                          }
-
-                  });
-                }
-            </script>
+        <article id="main" class="col-xs-12">
+            <!--div id="videoPlayer"></div-->
+            <div id="cadreTransparent" class="col-xs-12 col-sm-push-1 col-sm-10 col-md-push-2 col-md-8 col-lg-push-3 col-lg-6">
+            </div>
+            <div id="homePage" class="container-fluid col-xs-12 col-sm-push-2 col-sm-8 col-md-push-2 col-md-8 col-lg-push-2 col-lg-8">
+                <div class="row">
+                    <div id="titleMain" class="col-lg-12">
+                        <img id="logoCompany" src="http://ibewmain.atstestweb.com/wp-content/uploads/sites/8/2015/04/handshake.png"/><p id="titleApp" class="centrerVerticalement">iManage</p>
+                    </div>
+                    <div id="connexion" class="container-fluid col-xs-12">
+                        <div class="row" id="insideConnexion"> 
+                            <form id="formulaireConnexion" class="col-xs-push-1 col-xs-10 col-sm-push-2 col-sm-8 col-md-push-3 col-md-6 col-lg-push-3 col-lg-6 centrerVerticalementForm" method="post">
+                                <div class="labelForm form-group">
+                                    <label for="motDePasse">Login</label>
+                                    <input type="text" id="login" name="login" class="form-control">
+                                </div>
+                                <div class="labelForm form-group">
+                                    <label class="labelForm" for="motDePasse">Password</label>
+                                    <input type="password" id="motDeaPasse" name="motDePasse" class="form-control">
+                                </div>
+                                <div>
+                                    <button type="submit" class="btn btn-primary col-xs-push-2 col-xs-8 col-sm-push-3 col-sm-6 col-md-push-3 col-md-6 col-lg-push-3 col-lg-6">Sign in</button>
+                                </div>
+                            </form>
+                            <div id="liens" class="container-fluid col-xs-12">
+                                <div class="row"> 
+                                    <button id="creationCompte" class="col-xs-6 boutonsCompte" onclick="clicCreationCompte()">Create an account</button>
+                                    <a id="motDePasseOublie" class="col-xs-6 boutonsCompte">Forgot your password?</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </article>
     </body>
+    <script>
+    </script>
 </html>
