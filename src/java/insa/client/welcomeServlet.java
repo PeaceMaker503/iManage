@@ -38,8 +38,13 @@ public class welcomeServlet extends HttpServlet
        String password = request.getParameter("motDePasseCr");
        String mail = request.getParameter("emailAddressCr");
        UserAccount u = accountService.addUserAccount(userName, mail, password);
-       System.out.println(u.getLogin());
-       
+       //System.out.println(u.getLogin());
+       //if(u==null){
+           //todo
+       /*}
+       else{*/
+           this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
+       /*}*/
     }
 
 }
