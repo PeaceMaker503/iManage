@@ -1,0 +1,107 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 3 nov. 2016, 16:57:28
+    Author     : jordycabannes
+*/
+
+
+
+body, #main{
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+}
+
+#videoPlayer{
+    position: absolute;
+    z-index: -1;
+    
+}
+
+#cadreTransparent{
+    position: absolute;
+    z-index: -1;
+    margin-top: 5%;
+    height: 75%;
+    background-color: white;
+    opacity: 0.9;
+}
+
+#homePage{
+   height: 40%;
+}
+
+
+#titleMain{
+    margin-top: 10vh; 
+    height: 20%;
+    text-align: center;
+}
+
+#logoCompany{
+    height: 100%;
+    width : 20%;
+    display: inline-block;
+}
+
+#titleApp{
+    font-family: "Helvetica Neue";
+    font-size:60pt;
+    color: black;
+    display: inline-block;
+    height: 100%;
+    margin:0px;
+}
+
+.centrerVerticalement{
+    margin-top: 50vh; 
+    transform: translateY(25%);
+}
+
+.centrerVerticalementForm{
+    margin-top: 20vh; 
+    transform: translateY(-50%);
+}
+
+#connexion{
+    height: 100%;
+}
+
+#insideConnexion{
+    height: 100%;
+
+}
+
+#motDeaPasse{
+    background: transparent;
+}
+
+#login{
+    background: transparent;
+}
+
+.labelForm{
+    text-align: center;
+}
+
+#motDePasseOublie{
+    text-decoration:none;
+    color:black;
+}
+
+a:hover {color: grey;}
+
+.boutonsCompte{
+    text-align: center;
+    color:black;
+    border: none;
+    background: none;
+}
+
+#creationCompte:hover{
+    color: grey;
+}
