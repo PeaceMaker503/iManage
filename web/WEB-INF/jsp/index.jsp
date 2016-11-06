@@ -18,6 +18,7 @@
     </head>
 
     <body>
+        
         <article id="main" class="col-xs-12">
             <!--div id="videoPlayer"></div-->
             <div id="homePage" class="container-fluid col-xs-12 col-sm-push-2 col-sm-8 col-md-push-2 col-md-8 col-lg-push-2 col-lg-8">
@@ -27,9 +28,9 @@
                     </div>
                     <div id="connexion" class="container-fluid col-xs-12">
                         <div class="row" id="insideConnexion"> 
-                            <form id="formulaireConnexion" class="col-xs-push-1 col-xs-10 col-sm-push-2 col-sm-8 col-md-push-3 col-md-6 col-lg-push-3 col-lg-6 centrerVerticalementForm" method="post">
+                            <form id="formulaireConnexion"  action="connectionServlet" class="col-xs-push-1 col-xs-10 col-sm-push-2 col-sm-8 col-md-push-3 col-md-6 col-lg-push-3 col-lg-6 centrerVerticalementForm" method="post">
                                 <div class="labelForm form-group">
-                                    <label for="motDePasse">Login</label>
+                                    <label for="login">Login</label>
                                     <input type="text" id="login" name="login" class="form-control">
                                 </div>
                                 <div class="labelForm form-group">

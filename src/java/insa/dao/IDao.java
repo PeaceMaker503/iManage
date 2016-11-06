@@ -35,6 +35,5 @@ public interface IDao {
     
     /*welcome class functions*/
     public boolean connectToAccount(String login, String password);
-    
-    
+    public Long getProfileConnection(String login, String password);
 }

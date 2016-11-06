@@ -6,6 +6,7 @@
 package insa.ws;
 
 import insa.db.UserAccount;
+import insa.db.UserProfile;
 import insa.metier.IMetier;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -44,4 +45,16 @@ public class accountWS
         //TODO write your implementation code here:
         return metier.connectUser(login, password);
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "getUserProfile")
+    public Long getUserProfile(@WebParam(name = "login") String login, @WebParam(name = "password") String password) {
+        //TODO write your implementation code here:
+        return metier.getUserProfile(login, password);
+    }
+
+
+    
 }

@@ -44,7 +44,7 @@ public class welcomeServlet extends HttpServlet
            //todo
        } else
        {
-           this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
+           this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
        }
     }
 

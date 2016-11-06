@@ -34,7 +34,7 @@ public class UserProfile implements Serializable {
     private String phone;
     @Pattern(regexp="[0-9A-Za-z_]+[@][0-9A-Za-z_]+[.]fr")
     private String mail;
-    @Pattern(regexp="C:/([0-9A-Za-z_]+/)*[0-9A-Za-z_]+[.]pdf")
+    //@Pattern(regexp="C:/([0-9A-Za-z_]+/)*[0-9A-Za-z_]+[.]pdf")
     private String cvPath;
     
     public UserProfile() {}

@@ -101,6 +101,20 @@
                                 +   '</div>';
         }
         
+        var wrongLog=false;
+        
+        function wrongLogin(){
+            if(document.URL==="http://localhost:8080/iManage/connectionServlet" && wrongLog===false){
+                $("#formulaireConnexion").append("<div class='container-fluid col-xs-12'><div class='row'><div class='col-xs-push-1 col-xs-10' style='text-align: center; color: red; font-family: Helvetica'>Wrong login or password</div></div></div>");
+                wrongLog=true;
+            }
+        }
+        
+        
         jQuery(document).ready(function(){
             setInterval(sizeTitleApp, 1);
+        });
+        
+        jQuery(document).ready(function(){
+            setInterval(wrongLogin, 1);
         });

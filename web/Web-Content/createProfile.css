@@ -1,0 +1,91 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 6 nov. 2016, 15:26:22
+    Author     : jordycabannes
+*/
+
+html,body, #main{
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+}
+
+#videoPlayer{
+    position: absolute;
+    z-index: -1;
+}
+
+#cadreTransparent{
+    position: absolute;
+    z-index: -1;
+    margin-top: 5%;
+    height: 75%;
+    background-color: white;
+    opacity: 0.9;
+}
+
+#creationProfilePage{
+   height: 70%;
+}
+
+#insideCreationProfilePage{
+    height: 100%;
+}
+
+#titleMain{
+    margin-top: 10vh; 
+    height: 35%;
+    text-align: center;
+}
+
+#logoCompany{
+    height: 100%;
+    width : 20%;
+    display: inline-block;
+}
+
+#titleApp{
+    font-family: "Helvetica Neue";
+    font-size:60pt;
+    color: black;
+    display: inline-block;
+    height: 100%;
+    margin:0px;
+}
+
+.centrerVerticalement{
+    margin-top: 50vh; 
+    transform: translateY(25%);
+}
+
+.centrerVerticalementForm{
+    margin-top: 20vh; 
+    transform: translateY(-50%);
+}
+
+#create{
+    height: 60%;
+}
+
+#insideCreate{
+    height: 100%;
+
+}
+
+#formulaireCreationProfile{
+    height: 80%;
+}
+
+
+#firstname, #lastname, #phone, #mail, #cvPath{
+    background: transparent;
+}
+
+.labelForm{
+    text-align: center;
+}
+

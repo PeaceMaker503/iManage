@@ -10,6 +10,7 @@ import insa.dao.IDao;
 import insa.db.*;
 import insa.metier.IMetier;
 import insa.metier.MetierImpl;
+import javax.jws.Oneway;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -45,6 +46,8 @@ public class ManageWS {
     {
         return metier.addUserProfile(firstName, lastName, mail, phone, cvPath);
     }
+    
+    
 
     /**
      * Web service operation
@@ -69,4 +72,14 @@ public class ManageWS {
         dao.updateUserAccount(ua);
         return "OK";
     }
+
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "addUserProfileToAccount")
+    public int addUserProfileToAccount(@WebParam(name = "userProfile") UserProfile userProfile, @WebParam(name = "id") Long id) {
+        //TODO write your implementation code here:
+        return metier.addUserProfileToAcccount(userProfile, id);
+    }
+
 }

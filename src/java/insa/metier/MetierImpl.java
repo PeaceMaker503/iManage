@@ -50,7 +50,17 @@ public class MetierImpl implements IMetier {
         a.setMail(mail);
         return dao.addUserAccount(a);
     }
+    
+    public Long getUserProfile(String login, String password){
+        return dao.getProfileConnection(login, password);
+    }
 
+    public int addUserProfileToAcccount(UserProfile userProfile, Long id){
+        UserAccount user = dao.getUserAccount(id);
+        user.setId_profile(userProfile);
+        dao.updateUserAccount(user);
+        return 0;
+    }
     
     public welcomeManager getWelcomeM() 
     {

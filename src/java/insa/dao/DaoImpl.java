@@ -181,18 +181,35 @@ public class DaoImpl implements IDao {
     public boolean connectToAccount(String login, String password)
     {
        boolean res =false;
-       String query = "select * from UserAccount as u where u.login=abdi and u.password=toto";
-       System.out.println("query to run : "+ query);
-       List<UserAccount> associateUserList=(List<UserAccount>)(List<?>)hibernateManager.runQuery(query);
+       String query = "from UserAccount as u where u.login= :login and u.password= :password";
+       List<UserAccount> associateUserList=(List<UserAccount>)(List<?>)hibernateManager.runQueryConnection(query, login, password);
        
       if (associateUserList!=null)
       {
             if (associateUserList.size()==1)
                 res=true;
-      }else 
-      {
-          System.out.println("===========lsit nulle ");
       }
-       return res;
+      return res;
     }
+    
+    public Long getProfileConnection(String login, String password){
+       Long res=null;
+       String query = "from UserAccount as u where u.login= :login and u.password= :password";
+       List<UserAccount> associateUserList=(List<UserAccount>)(List<?>)hibernateManager.runQueryConnection(query, login, password);
+       
+        if (associateUserList!=null)
+        {
+            if (associateUserList.size()==1){
+                for(UserAccount compte : associateUserList){
+                  UserProfile profile=compte.getId_profile();
+                  if(profile!=null){
+                      res=profile.getId();
+                  }  
+              }
+            }
+        }
+        return res; 
+    }
+    
+
 }
