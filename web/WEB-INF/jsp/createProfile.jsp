@@ -4,6 +4,7 @@
     Author     : jordycabannes
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -42,7 +43,7 @@
                                     <label for="phone">Phone</label>
                                     <input type="text" id="phone" name="phone" class="form-control">
                                 </div>
-                                <div class="labelForm form-group">
+                                <div class="labelForm  form-group">
                                     <label class="labelForm" for="mail">Email address</label>
                                     <input type="email" id="mail" name="mail" class="form-control">
                                 </div>

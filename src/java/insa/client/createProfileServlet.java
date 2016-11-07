@@ -84,6 +84,7 @@ public class createProfileServlet extends HttpServlet {
             String phone = request.getParameter("phone");
             String mail = request.getParameter("mail");
             String cvPath = request.getParameter("cvPath");
+            System.out.println("LOL");
             UserProfile userPro = manageService.addUserProfile(firstname, lastname, mail, phone, cvPath);
             //Long id = accountService.getUserProfile(login, password);
 
