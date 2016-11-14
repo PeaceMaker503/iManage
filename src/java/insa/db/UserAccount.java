@@ -34,15 +34,13 @@ public class UserAccount implements Serializable {
     @OneToOne
     @JoinColumn(referencedColumnName="id")
     private UserProfile id_profile;
-
+    
     public UserAccount() {}
     
-    public UserAccount(Long id, String login,  String mail , String password, UserProfile id_profile) {
-        this.id = id;
+    public UserAccount(String login,  String mail , String password) {
         this.login = login;
         this.mail=mail;
         this.password = password;
-        this.id_profile = id_profile;
     }
 
     public Long getId() {

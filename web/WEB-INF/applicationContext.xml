@@ -60,10 +60,5 @@
     
     <bean id="metier" class="insa.metier.MetierImpl">
         <property name="dao" ref="dao"></property>
-        <property name="welcomeM" ref="welcome"></property>
-    </bean>
-    
-    <bean id="welcome" class="insa.metier.welcomeManager">
-        <property name="dao" ref="dao"></property>
     </bean>
 </beans>

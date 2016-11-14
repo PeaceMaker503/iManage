@@ -6,7 +6,7 @@
 package insa.client;
 
 import insa.db.UserAccount;
-import insa.ws.accountWS;
+import insa.ws.UserAccountWS;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,11 +19,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jordycabannes
  */
-@WebServlet(name = "connectionServlet", urlPatterns = {"/connectionServlet"})
-public class connectionServlet extends HttpServlet {
+@WebServlet(name = "Login", urlPatterns = {"/Login"})
+public class Login extends HttpServlet {
 
     
-    private static accountWS accountService = new insa.ws.accountWS() ;
+    private static UserAccountWS userAccountService = new insa.ws.UserAccountWS() ;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -63,8 +63,8 @@ public class connectionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                    //request.setAttribute( "exists", true );
-                    //this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
+        
+            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Login.jsp").forward(request, response);
 
     }
 
@@ -82,21 +82,19 @@ public class connectionServlet extends HttpServlet {
         {
        String login = request.getParameter("login");
        String password = request.getParameter("motDePasse");
-       boolean exists = accountService.connectUser(login, password);
+       UserAccount userAccount = userAccountService.verifyUserAccount(login, password);
        
-       if(exists==false){
-            request.setAttribute( "exists", false );
-            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
+       if(userAccount == null){
+            request.setAttribute("exists", false );
+            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Login.jsp").forward(request, response);
        }
        else
        {
-           Long id_profile = accountService.getUserProfile(login, password);
-           //request.setAttribute( "id", id_profile );
-           if(id_profile!=null){
-               this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
+           if(userAccount.getId_profile() == null){
+               response.sendRedirect("CreateUserProfile?login=" + login);
            }
            else{
-               this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/createProfile.jsp").forward(request, response);
+               response.sendRedirect("Home?login=" + login);
            }
        }
     }

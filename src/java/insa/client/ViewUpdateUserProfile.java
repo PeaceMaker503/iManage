@@ -6,10 +6,8 @@
 package insa.client;
 
 import insa.db.UserAccount;
-import insa.ws.ManageWS;
-import insa.ws.accountWS;
+import insa.ws.UserAccountWS;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,32 +18,21 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author zaurelzo
  */
-@WebServlet(name = "welcomeServlet", urlPatterns = {"/welcomeServlet"})
-public class welcomeServlet extends HttpServlet 
+@WebServlet(name = "ViewUpdateUserProfile", urlPatterns = {"/ViewUpdateUserProfile"})
+public class ViewUpdateUserProfile extends HttpServlet 
 {
-    private static accountWS accountService = new insa.ws.accountWS() ;
+    private static UserAccountWS userAccountService = new insa.ws.UserAccountWS() ;
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-        
+        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ViewUpdateUserProfile.jsp").forward(request, response);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-       String userName = request.getParameter("loginCr");
-       String password = request.getParameter("motDePasseCr");
-       String mail = request.getParameter("emailAddressCr");
-       UserAccount u = accountService.addUserAccount(userName, mail, password);
-       System.out.println("LOL" + u.getLogin());
-       if(u==null)
-       {
-           //todo
-       } else
-       {
-           this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
-       }
+        
     }
 
 }

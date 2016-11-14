@@ -13,27 +13,25 @@ import insa.db.*;
  */
 public interface IDao {
     
-    public UserAccount getUserAccount(Long id);
+    public UserAccount getUserAccountById(Long id);
     public UserAccount addUserAccount(UserAccount userAccount);
-    public UserAccount deleteUserAccount(Long id);
+    public UserAccount deleteUserAccountById(Long id);
     public UserAccount updateUserAccount(UserAccount id);
     
-    public UserProfile getUserProfile(Long id);
+    public UserProfile getUserProfileById(Long id);
     public UserProfile addUserProfile(UserProfile userProfile);
-    public UserProfile deleteUserProfile(Long id);
+    public UserProfile deleteUserProfileById(Long id);
     public UserProfile updateUserProfile(UserProfile userProfile);
     
-    public Internship getInternship(Long id);
+    public Internship getInternshipById(Long id);
     public Internship addInternship(Internship internship);
-    public Internship deleteInternship(Long id);
+    public Internship deleteInternshipById(Long id);
     public Internship updateInternship(Internship internship);
     
-    public Company getCompany(Long id);
+    public Company getCompanyById(Long id);
     public Company addCompany(Company company);
-    public Company deleteCompany(Long id);
+    public Company deleteCompanyById(Long id);
     public Company updateCompany(Company company);
     
-    /*welcome class functions*/
-    public boolean connectToAccount(String login, String password);
-    public Long getProfileConnection(String login, String password);
+    public UserAccount getUserAccountByLogin(String login);
 }

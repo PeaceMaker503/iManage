@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jordycabannes
  */
-@WebServlet(name = "homeServlet", urlPatterns = {"/homeServlet"})
-public class homeServlet extends HttpServlet {
+@WebServlet(name = "Home", urlPatterns = {"/Home"})
+public class Home extends HttpServlet {
    
 
     
@@ -34,7 +34,7 @@ public class homeServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/profile.jsp").forward(request, response);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Home.jsp").forward(request, response);
     }
 
     /**

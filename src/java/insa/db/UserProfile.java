@@ -39,8 +39,7 @@ public class UserProfile implements Serializable {
     
     public UserProfile() {}
     
-    public UserProfile(Long id, String lastName, String firstName, String phone, String mail, String cvPath) {
-        this.id = id;
+    public UserProfile(String lastName, String firstName, String phone, String mail, String cvPath) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.phone = phone;

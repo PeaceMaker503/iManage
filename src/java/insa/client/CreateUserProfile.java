@@ -5,9 +5,10 @@
  */
 package insa.client;
 
+import insa.db.UserAccount;
 import insa.db.UserProfile;
-import insa.ws.accountWS;
-import insa.ws.ManageWS;
+import insa.ws.UserAccountWS;
+import insa.ws.UserProfileWS;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -20,12 +21,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jordycabannes
  */
-@WebServlet(name = "createProfileServlet", urlPatterns = {"/createProfileServlet"})
-public class createProfileServlet extends HttpServlet {
+@WebServlet(name = "CreateUserProfile", urlPatterns = {"/CreateUserProfile"})
+public class CreateUserProfile extends HttpServlet {
 
     
-        private static ManageWS manageService = new insa.ws.ManageWS() ;
-        private static accountWS accountService = new insa.ws.accountWS() ;
+    private static UserAccountWS userAccountService = new UserAccountWS() ;
+    private static UserProfileWS userProfileService = new UserProfileWS() ;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -65,7 +66,7 @@ public class createProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            //id = Long.parseLong(request.getParameter("id"));
+            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CreateUserProfile.jsp").forward(request, response);
     }
 
     /**
@@ -84,14 +85,22 @@ public class createProfileServlet extends HttpServlet {
             String phone = request.getParameter("phone");
             String mail = request.getParameter("mail");
             String cvPath = request.getParameter("cvPath");
-            System.out.println("LOL");
-            UserProfile userPro = manageService.addUserProfile(firstname, lastname, mail, phone, cvPath);
-            //Long id = accountService.getUserProfile(login, password);
-
-        
-        //manageService.addUserProfileToAccount(userPro, id);
-        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
-
+            
+            UserProfile userPro = userProfileService.addUserProfile(firstname, lastname, phone, cvPath, mail);
+            if(userPro == null)
+            {
+                this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CreateUserProfile.jsp").forward(request, response);
+            }
+            else
+            {
+                String login = request.getParameter("login");
+                System.out.println(login + " " + userPro.getId());
+                UserAccount ua = userAccountService.linkUserProfile(login, userPro);
+                if(ua == null)
+                    userProfileService.deleteUserProfile(userPro.getId());
+                else
+                    response.sendRedirect("Home?login=" + login);
+            }
     }
 
     /**

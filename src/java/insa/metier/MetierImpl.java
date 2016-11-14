@@ -19,57 +19,51 @@ import org.springframework.stereotype.Service;
 public class MetierImpl implements IMetier {
     
     private IDao dao;
-    private welcomeManager welcomeM;
-    
-   
     
     @Override
-    public boolean connectUser(String login, String password)
+    public UserAccount verifyUserAccount(String login, String password)
     {
-        return welcomeM.connectUser(login, password);
+        UserAccount ua = dao.getUserAccountByLogin(login);
+        if(ua != null && ua.getPassword().equals(password))
+            return ua;
+        else
+            return null;
     }
-    
-    
+
     @Override
     public UserProfile addUserProfile(String firstName, String lastName, String mail, String phone, String cvPath)
     {
-        UserProfile u = new UserProfile();
-        u.setFirstName(firstName);
-        u.setLastName(lastName);
-        u.setMail(mail);
-        u.setPhone(phone);
-        u.setCvPath(cvPath);
-        return dao.addUserProfile(u);
+        UserProfile up = new UserProfile(lastName, firstName, phone, mail, cvPath);
+        return dao.addUserProfile(up);
     }
     
-    public UserAccount addUserAccount(String login , String mail , String password)
+    public UserAccount addUserAccount(String login , String password, String mail)
     {
-        UserAccount a = new UserAccount();
-        a.setLogin(login);
-        a.setPassword(password);
-        a.setMail(mail);
-        return dao.addUserAccount(a);
+        UserAccount ua = new UserAccount(login, password, mail);
+        return dao.addUserAccount(ua);
     }
     
-    public Long getUserProfile(String login, String password){
-        return dao.getProfileConnection(login, password);
-    }
-
-    public int addUserProfileToAcccount(UserProfile userProfile, Long id){
-        UserAccount user = dao.getUserAccount(id);
-        user.setId_profile(userProfile);
-        dao.updateUserAccount(user);
-        return 0;
-    }
-    
-    public welcomeManager getWelcomeM() 
+    @Override
+    public UserProfile deleteUserProfile(Long id)
     {
-        return welcomeM;
+        return dao.deleteUserProfileById(id);
     }
-
     
-    public void setWelcomeM(welcomeManager welcomeM) {
-        this.welcomeM = welcomeM;
+    @Override
+    public UserAccount linkUserProfile(String login, UserProfile up)
+    {
+        UserAccount res = null;
+        UserAccount ua = dao.getUserAccountByLogin(login);
+        if(ua != null)
+        {
+            ua.setId_profile(up);
+            ua = dao.updateUserAccount(ua);
+            res = ua;
+        }
+        else
+            res = null;
+        
+        return res;
     }
     
     public IDao getDao() 
