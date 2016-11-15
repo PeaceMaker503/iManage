@@ -29,19 +29,25 @@ public class Internship implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
-    @Pattern(regexp="C:/([0-9A-Za-z_]+/)*[0-9A-Za-z_]+[.]pdf")
+    
+    @Column(unique=true)
     private String pdfPath;
+    
     @ManyToOne
     @JoinColumn(referencedColumnName="id")
     private Company id_company;
     
+    @ManyToOne
+    @JoinColumn(referencedColumnName="id")
+    private Category id_category;
+        
     public Internship() {}
 
-    public Internship(Long id, String name, String pdfPath, Company id_company) {
-        this.id = id;
+    public Internship(String name, String pdfPath, Company id_company, Category id_category) {
         this.name = name;
         this.pdfPath = pdfPath;
         this.id_company = id_company;
+        this.id_category = id_category;
     }
 
     public Long getId() {
@@ -75,7 +81,14 @@ public class Internship implements Serializable {
     public void setId_company(Company id_company) {
         this.id_company = id_company;
     }
-    
+
+    public Category getId_category() {
+        return id_category;
+    }
+
+    public void setId_category(Category id_category) {
+        this.id_category = id_category;
+    }
     
     @Override
     public int hashCode() {

@@ -5,8 +5,6 @@
  */
 package insa.utils;
 
-import insa.db.UserAccount;
-import insa.db.UserProfile;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Query;

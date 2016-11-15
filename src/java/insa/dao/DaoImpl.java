@@ -5,6 +5,7 @@
  */
 package insa.dao;
 
+import insa.db.Category;
 import insa.db.Company;
 import insa.db.Internship;
 import insa.db.UserAccount;
@@ -188,5 +189,106 @@ public class DaoImpl implements IDao {
            return list.get(0);
        else
            return null;
+    }
+    
+    @Override
+    public List<Internship> getInternshipByCategory(Category category)
+    {
+        String query = "from Internship as i where i.id_category = :category";
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("category", category);
+        List<Internship> list = hibernateManager.execute(query, params, Internship.class);
+        return list;
+    }
+    
+    @Override
+    public List<Internship> getInternshipByCompany(Company company)
+    {
+        String query = "from Internship as i where i.id_company = :company";
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("company", company);
+        List<Internship> list = hibernateManager.execute(query, params, Internship.class);
+        return list;
+    }
+
+    @Override
+    public Category getCategoryById(Long id) {
+        return hibernateManager.getObjectFromDatabase(Category.class, id);
+    }
+
+    @Override
+    public Category addCategory(Category category) {
+        
+        Long id = hibernateManager.addObjectToDatabase(category);
+        if(id != null)
+        {
+            category.setId(id);
+            return category;
+        }
+        else
+            return null; 
+    }
+
+    @Override
+    public Category deleteCategoryById(Long id) {
+        Category category = hibernateManager.getObjectFromDatabase(Category.class, id);
+        boolean res = hibernateManager.deleteObjectFromDatabase(category);
+        if(res)
+            return category;
+        else
+            return null;
+    }
+
+    @Override
+    public Category updateCategory(Category category) {
+        boolean res = hibernateManager.updateObjectInDatabase(category);
+        if(res)
+            return category;
+        else
+            return null;
+    }
+    
+    @Override
+    public List<Internship> getInternshipByCategoryName(String name)
+    {
+        Category ca = this.getCategoryByName(name);
+        if(ca != null)
+            return this.getInternshipByCategory(ca);
+        else
+            return null;
+    }
+    
+    @Override
+    public List<Internship> getInternshipByCompanyName(String name)
+    {
+        Company co = this.getCompanyByName(name);
+        if(co != null)
+            return this.getInternshipByCompany(co);
+        else
+            return null;
+    }
+
+    @Override
+    public Company getCompanyByName(String name) {
+        String query = "from Company as co where co.name = :company";
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("company", name);
+        List<Company> list = hibernateManager.execute(query, params, Company.class);
+        if(list != null)
+            return list.get(0);
+        else
+            return null;
+    }
+
+    @Override
+    public Category getCategoryByName(String name) {
+        String query = "from Category as ca where ca.name = :category";
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("category", name);
+        List<Category> list = hibernateManager.execute(query, params, Category.class);
+        if(list != null)
+            return list.get(0);
+        else
+            return null;
     }
 }

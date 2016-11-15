@@ -5,6 +5,7 @@
  */
 package insa.metier;
 
+import insa.dao.IDao;
 import insa.db.UserProfile;
 import insa.db.UserAccount;
 /**

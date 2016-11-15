@@ -38,10 +38,10 @@ public class CreateUserAccount extends HttpServlet
        UserAccount u = userAccountService.addUserAccount(userName, mail, password);
        if(u==null)
        {
-           //todo
+           response.sendRedirect("CreateUserAccount");
        } else
        {
-           this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Login.jsp").forward(request, response);
+           response.sendRedirect("Login");
        }
     }
 

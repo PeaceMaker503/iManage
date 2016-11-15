@@ -45,7 +45,8 @@
                 <value>insa.db.UserProfile</value>    
                 <value>insa.db.UserAccount</value>  
                 <value>insa.db.Company</value>  
-                <value>insa.db.Internship</value>              
+                <value>insa.db.Category</value>  
+                <value>insa.db.Internship</value>           
             </list>
         </property>
     </bean>
