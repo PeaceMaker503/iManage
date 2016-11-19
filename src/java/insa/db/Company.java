@@ -27,18 +27,21 @@ public class Company implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
+    @Column(unique=true)
     private String name;
+    
     @Column(columnDefinition="char(10)")
     @Pattern(regexp="[0-9]{10}")
     private String phone;
-    @Pattern(regexp="[0-9A-Za-z_]+[@][0-9A-Za-z_]+[.]fr")
+    
+    @Pattern(regexp="[0-9A-Za-z_]+[@][0-9A-Za-z_]+[.][0-9A-Za-z_]+")
     private String mail;
     private String address;
 
     public Company() {}
     
-    public Company(Long id, String name, String phone, String mail, String address) {
-        this.id = id;
+    public Company(String name, String phone, String mail, String address) {
         this.name = name;
         this.phone = phone;
         this.mail = mail;

@@ -4,6 +4,7 @@
     Author     : jordycabannes
 --%>
 
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -27,7 +28,7 @@
                     </div>
                     <div id="create" class="container-fluid col-xs-12">
                         <div class="row" id="insideCreate"> 
-                            <form id="formulaireCreationProfile"  action="createProfileServlet" class="col-xs-push-1 col-xs-10 col-sm-push-2 col-sm-8 col-md-push-3 col-md-6 col-lg-push-3 col-lg-6 centrerVerticalementForm" method="post">
+                            <form id="formulaireCreationProfile"  action="<%=request.getContextPath()+"/CreateUserProfile?login=" + request.getParameter("login")%>" class="col-xs-push-1 col-xs-10 col-sm-push-2 col-sm-8 col-md-push-3 col-md-6 col-lg-push-3 col-lg-6 centrerVerticalementForm" method="post">
                                 
                                 <div class="labelForm form-group">
                                     <label for="lasname">Lastname</label>
@@ -42,7 +43,7 @@
                                     <label for="phone">Phone</label>
                                     <input type="text" id="phone" name="phone" class="form-control">
                                 </div>
-                                <div class="labelForm form-group">
+                                <div class="labelForm  form-group">
                                     <label class="labelForm" for="mail">Email address</label>
                                     <input type="email" id="mail" name="mail" class="form-control">
                                 </div>

@@ -45,10 +45,10 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="<%=request.getContextPath()+"/homeServlet"%>">Profile</a>
+                        <a href="<%=request.getContextPath()+"/ViewUpdateUserProfile?login=" + request.getParameter("login")%>">Profile</a>
                     </li>
                     <!--li>
-                        <a href="#services">Services</a>
+                        request.getContextPath()+"/homeServlet"%>
                     </li-->
                     <li>
                         <a>Login</a>

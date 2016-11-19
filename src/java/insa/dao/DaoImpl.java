@@ -5,6 +5,7 @@
  */
 package insa.dao;
 
+import insa.db.Category;
 import insa.db.Company;
 import insa.db.Internship;
 import insa.db.UserAccount;
@@ -29,7 +30,7 @@ public class DaoImpl implements IDao {
     }
     
     @Override
-    public UserAccount getUserAccount(Long id)
+    public UserAccount getUserAccountById(Long id)
     {
         return hibernateManager.getObjectFromDatabase(UserAccount.class, id);
     }
@@ -87,7 +88,7 @@ public class DaoImpl implements IDao {
     }
 
     @Override
-    public UserAccount deleteUserAccount(Long id) {
+    public UserAccount deleteUserAccountById(Long id) {
         UserAccount userAccount = hibernateManager.getObjectFromDatabase(UserAccount.class, id);
         boolean res = hibernateManager.deleteObjectFromDatabase(userAccount);
         if(res)
@@ -106,12 +107,12 @@ public class DaoImpl implements IDao {
     }
 
     @Override
-    public UserProfile getUserProfile(Long id) {
+    public UserProfile getUserProfileById(Long id) {
         return hibernateManager.getObjectFromDatabase(UserProfile.class, id);
     }
 
     @Override
-    public UserProfile deleteUserProfile(Long id) {
+    public UserProfile deleteUserProfileById(Long id) {
         UserProfile userProfile = hibernateManager.getObjectFromDatabase(UserProfile.class, id);
         boolean res = hibernateManager.deleteObjectFromDatabase(userProfile);
         if(res)
@@ -130,12 +131,12 @@ public class DaoImpl implements IDao {
     }
 
     @Override
-    public Internship getInternship(Long id) {
+    public Internship getInternshipById(Long id) {
         return hibernateManager.getObjectFromDatabase(Internship.class, id);
     }
 
     @Override
-    public Internship deleteInternship(Long id) {
+    public Internship deleteInternshipById(Long id) {
         Internship internship = hibernateManager.getObjectFromDatabase(Internship.class, id);
         boolean res = hibernateManager.deleteObjectFromDatabase(internship);
         if(res)
@@ -154,12 +155,12 @@ public class DaoImpl implements IDao {
     }
 
     @Override
-    public Company getCompany(Long id) {
+    public Company getCompanyById(Long id) {
         return hibernateManager.getObjectFromDatabase(Company.class, id);
     }
 
     @Override
-    public Company deleteCompany(Long id) {
+    public Company deleteCompanyById(Long id) {
         Company company = hibernateManager.getObjectFromDatabase(Company.class, id);
         boolean res = hibernateManager.deleteObjectFromDatabase(company);
         if(res)
@@ -178,38 +179,116 @@ public class DaoImpl implements IDao {
     }
     
     @Override
-    public boolean connectToAccount(String login, String password)
+    public UserAccount getUserAccountByLogin(String login)
     {
-       boolean res =false;
-       String query = "from UserAccount as u where u.login= :login and u.password= :password";
-       List<UserAccount> associateUserList=(List<UserAccount>)(List<?>)hibernateManager.runQueryConnection(query, login, password);
-       
-      if (associateUserList!=null)
-      {
-            if (associateUserList.size()==1)
-                res=true;
-      }
-      return res;
+       String query = "from UserAccount as u where u.login= :login";
+       HashMap<String, Object> params = new HashMap<>();
+       params.put("login", login);
+       List<UserAccount> list = hibernateManager.execute(query, params, UserAccount.class);
+       if(list != null && list.size() == 1)
+           return list.get(0);
+       else
+           return null;
     }
     
-    public Long getProfileConnection(String login, String password){
-       Long res=null;
-       String query = "from UserAccount as u where u.login= :login and u.password= :password";
-       List<UserAccount> associateUserList=(List<UserAccount>)(List<?>)hibernateManager.runQueryConnection(query, login, password);
-       
-        if (associateUserList!=null)
-        {
-            if (associateUserList.size()==1){
-                for(UserAccount compte : associateUserList){
-                  UserProfile profile=compte.getId_profile();
-                  if(profile!=null){
-                      res=profile.getId();
-                  }  
-              }
-            }
-        }
-        return res; 
+    @Override
+    public List<Internship> getInternshipByCategory(Category category)
+    {
+        String query = "from Internship as i where i.id_category = :category";
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("category", category);
+        List<Internship> list = hibernateManager.execute(query, params, Internship.class);
+        return list;
     }
     
+    @Override
+    public List<Internship> getInternshipByCompany(Company company)
+    {
+        String query = "from Internship as i where i.id_company = :company";
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("company", company);
+        List<Internship> list = hibernateManager.execute(query, params, Internship.class);
+        return list;
+    }
 
+    @Override
+    public Category getCategoryById(Long id) {
+        return hibernateManager.getObjectFromDatabase(Category.class, id);
+    }
+
+    @Override
+    public Category addCategory(Category category) {
+        
+        Long id = hibernateManager.addObjectToDatabase(category);
+        if(id != null)
+        {
+            category.setId(id);
+            return category;
+        }
+        else
+            return null; 
+    }
+
+    @Override
+    public Category deleteCategoryById(Long id) {
+        Category category = hibernateManager.getObjectFromDatabase(Category.class, id);
+        boolean res = hibernateManager.deleteObjectFromDatabase(category);
+        if(res)
+            return category;
+        else
+            return null;
+    }
+
+    @Override
+    public Category updateCategory(Category category) {
+        boolean res = hibernateManager.updateObjectInDatabase(category);
+        if(res)
+            return category;
+        else
+            return null;
+    }
+    
+    @Override
+    public List<Internship> getInternshipByCategoryName(String name)
+    {
+        Category ca = this.getCategoryByName(name);
+        if(ca != null)
+            return this.getInternshipByCategory(ca);
+        else
+            return null;
+    }
+    
+    @Override
+    public List<Internship> getInternshipByCompanyName(String name)
+    {
+        Company co = this.getCompanyByName(name);
+        if(co != null)
+            return this.getInternshipByCompany(co);
+        else
+            return null;
+    }
+
+    @Override
+    public Company getCompanyByName(String name) {
+        String query = "from Company as co where co.name = :company";
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("company", name);
+        List<Company> list = hibernateManager.execute(query, params, Company.class);
+        if(list != null)
+            return list.get(0);
+        else
+            return null;
+    }
+
+    @Override
+    public Category getCategoryByName(String name) {
+        String query = "from Category as ca where ca.name = :category";
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("category", name);
+        List<Category> list = hibernateManager.execute(query, params, Category.class);
+        if(list != null)
+            return list.get(0);
+        else
+            return null;
+    }
 }

@@ -18,43 +18,37 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author zaurelzo
  */
-@WebService(serviceName = "accountWS")
-public class accountWS 
+@WebService(serviceName = "UserAccountWS")
+public class UserAccountWS 
 {
-    
     private IMetier metier;
     
-    public accountWS()
+    public UserAccountWS()
     {
         ApplicationContext ap = new ClassPathXmlApplicationContext("../../WEB-INF/applicationContext.xml");
         metier = (IMetier)ap.getBean("metier");
     }
-    
-    
+
     @WebMethod(operationName = "addUserAccount")
     public UserAccount addUserAccount(@WebParam(name = "login") String login, @WebParam(name = "mail") String mail, @WebParam(name = "password") String password) {
         //TODO write your implementation code here:
        return metier.addUserAccount(login, mail, password);
     }
 
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "connectUser")
-    public boolean connectUser(@WebParam(name = "login") String login, @WebParam(name = "password") String password) {
+    @WebMethod(operationName = "verifyUserAccount")
+    public UserAccount verifyUserAccount(@WebParam(name = "login") String login, @WebParam(name = "password") String password) {
         //TODO write your implementation code here:
-        return metier.connectUser(login, password);
+        return metier.verifyUserAccount(login, password);
     }
 
     /**
      * Web service operation
      */
-    @WebMethod(operationName = "getUserProfile")
-    public Long getUserProfile(@WebParam(name = "login") String login, @WebParam(name = "password") String password) {
+    @WebMethod(operationName = "linkUserProfile")
+    public UserAccount linkUserProfile(@WebParam(name = "login") String login, @WebParam(name = "profile") UserProfile profile) {
         //TODO write your implementation code here:
-        return metier.getUserProfile(login, password);
+        return metier.linkUserProfile(login, profile);
     }
 
 
-    
 }

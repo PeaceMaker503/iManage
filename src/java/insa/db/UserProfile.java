@@ -24,23 +24,28 @@ import javax.validation.constraints.Pattern;
 public class UserProfile implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    
     private String lastName;
+    
     private String firstName;
+    
     @Column(columnDefinition="char(10)")
     @Pattern(regexp="[0-9]{10}")
     private String phone;
-    @Pattern(regexp="[0-9A-Za-z_]+[@][0-9A-Za-z_]+[.]fr")
+    
+    @Pattern(regexp="[0-9A-Za-z_]+[@][0-9A-Za-z_]+[.][0-9A-Za-z_]+")
     private String mail;
-    //@Pattern(regexp="C:/([0-9A-Za-z_]+/)*[0-9A-Za-z_]+[.]pdf")
+    
+    @Column(unique=true)
     private String cvPath;
     
     public UserProfile() {}
     
-    public UserProfile(Long id, String lastName, String firstName, String phone, String mail, String cvPath) {
-        this.id = id;
+    public UserProfile(String lastName, String firstName, String phone, String mail, String cvPath) {
         this.lastName = lastName;
         this.firstName = firstName;
         this.phone = phone;

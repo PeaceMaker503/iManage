@@ -6,7 +6,9 @@
 package insa.client;
 
 import insa.db.UserAccount;
-import insa.ws.accountWS;
+import insa.db.UserProfile;
+import insa.ws.UserAccountWS;
+import insa.ws.UserProfileWS;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -19,11 +21,12 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jordycabannes
  */
-@WebServlet(name = "connectionServlet", urlPatterns = {"/connectionServlet"})
-public class connectionServlet extends HttpServlet {
+@WebServlet(name = "CreateUserProfile", urlPatterns = {"/CreateUserProfile"})
+public class CreateUserProfile extends HttpServlet {
 
     
-    private static accountWS accountService = new insa.ws.accountWS() ;
+    private static UserAccountWS userAccountService = new UserAccountWS() ;
+    private static UserProfileWS userProfileService = new UserProfileWS() ;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +45,10 @@ public class connectionServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet connexionServlet</title>");            
+            out.println("<title>Servlet createProfile</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet connexionServlet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet createProfile at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,9 +66,7 @@ public class connectionServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-                    //request.setAttribute( "exists", true );
-                    //this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
-
+            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CreateUserProfile.jsp").forward(request, response);
     }
 
     /**
@@ -79,27 +80,27 @@ public class connectionServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        {
-       String login = request.getParameter("login");
-       String password = request.getParameter("motDePasse");
-       boolean exists = accountService.connectUser(login, password);
-       
-       if(exists==false){
-            request.setAttribute( "exists", false );
-            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/index.jsp").forward(request, response);
-       }
-       else
-       {
-           Long id_profile = accountService.getUserProfile(login, password);
-           //request.setAttribute( "id", id_profile );
-           if(id_profile!=null){
-               this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
-           }
-           else{
-               this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/createProfile.jsp").forward(request, response);
-           }
-       }
-    }
+            String lastname = request.getParameter("lastname");
+            String firstname = request.getParameter("firstname");
+            String phone = request.getParameter("phone");
+            String mail = request.getParameter("mail");
+            String cvPath = request.getParameter("cvPath");
+            
+            UserProfile userPro = userProfileService.addUserProfile(firstname, lastname, phone, cvPath, mail);
+            if(userPro == null)
+            {
+                this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CreateUserProfile.jsp").forward(request, response);
+            }
+            else
+            {
+                String login = request.getParameter("login");
+                System.out.println(login + " " + userPro.getId());
+                UserAccount ua = userAccountService.linkUserProfile(login, userPro);
+                if(ua == null)
+                    userProfileService.deleteUserProfile(userPro.getId());
+                else
+                    response.sendRedirect("Home?login=" + login);
+            }
     }
 
     /**

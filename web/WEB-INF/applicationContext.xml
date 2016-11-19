@@ -45,7 +45,8 @@
                 <value>insa.db.UserProfile</value>    
                 <value>insa.db.UserAccount</value>  
                 <value>insa.db.Company</value>  
-                <value>insa.db.Internship</value>              
+                <value>insa.db.Category</value>  
+                <value>insa.db.Internship</value>           
             </list>
         </property>
     </bean>
@@ -59,11 +60,6 @@
     </bean>
     
     <bean id="metier" class="insa.metier.MetierImpl">
-        <property name="dao" ref="dao"></property>
-        <property name="welcomeM" ref="welcome"></property>
-    </bean>
-    
-    <bean id="welcome" class="insa.metier.welcomeManager">
         <property name="dao" ref="dao"></property>
     </bean>
 </beans>

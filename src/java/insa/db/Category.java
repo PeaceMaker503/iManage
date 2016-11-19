@@ -21,28 +21,19 @@ import javax.validation.constraints.Pattern;
  * @author Halim
  */
 @Entity
-public class UserAccount implements Serializable {
+public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(unique=true)
-    private String login;
-    @Pattern(regexp="[0-9A-Za-z_]+[@][0-9A-Za-z_]+[.][0-9A-Za-z_]+")
-    @Column(unique=true)
-    private String mail; 
-    private String password;
-    @OneToOne
-    @JoinColumn(referencedColumnName="id")
-    private UserProfile id_profile;
+    private String name;
+
+    public Category() {}
     
-    public UserAccount() {}
-    
-    public UserAccount(String login,  String mail , String password) {
-        this.login = login;
-        this.mail=mail;
-        this.password = password;
+    public Category(String name) {
+        this.name = name;
     }
 
     public Long getId() {
@@ -53,30 +44,13 @@ public class UserAccount implements Serializable {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
+    public String getName() {
+        return name;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setName(String name) {
+        this.name = name;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public UserProfile getId_profile() {
-        return id_profile;
-    }
-
-    public void setId_profile(UserProfile id_profile) {
-        this.id_profile = id_profile;
-    }
-    
 
     @Override
     public int hashCode() {
@@ -88,28 +62,14 @@ public class UserAccount implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof UserAccount)) {
+        if (!(object instanceof Category)) {
             return false;
         }
-        UserAccount other = (UserAccount) object;
+        Category other = (Category) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
         return true;
-    }
-
-    /**
-     * @return the mail
-     */
-    public String getMail() {
-        return mail;
-    }
-
-    /**
-     * @param mail the mail to set
-     */
-    public void setMail(String mail) {
-        this.mail = mail;
     }
 
     

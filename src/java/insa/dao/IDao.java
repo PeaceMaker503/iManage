@@ -6,6 +6,7 @@
 package insa.dao;
 
 import insa.db.*;
+import java.util.List;
 
 /**
  *
@@ -13,27 +14,36 @@ import insa.db.*;
  */
 public interface IDao {
     
-    public UserAccount getUserAccount(Long id);
+    public UserAccount getUserAccountByLogin(String login);
+    public UserAccount getUserAccountById(Long id);
     public UserAccount addUserAccount(UserAccount userAccount);
-    public UserAccount deleteUserAccount(Long id);
+    public UserAccount deleteUserAccountById(Long id);
     public UserAccount updateUserAccount(UserAccount id);
     
-    public UserProfile getUserProfile(Long id);
+    public UserProfile getUserProfileById(Long id);
     public UserProfile addUserProfile(UserProfile userProfile);
-    public UserProfile deleteUserProfile(Long id);
+    public UserProfile deleteUserProfileById(Long id);
     public UserProfile updateUserProfile(UserProfile userProfile);
     
-    public Internship getInternship(Long id);
-    public Internship addInternship(Internship internship);
-    public Internship deleteInternship(Long id);
-    public Internship updateInternship(Internship internship);
-    
-    public Company getCompany(Long id);
+    public Company getCompanyById(Long id);
+    public Company getCompanyByName(String name);
     public Company addCompany(Company company);
-    public Company deleteCompany(Long id);
+    public Company deleteCompanyById(Long id);
     public Company updateCompany(Company company);
+            
+    public Internship getInternshipById(Long id);
+    public List<Internship> getInternshipByCategory(Category category);
+    public List<Internship> getInternshipByCompany(Company company);
+    public List<Internship> getInternshipByCategoryName(String name);
+    public List<Internship> getInternshipByCompanyName(String name);
+    public Internship addInternship(Internship internship);
+    public Internship deleteInternshipById(Long id);
+    public Internship updateInternship(Internship internship);
+ 
+    public Category getCategoryById(Long id);
+    public Category getCategoryByName(String name);
+    public Category addCategory(Category category);
+    public Category deleteCategoryById(Long id);
+    public Category updateCategory(Category category);
     
-    /*welcome class functions*/
-    public boolean connectToAccount(String login, String password);
-    public Long getProfileConnection(String login, String password);
 }

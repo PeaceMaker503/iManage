@@ -5,8 +5,6 @@
  */
 package insa.utils;
 
-import insa.db.UserAccount;
-import insa.db.UserProfile;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.Query;
@@ -162,63 +160,31 @@ public class HibernateManager {
     }
     
     
-    public List<UserAccount> runQueryConnection(String theQuery, String login, String password)
+    public <T> List<T> execute(String sQuery, HashMap<String, Object> params, Class<T> type)
     {
         Session s = sessionFactory.openSession();
-        List<UserAccount> list=null;
+        List<T> list = null;
         try
         {
-            //System.out.println("query to run : "+ theQuery);
-            
-            Query query = s.createQuery(theQuery);
-            query.setParameter("login", login);
-            query.setParameter("password", password);
-            list = query.list();
-            /*for(UserAccount row : list)
+            Query query = s.createQuery(sQuery);
+            Set<String> set = params.keySet();
+            Iterator<String> it = set.iterator();
+            while(it.hasNext())
             {
-                System.out.print("==================="+row.getLogin());
-            }*/
-            
-             
-        } catch(HibernateException e)
+                String key = it.next();
+                Object param = params.get(key);
+                query.setParameter(key, param);
+            }
+            list = query.list(); 
+        } 
+        catch(HibernateException e)
         {
-            System.out.println("/////////////////////////// EXCEPTION");
+            list = null;
         }
         finally
         {
            s.close(); 
         }
         return list;
-        //System.out.println("passage return ");
     }
-    
-    /*public List<UserProfile> runQueryGetProfile(String theQuery, String login, String password)
-    {
-        Session s = sessionFactory.openSession();
-        List<UserProfile> list=null;
-        try
-        {
-            //System.out.println("query to run : "+ theQuery);
-            
-            Query query = s.createQuery(theQuery);
-            query.setParameter("login", login);
-            query.setParameter("password", password);
-            list = query.list();
-            /*for(UserAccount row : list)
-            {
-                System.out.print("==================="+row.getLogin());
-            }*/
-            
-             
-       /* } catch(HibernateException e)
-        {
-            System.out.println("/////////////////////////// EXCEPTION");
-        }
-        finally
-        {
-           s.close(); 
-        }
-        return list;
-        //System.out.println("passage return ");
-    }*/
 }

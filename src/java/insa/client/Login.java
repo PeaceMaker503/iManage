@@ -5,9 +5,8 @@
  */
 package insa.client;
 
-import insa.db.UserProfile;
-import insa.ws.accountWS;
-import insa.ws.ManageWS;
+import insa.db.UserAccount;
+import insa.ws.UserAccountWS;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -20,12 +19,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jordycabannes
  */
-@WebServlet(name = "createProfileServlet", urlPatterns = {"/createProfileServlet"})
-public class createProfileServlet extends HttpServlet {
+@WebServlet(name = "Login", urlPatterns = {"/Login"})
+public class Login extends HttpServlet {
 
     
-        private static ManageWS manageService = new insa.ws.ManageWS() ;
-        private static accountWS accountService = new insa.ws.accountWS() ;
+    private static UserAccountWS userAccountService = new insa.ws.UserAccountWS() ;
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +42,10 @@ public class createProfileServlet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet createProfile</title>");            
+            out.println("<title>Servlet connexionServlet</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet createProfile at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet connexionServlet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,7 +63,9 @@ public class createProfileServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            //id = Long.parseLong(request.getParameter("id"));
+        
+            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Login.jsp").forward(request, response);
+
     }
 
     /**
@@ -79,18 +79,25 @@ public class createProfileServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String lastname = request.getParameter("lastname");
-            String firstname = request.getParameter("firstname");
-            String phone = request.getParameter("phone");
-            String mail = request.getParameter("mail");
-            String cvPath = request.getParameter("cvPath");
-            UserProfile userPro = manageService.addUserProfile(firstname, lastname, mail, phone, cvPath);
-            //Long id = accountService.getUserProfile(login, password);
-
-        
-        //manageService.addUserProfileToAccount(userPro, id);
-        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/home.jsp").forward(request, response);
-
+        {
+       String login = request.getParameter("login");
+       String password = request.getParameter("motDePasse");
+       UserAccount userAccount = userAccountService.verifyUserAccount(login, password);
+       
+       if(userAccount == null){
+            request.setAttribute("exists", false );
+            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Login.jsp").forward(request, response);
+       }
+       else
+       {
+           if(userAccount.getId_profile() == null){
+               response.sendRedirect("CreateUserProfile?login=" + login);
+           }
+           else{
+               response.sendRedirect("Home?login=" + login);
+           }
+       }
+    }
     }
 
     /**
