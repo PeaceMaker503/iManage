@@ -50,26 +50,27 @@ public class InternshipWS {
         return i;
     }
     
-    @WebMethod(operationName = "debug_searchCompany")
-    public List<Internship> debug_searchCompany() {
+    @WebMethod(operationName = "debug_searchByCompany")
+    public List<Internship> debug_searchByCompany() {
         IDao dao = ((MetierImpl)metier).getDao();
         Company co = dao.getCompanyById(new Long(1));
         List<Internship> list = dao.getInternshipByCompanyName("WaterTech Corporation");
         return list;
     }
     
-    @WebMethod(operationName = "debug_searchCategory")
-    public List<Internship> debug_searchCategory() {
+    @WebMethod(operationName = "debug_searchByCategory")
+    public List<Internship> debug_searchByCategory() {
         IDao dao = ((MetierImpl)metier).getDao();
         Category ca = dao.getCategoryById(new Long(1));
         List<Internship> list = dao.getInternshipByCategoryName("Informatique");
         return list;
     }
     
+
     @WebMethod(operationName = "SearchIntership")
     public List<Internship> searchInternship() {
         IDao dao = ((MetierImpl)metier).getDao();
-        List<Internship> list = dao.getInternship();
+        List<Internship> list = dao.getAllInternships();
         return list;
     }
     
@@ -94,5 +95,25 @@ public class InternshipWS {
         return internship;
     }
     
+    @WebMethod(operationName = "debug_getInternships")
+    public List<Internship> debug_getInternships() {
+        IDao dao = ((MetierImpl)metier).getDao();
+        List<Internship> list = dao.getAllInternships();
+        return list;
+    }
+    
+    @WebMethod(operationName = "debug_getCategories")
+    public List<Category> debug_getCategories() {
+        IDao dao = ((MetierImpl)metier).getDao();
+        List<Category> list = dao.getAllCategories();
+        return list;
+    }
+    
+    @WebMethod(operationName = "debug_getCompanies")
+    public List<Company> debug_getCompanies() {
+        IDao dao = ((MetierImpl)metier).getDao();
+        List<Company> list = dao.getAllCompanies();
+        return list;
+    }
     //
 }

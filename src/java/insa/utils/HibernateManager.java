@@ -187,4 +187,9 @@ public class HibernateManager {
         }
         return list;
     }
+    
+    public <T> List<T> execute(String sQuery, Class<T> type)
+    {
+        return this.execute(sQuery, new HashMap<String, Object>(), type);
+    }
 }
