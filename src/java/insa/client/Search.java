@@ -5,7 +5,9 @@
  */
 package insa.client;
 
+import insa.db.Internship;
 import insa.db.UserAccount;
+import insa.ws.InternshipWS;
 import insa.ws.UserAccountWS;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -22,12 +24,15 @@ import javax.servlet.http.HttpServletResponse;
 public class Search extends HttpServlet {
     
     private static UserAccountWS userAccountService = new insa.ws.UserAccountWS() ;
+    private static InternshipWS InternshipService = new InternshipWS() ;
+
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         response.setContentType("text/html");
-        request.setAttribute("todo", "10");
+        
+        request.setAttribute("todo", InternshipService.searchInternship().get(0).getId().toString());
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
     }
 

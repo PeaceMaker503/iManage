@@ -39,7 +39,8 @@ public interface IDao {
     public Internship addInternship(Internship internship);
     public Internship deleteInternshipById(Long id);
     public Internship updateInternship(Internship internship);
- 
+    public List<Internship> getInternship();
+    
     public Category getCategoryById(Long id);
     public Category getCategoryByName(String name);
     public Category addCategory(Category category);

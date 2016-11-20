@@ -66,5 +66,33 @@ public class InternshipWS {
         return list;
     }
     
+    @WebMethod(operationName = "SearchIntership")
+    public List<Internship> searchInternship() {
+        IDao dao = ((MetierImpl)metier).getDao();
+        List<Internship> list = dao.getInternship();
+        return list;
+    }
+    
+    @WebMethod(operationName = "AddCompany")
+    public Company addCompany() {
+        IDao dao = ((MetierImpl)metier).getDao();
+        Company company = dao.addCompany(new Company("iBoite", "0629453838", "mail@mail.fr", "ici"));
+        return company;
+    }
+    
+    @WebMethod(operationName = "AddCategory")
+    public Category addCategory() {
+        IDao dao = ((MetierImpl)metier).getDao();
+        Category category = dao.addCategory(new Category("Java"));
+        return category;
+    }
+    
+    @WebMethod(operationName = "AddInternship")
+    public Internship addInternship() {
+        IDao dao = ((MetierImpl)metier).getDao();
+        Internship internship = dao.addInternship(new Internship("Dev Java", "c://ici", dao.getCompanyByName("iBoite"), dao.getCategoryByName("Java")));
+        return internship;
+    }
+    
     //
 }
