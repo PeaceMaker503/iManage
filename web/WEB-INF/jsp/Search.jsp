@@ -1,7 +1,7 @@
 <%-- 
-    Document   : profile
-    Created on : 5 nov. 2016, 22:51:00
-    Author     : jordycabannes
+    Document   : Search
+    Created on : 19 nov. 2016, 15:19:01
+    Author     : paul
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>You will be to change your info very soon !</h1>
+        <h1>Search internship</h1>
+        <p><%=(String)request.getAttribute("todo")%></p>
     </body>
 </html>

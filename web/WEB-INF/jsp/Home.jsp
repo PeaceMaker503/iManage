@@ -45,6 +45,9 @@
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav navbar-right">
                     <li>
+                        <a href="<%=request.getContextPath()+"/Search?login=" + request.getParameter("login")%>">Search</a>
+                    </li>
+                    <li>
                         <a href="<%=request.getContextPath()+"/ViewUpdateUserProfile?login=" + request.getParameter("login")%>">Profile</a>
                     </li>
                     <!--li>
