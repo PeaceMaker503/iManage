@@ -30,6 +30,7 @@ public interface IDao {
     public Company addCompany(Company company);
     public Company deleteCompanyById(Long id);
     public Company updateCompany(Company company);
+    public List<Company> getAllCompanies();
             
     public Internship getInternshipById(Long id);
     public List<Internship> getInternshipByCategory(Category category);
@@ -39,11 +40,13 @@ public interface IDao {
     public Internship addInternship(Internship internship);
     public Internship deleteInternshipById(Long id);
     public Internship updateInternship(Internship internship);
- 
+    public List<Internship> getAllInternships();
+    
     public Category getCategoryById(Long id);
     public Category getCategoryByName(String name);
     public Category addCategory(Category category);
     public Category deleteCategoryById(Long id);
     public Category updateCategory(Category category);
+    public List<Category> getAllCategories();
     
 }
