@@ -19,6 +19,10 @@
     </head>
     <body>
 		<div class="container">
+			
+			<!-- Header --> 
+			<jsp:include page="./Header.jsp"/>
+			
 			<h2>My Candidatures</h2>
 			<table class="table table-bordered">
 			  <thead>
@@ -46,10 +50,8 @@
 			</table>
 		</div>
 		
-		<!-- Footer -->
-		<footer class="container-fluid footer" >
-		  <p style="text-align: center;	">2016 ® INSA Toulouse - iManage Development Team</p>
-		</footer>	
+		<!-- Footer --> 
+		<jsp:include page="./Footer.jsp"/>
 		
     </body>
 </html>

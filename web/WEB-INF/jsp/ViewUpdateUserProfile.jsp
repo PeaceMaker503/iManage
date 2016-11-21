@@ -15,37 +15,41 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
-        <div class="container" style="padding-top: 60px;">
+		
+		<!-- Header --> 
+		<jsp:include page="./Header.jsp"/>
+		
+        <div class="container" style="padding-top: 0px; padding-bottom: 10px;">
 			<h1 class="page-header">Edit Profile</h1>
 			<div class="row">
 			  <!-- left column -->
 			  <div class="col-md-4 col-sm-6 col-xs-12">
 				<div class="text-center">
-				  <img src="/iManage/Web-Content/StyleViewUpdateUserProfile/img/User.png" class="avatar img-circle img-thumbnail" alt="avatar">
-				  <h6>Upload your CV...</h6>
+				  <img src="/iManage/Web-Content/StyleViewUpdateUserProfile/img/User.png" class="avatar img-circle img-thumbnail" alt="avatar", style="height: 200px;">
+				  <h4>CV</h4>
 				  <input type="file" class="text-center center-block well well-sm">
 				</div>
 			  </div>
 			  <!-- edit form column -->
 			  <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
-				<h3>Personal info</h3>
+				<h3>Personal Info</h3>
 				<form class="form-horizontal" role="form">
 				  <div class="form-group">
 					<label class="col-lg-3 control-label">First name:</label>
 					<div class="col-lg-8">
-					  <input class="form-control" value="Jane" type="text">
+					  <input class="form-control" value="John" type="text">
 					</div>
 				  </div>
 				  <div class="form-group">
 					<label class="col-lg-3 control-label">Last name:</label>
 					<div class="col-lg-8">
-					  <input class="form-control" value="Bishop" type="text">
+					  <input class="form-control" value="Doe" type="text">
 					</div>
 				  </div>
 				  <div class="form-group">
 					<label class="col-lg-3 control-label">Phone:</label>
 					<div class="col-lg-8">
-					  <input class="form-control" value="" type="text">
+					  <input class="form-control" value="0712345678" type="text">
 					</div>
 				  </div>
 				  <div class="form-group">
@@ -74,10 +78,8 @@
 			</div>
 		</div>
 		
-		<!-- Footer -->
-		<footer class="container-fluid footer" >
-		  <p style="text-align: center;	">2016 ® INSA Toulouse - iManage Development Team</p>
-		</footer>	
+		<!-- Footer --> 
+		<jsp:include page="./Footer.jsp"/>
 		
     </body>
 </html>

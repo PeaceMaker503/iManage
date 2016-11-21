@@ -53,6 +53,10 @@
                 </div>
             </div>
         </article>
+	
+		<!-- Footer --> 
+		<jsp:include page="./Footer.jsp"/>
+		
     </body>
     <script>
     </script>
