@@ -291,4 +291,38 @@ public class DaoImpl implements IDao {
         else
             return null;
     }
+
+    @Override
+    public List<Company> getAllCompanies() {
+        
+        String query = "from Company";
+        List<Company> list = hibernateManager.execute(query, Company.class);
+        if(list != null)
+            return list;
+        else
+            return null;
+    }
+
+    @Override
+    public List<Internship> getAllInternships() {
+        
+        String query = "from Internship";
+        List<Internship> list = hibernateManager.execute(query, Internship.class);
+        if(list != null)
+            return list;
+        else
+            return null;
+    }
+
+    @Override
+    public List<Category> getAllCategories() {
+        
+        String query = "from Category";
+        List<Category> list = hibernateManager.execute(query, Category.class);
+        if(list != null)
+            return list;
+        else
+            return null;
+        
+    }
 }
