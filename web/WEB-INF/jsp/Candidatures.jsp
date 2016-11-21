@@ -18,11 +18,12 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
-		<div class="container">
-			
-			<!-- Header --> 
+		
+		<!-- Header --> 
 			<jsp:include page="./Header.jsp"/>
-			
+		
+		<div class="container">
+					
 			<h2>My Candidatures</h2>
 			<table class="table table-bordered">
 			  <thead>
@@ -36,13 +37,13 @@
 			  <tbody>
 				<tr>
 				  <td>Air France</td>
-				  <td>Python Full Stack Developer</td>
+				  <td><a href="#">Python Full Stack Developer</a></td>
 				  <td>25th September, 13:40</td>
 				  <td>Sent</td>
 				</tr>
 				<tr>
 				  <td>Capgemini</td>
-				  <td>Java Developer</td>
+				  <td><a href="#">Java Developer</a></td>
 				  <td>10th October, 16:50</td>
 				  <td>Rejected</td>
 				</tr>
