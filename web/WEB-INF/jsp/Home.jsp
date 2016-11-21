@@ -9,7 +9,7 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		<title>iManage</title>
+		<title>iManage - Home</title>
 		<style>
 			/* Set height of the grid so .sidenav can be 100% (adjust if needed) */
 			
