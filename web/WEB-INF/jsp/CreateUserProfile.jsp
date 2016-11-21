@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="labelForm form-group">
                                     <label class="labelForm" for="cvPath">CV</label>
-                                    <input type="text" id="cvPath" name="cvPath" class="form-control">
+                                    <input type="file" class="text-center center-block well well-sm">
                                 </div>
                                 <div>
                                     <button type="submit" class="btn btn-primary col-xs-push-2 col-xs-8 col-sm-push-3 col-sm-6 col-md-push-3 col-md-6 col-lg-push-3 col-lg-6">Create</button>
@@ -63,7 +63,7 @@
         </article>
 							
 		<!-- Footer --> 
-		<jsp:include page="./Footer.jsp"/>
+		<!--jsp:include page="./Footer.jsp"/-->
 											
     </body>
 	

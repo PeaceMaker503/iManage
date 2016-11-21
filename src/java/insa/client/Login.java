@@ -85,7 +85,7 @@ public class Login extends HttpServlet {
        UserAccount userAccount = userAccountService.verifyUserAccount(login, password);
        
        if(userAccount == null){
-            request.setAttribute("exists", false );
+            request.setAttribute("exists", "false" );
             this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Login.jsp").forward(request, response);
        }
        else
