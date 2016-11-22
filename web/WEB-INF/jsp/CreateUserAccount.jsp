@@ -46,7 +46,7 @@
                             <div id="liensCr" class="container-fluid col-xs-12">
                                <div class="row"> 
                                   <form id="formulaireCreationCompte" action="Login" method="get">
-                                    <button type="submit">Back</button>
+                                    <button type="submit" class="col-xs-6 boutonsCompte">Back</button>
                                   </form>
                                </div>
                             </div>           
@@ -56,8 +56,7 @@
             </div>
         </article>
 	
-		<!-- Footer --> 
-		<jsp:include page="./Footer.jsp"/>
+		
     </body>
     <script>
     </script>

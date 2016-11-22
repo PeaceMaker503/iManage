@@ -52,7 +52,7 @@
 					  <input class="form-control" value="0712345678" type="text">
 					</div>
 				  </div>
-				  <div class="form-group">
+				  <!--div class="form-group">
 					<label class="col-md-3 control-label">Password:</label>
 					<div class="col-md-8">
 					  <input class="form-control" value="11111122333" type="password">
@@ -62,6 +62,12 @@
 					<label class="col-md-3 control-label">Confirm password:</label>
 					<div class="col-md-8">
 					  <input class="form-control" value="11111122333" type="password">
+					</div>
+				  </div-->
+                                  <div class="form-group">
+					<label class="col-lg-3 control-label" for="mail">Email address</label>
+					<div class="col-lg-8">
+                                            <input type="email" id="mail" name="mail" class="form-control">
 					</div>
 				  </div>
 				  <div class="form-group">
@@ -78,8 +84,9 @@
 			</div>
 		</div>
 		
-		<!-- Footer --> 
-		<jsp:include page="./Footer.jsp"/>
+		<footer class="container-fluid footer" >
+	  <p style="text-align: center;	">2016 ® INSA Toulouse - iManage Development Team</p>
+	</footer>
 		
     </body>
 </html>

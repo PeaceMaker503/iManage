@@ -20,15 +20,75 @@
     </head>
     <body>
         <article id="main" class="col-xs-12">
+            <nav class="navbar navbar-inverse">
+		   <div class="container-fluid">
+				
+			   
+				<ul class="nav navbar-nav navbar-right">
+	               <li><%=request.getParameter("login")%><span class="glyphicon glyphicon-user"></span></li>
+				   <li><a><span class="glyphicon glyphicon-paste"></span>Logout</a></li>
+		        </ul>
+			</div>
+		</nav> 
+            
+            <div class="container" style="padding-top: 0px; padding-bottom: 10px;">
+                <h1 class="page-header">Create Profile</h1>
+                    <div class="row">
+			  <!-- left column -->
+			  <div class="col-md-4 col-sm-6 col-xs-12">
+				<div class="text-center">
+				  <img src="/iManage/Web-Content/StyleViewUpdateUserProfile/img/User.png" class="avatar img-circle img-thumbnail" alt="avatar", style="height: 200px;">
+				  <h4>CV</h4>
+				  <input type="file" class="text-center center-block well well-sm">
+				</div>
+			  </div>
+                          <!-- edit form column -->
+			  <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
+				<h3>Personal Info</h3>
+                                <form class="form-horizontal" method="post" action="<%=request.getContextPath()+"/CreateUserProfile?login=" + request.getParameter("login")%>">
+				  <div class="form-group">
+                                       <label class="col-lg-3 control-label" for="lastname">Lastname</label>
+                                       <div class="col-lg-8">
+                                            <input class="form-control" id="lastname" name="lastname" type="text">
+                                       </div>
+				  </div>
+				  <div class="form-group">
+					<label class="col-lg-3 control-label" for="firstname">Firstname</label>
+                                       <div class="col-lg-8">
+                                            <input class="form-control" id="firstname" name="firstname" type="text">
+                                       </div>
+				  </div>
+				  <div class="form-group">
+                                      <label class="col-lg-3 control-label" for="phone">Phone</label>
+                                       <div class="col-lg-8">
+                                            <input class="form-control" id="phone" name="phone" type="text">
+                                       </div>
+				  </div>
+				  <div class="form-group">
+					<label class="col-lg-3 control-label" for="mail">Email address</label>
+					<div class="col-lg-8">
+                                            <input type="email" id="mail" name="mail" class="form-control">
+					</div>
+				  </div>
+				  <div class="form-group">
+					<label class="col-md-3 control-label"></label>
+					<div class="col-md-8">
+					  <input class="btn btn-primary" value="Create" type="submit">
+					</div>
+				  </div>
+				</form>
+			  </div>
+			</div>
+		</div>
             <!--div id="videoPlayer"></div-->
-            <div id="creationProfilePage" class="container-fluid col-xs-12 col-sm-push-2 col-sm-8 col-md-push-2 col-md-8 col-lg-push-2 col-lg-8">
+            <!--div id="creationProfilePage" class="container-fluid col-xs-12 col-sm-push-2 col-sm-8 col-md-push-2 col-md-8 col-lg-push-2 col-lg-8">
                 <div id ="insideCreationProfilePage" class="row">
                     <div id="titleMain" class="col-lg-12">
                         <img id="logoCompany" src="http://ibewmain.atstestweb.com/wp-content/uploads/sites/8/2015/04/handshake.png"/><p id="titleApp" class="centrerVerticalement">iManage</p>
                     </div>
                     <div id="create" class="container-fluid col-xs-12">
                         <div class="row" id="insideCreate"> 
-                            <form id="formulaireCreationProfile"  action="<%=request.getContextPath()+"/CreateUserProfile?login=" + request.getParameter("login")%>" class="col-xs-push-1 col-xs-10 col-sm-push-2 col-sm-8 col-md-push-3 col-md-6 col-lg-push-3 col-lg-6 centrerVerticalementForm" method="post">
+                            <form id="formulaireCreationProfile"  action="equest.getParameter("login")%>" class="col-xs-push-1 col-xs-10 col-sm-push-2 col-sm-8 col-md-push-3 col-md-6 col-lg-push-3 col-lg-6 centrerVerticalementForm" method="post">
                                 
                                 <div class="labelForm form-group">
                                     <label for="lasname">Lastname</label>
@@ -59,9 +119,10 @@
                     </div>
                     
                 </div>
-            </div>
+            </div-->
         </article>
-							
+	<!-- Footer --> 
+								
 		<!-- Footer --> 
 		<!--jsp:include page="./Footer.jsp"/-->
 											
