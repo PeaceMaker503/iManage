@@ -77,21 +77,21 @@ public class InternshipWS {
     @WebMethod(operationName = "AddCompany")
     public Company addCompany() {
         IDao dao = ((MetierImpl)metier).getDao();
-        Company company = dao.addCompany(new Company("iBoite", "0629453838", "mail@mail.fr", "ici"));
+        Company company = dao.addCompany(new Company("ABC", "0629453838", "mail@mail.com", "la"));
         return company;
     }
     
     @WebMethod(operationName = "AddCategory")
     public Category addCategory() {
         IDao dao = ((MetierImpl)metier).getDao();
-        Category category = dao.addCategory(new Category("Java"));
+        Category category = dao.addCategory(new Category("Python"));
         return category;
     }
     
     @WebMethod(operationName = "AddInternship")
     public Internship addInternship() {
         IDao dao = ((MetierImpl)metier).getDao();
-        Internship internship = dao.addInternship(new Internship("Dev Java", "c://ici", dao.getCompanyByName("iBoite"), dao.getCategoryByName("Java")));
+        Internship internship = dao.addInternship(new Internship("Dev IA", "c://ici", dao.getCompanyByName("Yseop"), dao.getCategoryByName("AI")));
         return internship;
     }
     
@@ -103,14 +103,14 @@ public class InternshipWS {
     }
     
     @WebMethod(operationName = "debug_getCategories")
-    public List<Category> debug_getCategories() {
+    public List<Category> getCategories() {
         IDao dao = ((MetierImpl)metier).getDao();
         List<Category> list = dao.getAllCategories();
         return list;
     }
     
     @WebMethod(operationName = "debug_getCompanies")
-    public List<Company> debug_getCompanies() {
+    public List<Company> getCompanies() {
         IDao dao = ((MetierImpl)metier).getDao();
         List<Company> list = dao.getAllCompanies();
         return list;

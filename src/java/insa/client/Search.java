@@ -32,7 +32,9 @@ public class Search extends HttpServlet {
     {
         response.setContentType("text/html");
         
-        request.setAttribute("todo", InternshipService.searchInternship().get(0).getId().toString());
+        request.setAttribute("internshipList", InternshipService.searchInternship());
+        request.setAttribute("companyList", InternshipService.getCompanies());
+        request.setAttribute("categoryList", InternshipService.getCategories());
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
     }
 
