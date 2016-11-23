@@ -41,6 +41,7 @@ public interface IDao {
     public Internship deleteInternshipById(Long id);
     public Internship updateInternship(Internship internship);
     public List<Internship> getAllInternships();
+    public List<Internship> getInternshipsWhereTitleContains(String title);
     
     public Category getCategoryById(Long id);
     public Category getCategoryByName(String name);

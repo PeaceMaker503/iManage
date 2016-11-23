@@ -31,41 +31,8 @@
         
     </head>
     <body>
-        <div>
-        <nav class="navbar navbar-default navbar-fixed-top topnav" role="navigation">
-        <div class="container topnav">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand topnav">iManage</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="<%=request.getContextPath()+"/Search?login=" + request.getParameter("login")%>">Search</a>
-                    </li>
-                    <li>
-                        <a href="<%=request.getContextPath()+"/ViewUpdateUserProfile?login=" + request.getParameter("login")%>">Profile</a>
-                    </li>
-                    <!--li>
-                        request.getContextPath()+"/homeServlet"%>
-                    </li-->
-                    <li>
-                        <a>Login</a>
-                    </li>
-                </ul>
-            </div>
-            <!-- /.navbar-collapse -->
-        </div>
-        </nav>
-        </div>        
-        <br/><br/>
+              
+        <jsp:include page="./Header.jsp"/>
         <div class="mainPage" style="color:black;margin-left:10%;">
         <h1>Search internship</h1>
         
@@ -102,6 +69,56 @@
         </table>
         
         </div>
+        
+        
+        
+        <!-- Search Engine -->
+		<div class="input-group" >
+			<input type="text" class="form-control" placeholder="Search Internship by Tag..">
+			<span class="input-group-btn">
+				<button class="btn btn-default" type="button">
+					<span class="glyphicon glyphicon-search"></span>
+				</button>
+			</span>
+		</div>
+		
+		<!-- Sidebar -->
+		<div class="container-fluid">
+		  <div class="row content">
+			<div class="col-sm-2 sidenav">
+			  <h4>Internship Offers by Departement</h4>
+			  <ul class="nav nav-pills nav-stacked">
+				<li class="active"><a href="#section1">Computer and Networks Engineering</a></li>
+				<li><a href="#section2">Civil Engineering</a></li>
+				<li><a href="#section3">Chemical Engineering</a></li>
+				<li><a href="#section3">Physics Engineering</a></li>
+			  </ul><br>
+
+			</div>
+
+		<!-- Internship Offers --> 		
+		<!-- Offer Template -->
+		<div class="col-sm-10">
+		  <h4><small>INTERNSHIP OFFERS OF COMPUTER AND NETWORKS ENGINEERING</small></h4>
+		  <hr>
+		  <h2>Python Full Stack Developer</h2>
+		  <h5><span class="glyphicon glyphicon-time"></span> Sep 27th, 2016.</h5>
+		  <h5><span class="label label-danger">Python</span> <span class="label label-primary">Django</span></h5><br>
+		  <div class="col-sm-2 text-center">
+			<img src="/iManage/Web-Content/StyleHome/img/air-france.jpg" class="img-circle" height="65" width="65" alt="Avatar">
+		  </div>
+		  <p>	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
+		  <br><br>
+			  
+		  <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">View PDF</a>
+		  <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
+		  
+		</div>
+		</div>
+				
+		</div>
+        <jsp:include page="./Footer.jsp"/>
+        
     </body>
     
     <script type="text/javascript">

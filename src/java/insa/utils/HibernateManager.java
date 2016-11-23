@@ -174,7 +174,9 @@ public class HibernateManager {
                 String key = it.next();
                 Object param = params.get(key);
                 query.setParameter(key, param);
+                
             }
+            System.out.println(query.toString());
             list = query.list(); 
         } 
         catch(HibernateException e)

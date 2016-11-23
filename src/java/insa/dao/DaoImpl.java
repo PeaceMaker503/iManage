@@ -324,4 +324,18 @@ public class DaoImpl implements IDao {
         else
             return null;
     }
+
+    @Override
+    public List<Internship> getInternshipsWhereTitleContains(String title) {
+        String query = "from Internship as i where i.name like :condition";
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("condition", "%" + title + "%");
+        List<Internship> list = hibernateManager.execute(query, params, Internship.class);
+        if(list != null)
+            return list;
+        else
+            return null;
+    }
+    
+    
 }
