@@ -22,7 +22,7 @@
            <div class="container-fluid">
                         <ul class="nav navbar-nav">
                 <li class="active"><a href="<%=request.getContextPath()+"/Home?login=" + request.getParameter("login")%>"><span class="glyphicon glyphicon-home"></span> Home</a></li>
-                <li><a href="<%=request.getContextPath()+"/Search?login=" + request.getParameter("login")%>"><span class="glyphicon glyphicon-heart-empty"></span> Search</a></li>
+                <li><a href="<%=request.getContextPath()+"/Search?login=" + request.getParameter("login")%>"><span class="glyphicon glyphicon-search"></span> Search</a></li>
                     <li><a href="<%=request.getContextPath()+"/Notifications?login=" + request.getParameter("login")%>"><span class="glyphicon glyphicon-user"></span>  Notifications</a></li>
                         <li><a href="<%=request.getContextPath()+"/Messages?login=" + request.getParameter("login")%>"><span class="glyphicon glyphicon-envelope"></span>  Messages</a></li> 
                         <li><a href="<%=request.getContextPath()+"/Candidatures?login=" + request.getParameter("login")%>"><span class="glyphicon glyphicon-paste"></span>  My Candidatures</a></li>
@@ -30,7 +30,7 @@
 
                         <ul class="nav navbar-nav navbar-right">
                <li><a href="<%=request.getContextPath()+"/ViewUpdateUserProfile?login=" + request.getParameter("login")%>"><span class="glyphicon glyphicon-user"></span> <%=request.getParameter("login")%></a></li>
-                           <li><a href="<%=request.getContextPath()+"/Login?login=" + request.getParameter("login")%>"><span class="glyphicon glyphicon-remove-circle"></span>  Logout</a></li>
+                           <li><a href="<%=request.getContextPath()+"/Login?login=" + request.getParameter("login")%>"><span class="glyphicon glyphicon-off"></span>  Logout</a></li>
                 </ul>
                 </div>
         </nav> 
