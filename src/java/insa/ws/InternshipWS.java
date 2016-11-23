@@ -86,5 +86,12 @@ public class InternshipWS {
         List<Company> list = dao.getAllCompanies();
         return list;
     }
+    
+    @WebMethod(operationName = "debug_getInternshipsWhereTitleContains")
+    public List<Internship> debug_getInternshipsWhereTitleContains(@WebParam(name = "title") String title) {
+        IDao dao = ((MetierImpl)metier).getDao();
+        List<Internship> list = dao.getInternshipsWhereTitleContains(title);
+        return list;
+    }
     //
 }
