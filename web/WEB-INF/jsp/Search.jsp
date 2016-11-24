@@ -139,7 +139,9 @@
             $(this).css('cursor', 'default');
             $(this).toggleClass('bg');
         });
-    
+
+        $('#search').addClass('active');
+  
     </script>
         
 </html>

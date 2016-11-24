@@ -191,4 +191,9 @@
 		<jsp:include page="./Footer.jsp"/>
 				
     </body>
+    
+     <script>
+    $('#messages').addClass('active');
+   </script>
+
 </html>

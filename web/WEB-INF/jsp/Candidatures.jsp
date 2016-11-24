@@ -55,6 +55,11 @@
 		<jsp:include page="./Footer.jsp"/>
 		
     </body>
+    
+     <script>
+    $('#candidatures').addClass('active');
+   </script>
+
 </html>
 
 

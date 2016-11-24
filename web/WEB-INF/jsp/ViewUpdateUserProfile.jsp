@@ -89,6 +89,11 @@
 	</footer>
 		
     </body>
+    
+     <script>
+    $('#profile').addClass('active');
+   </script>
+
 </html>
 
 <!--

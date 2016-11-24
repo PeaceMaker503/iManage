@@ -49,4 +49,9 @@
 		<jsp:include page="./Footer.jsp"/>
 		
     </body>
+    
+     <script>
+    $('#notifications').addClass('active');
+   </script>
+
 </html>

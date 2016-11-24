@@ -75,6 +75,10 @@
 	<!-- Footer --> 
 	<jsp:include page="./Footer.jsp"/>
 		
-	</body>
+    </body>
+        
+    <script>
+        $('#home').addClass('active');
+    </script>
 </html>
 
