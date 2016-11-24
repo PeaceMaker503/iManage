@@ -30,6 +30,7 @@
         <script src="https://code.jquery.com/jquery-3.1.1.min.js"integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
         
     </head>
+    
     <body>
               
         <jsp:include page="./Header.jsp"/>
@@ -37,7 +38,7 @@
         <h1>Search internship</h1>
         
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-        
+         
         Company : 
         <select name="select">
             <option>All</option> 
@@ -46,12 +47,22 @@
             </c:forEach>
         </select>
         Category :
-        <select name="select">
+        <select name="select" style="margin-bottom:10px;">
             <option>All</option> 
             <c:forEach var="element" items="${categoryList}">
                 <option>${element.name}</option> 
             </c:forEach>
         </select>
+        
+        <!-- Search Engine -->
+        <div class="input-group" >
+                <input type="text" class="form-control" placeholder="Search Internship by Tag..">
+                <span class="input-group-btn">
+                        <button class="btn btn-default" type="button">
+                                <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                </span>
+        </div>
         <br /><br />
         <input id="paramButton" type="button" value="Rechercher" onclick="Search()" style="margin-left: 9%;"/>
         <br /><br />
@@ -72,15 +83,7 @@
         
         
         
-        <!-- Search Engine -->
-		<div class="input-group" >
-			<input type="text" class="form-control" placeholder="Search Internship by Tag..">
-			<span class="input-group-btn">
-				<button class="btn btn-default" type="button">
-					<span class="glyphicon glyphicon-search"></span>
-				</button>
-			</span>
-		</div>
+
 		
 		<!-- Sidebar -->
 		<div class="container-fluid">
