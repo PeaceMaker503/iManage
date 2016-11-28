@@ -21,12 +21,6 @@
 		
 		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		
-		
-		
-        
-		
-		
-		
         <div class="container" style="padding-top: 0px; padding-bottom: 10px;">
 			<h1 class="page-header">Edit Profile</h1>
 			<div class="row">
@@ -34,8 +28,6 @@
 			  <div class="col-md-4 col-sm-6 col-xs-12">
 				<div class="text-center">
 				  <img src="/iManage/Web-Content/StyleViewUpdateUserProfile/img/User.png" class="avatar img-circle img-thumbnail" alt="avatar", style="height: 200px;">
-				  <h4>CV</h4>
-				  <input type="file" class="text-center center-block well well-sm">
 				</div>
 			  </div>
 			  <!-- edit form column -->
@@ -43,19 +35,19 @@
 				<h3>Personal Info</h3>
 				<form class="form-horizontal" role="form">
 				  <div class="form-group">
-					<label class="col-lg-3 control-label">First name:</label>
+					<label class="col-lg-3 control-label">First name</label>
 					<div class="col-lg-8">
 					  <input class="form-control" value="<c:out value="${userProfile.firstName}"/>" type="text">
 					</div>
 				  </div>
 				  <div class="form-group">
-					<label class="col-lg-3 control-label">Last name:</label>
+					<label class="col-lg-3 control-label">Last name</label>
 					<div class="col-lg-8">
 					  <input class="form-control" value="<c:out value="${userProfile.lastName}"/>" type="text">
 					</div>
 				  </div>
 				  <div class="form-group">
-					<label class="col-lg-3 control-label">Phone:</label>
+					<label class="col-lg-3 control-label">Phone</label>
 					<div class="col-lg-8">
 					  <input class="form-control" value="<c:out value="${userProfile.phone}"/>" type="text">
 					</div>
@@ -79,6 +71,13 @@
 					</div>
 				  </div>
 				  <div class="form-group">
+					<label class="col-lg-3 control-label" for="cv">CV</label>
+					<div class="col-lg-8">
+                        <input type="file" class="text-center center-block well well-sm">
+					</div>
+				  </div>
+				  
+				  <div class="form-group">
 					<label class="col-md-3 control-label"></label>
 					<div class="col-md-8">
 					  <input class="btn btn-primary" value="Save Changes" type="button">
@@ -92,9 +91,7 @@
 			</div>
 		</div>
 		
-		<footer class="container-fluid footer" >
-	  <p style="text-align: center;	">2016 ® INSA Toulouse - iManage Development Team</p>
-	</footer>
+	<jsp:include page="./Footer.jsp"/>
 		
     </body>
     
