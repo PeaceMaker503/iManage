@@ -1,7 +1,7 @@
 <%-- 
     Document   : Search
     Created on : 19 nov. 2016, 15:19:01
-    Author     : paul
+    Author     : paul & pablo
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -34,67 +34,18 @@
     <body>
               
         <jsp:include page="./Header.jsp"/>
-        <div class="mainPage" style="color:black;margin-left:10%;">
-        <h1>Search internship</h1>
-        
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-         
-        Company : 
-        <select name="select">
-            <option>All</option> 
-            <c:forEach var="element" items="${companyList}">
-                <option>${element.name}</option> 
-            </c:forEach>
-        </select>
-        Category :
-        <select name="select" style="margin-bottom:10px;">
-            <option>All</option> 
-            <c:forEach var="element" items="${categoryList}">
-                <option>${element.name}</option> 
-            </c:forEach>
-        </select>
-        
-        <!-- Search Engine -->
-        <div class="input-group" >
-                <input type="text" class="form-control" placeholder="Search Internship by Tag..">
-                <span class="input-group-btn">
-                        <button class="btn btn-default" type="button">
-                                <span class="glyphicon glyphicon-search"></span>
-                        </button>
-                </span>
-        </div>
-        <br /><br />
-        <input id="paramButton" type="button" value="Rechercher" onclick="Search()" style="margin-left: 9%;"/>
-        <br /><br />
 
-        
-        <table ID="table1">
-            <tr><td>Title</td><td>Company</td><td>Category</td></tr>
-            <c:forEach var="element" items="${internshipList}">
-                <tr>
-                    <td>${element.name}</td> 
-                    <td>${element.id_company.name}</td> 
-                    <td>${element.id_category.name}</td> 
-                </tr> 
-            </c:forEach>
-        </table>
-        
-        </div>
-        
-        
-        
-
-		
 		<!-- Sidebar -->
 		<div class="container-fluid">
 		  <div class="row content">
 			<div class="col-sm-2 sidenav">
 			  <h4>Internship Offers by Departement</h4>
-			  <ul class="nav nav-pills nav-stacked">
-				<li class="active"><a href="#section1">Computer and Networks Engineering</a></li>
-				<li><a href="#section2">Civil Engineering</a></li>
-				<li><a href="#section3">Chemical Engineering</a></li>
-				<li><a href="#section3">Physics Engineering</a></li>
+			  <ul class="nav nav-pills nav-stacked" id="category">
+                              <li class="active"><a>All</a></li>
+                                <c:forEach var="element" items="${categoryList}">
+                                <li><a>${element.name}</a></li> 
+                                </c:forEach>
 			  </ul><br>
 
 			</div>
@@ -102,20 +53,47 @@
 		<!-- Internship Offers --> 		
 		<!-- Offer Template -->
 		<div class="col-sm-10">
+         
+                    Company : 
+                    <select name="select">
+                        <option>All</option> 
+                        <c:forEach var="element" items="${companyList}">
+                            <option>${element.name}</option> 
+                        </c:forEach>
+                    </select>
+
+                    <!-- Search Engine -->
+                    <div class="input-group" >
+                        <input type="text" class="form-control" placeholder="Search Internship by Tag..">
+                        <span class="input-group-btn">
+                        </span>
+                    </div>
+                    <br /><br />
+                    <input id="paramButton" type="button" value="Rechercher" onclick="Search()" style="margin-left: 9%;"/>
+                    <br /><br />
+        
+        
 		  <h4><small>INTERNSHIP OFFERS OF COMPUTER AND NETWORKS ENGINEERING</small></h4>
 		  <hr>
-		  <h2>Python Full Stack Developer</h2>
-		  <h5><span class="glyphicon glyphicon-time"></span> Sep 27th, 2016.</h5>
-		  <h5><span class="label label-danger">Python</span> <span class="label label-primary">Django</span></h5><br>
-		  <div class="col-sm-2 text-center">
-			<img src="/iManage/Web-Content/StyleHome/img/air-france.jpg" class="img-circle" height="65" width="65" alt="Avatar">
-		  </div>
-		  <p>	Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-		  <br><br>
-			  
-		  <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">View PDF</a>
-		  <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
-		  
+                  <div class="flex-list">
+                      <lu>
+                  <c:forEach var="internship" items="${internshipList}">
+                      <li>
+                    <h2>${internship.name}</h2>
+                    <h5><span class="glyphicon glyphicon-time"></span> Sep 27th, 2016.</h5>
+                    <h5><span class="label label-danger">LABEL</span> <span class="label label-primary">Label</span></h5><br>
+                    <div class="col-sm-2 text-center">
+                          <img src="/iManage/Web-Content/StyleHome/img/air-france.jpg" class="img-circle" height="65" width="65" alt="Avatar">
+                    </div>
+                    <p>${internship.description}</p>
+                    <br><br>
+
+                    <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">View PDF</a>
+                    <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
+                      </li>
+                  </c:forEach>
+                    </lu>
+                  </div>
 		</div>
 		</div>
 				
@@ -130,15 +108,11 @@
             
         }
         
-        $('#table1').find('tr:gt(0)').mouseover(function () {
-            $(this).css('cursor', 'pointer');
-            $(this).toggleClass('bg');
+        $("#category li").on("click", function() {
+            $("#category").find("li").removeClass("active");
+            $(this).addClass("active");
         });
         
-        $('#table1').find('tr:gt(0)').mouseleave(function () {
-            $(this).css('cursor', 'default');
-            $(this).toggleClass('bg');
-        });
 
         $('#search').addClass('active');
   

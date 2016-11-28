@@ -45,7 +45,7 @@ public class InternshipWS {
         Category ca = new Category("Informatique");
         co = dao.addCompany(co);
         ca = dao.addCategory(ca);
-        Internship i = new Internship("Solution informatique pour entreprise à taille humaine", "/humain/suicide.pdf", co, ca);
+        Internship i = new Internship("Solution informatique pour entreprise à taille humaine", "/humain/suicide.pdf", "", co, ca);
         i = dao.addInternship(i);
         return i;
     }
@@ -91,7 +91,7 @@ public class InternshipWS {
     @WebMethod(operationName = "AddInternship")
     public Internship addInternship() {
         IDao dao = ((MetierImpl)metier).getDao();
-        Internship internship = dao.addInternship(new Internship("Dev IA", "c://ici", dao.getCompanyByName("Yseop"), dao.getCategoryByName("AI")));
+        Internship internship = dao.addInternship(new Internship("Python Full Stack", "c://ici", "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM", dao.getCompanyByName("Yseop"), dao.getCategoryByName("Python")));
         return internship;
     }
     

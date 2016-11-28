@@ -33,6 +33,9 @@ public class Internship implements Serializable {
     @Column(unique=true)
     private String pdfPath;
     
+    @Column
+    private String description;
+    
     @ManyToOne
     @JoinColumn(referencedColumnName="id")
     private Company id_company;
@@ -43,9 +46,10 @@ public class Internship implements Serializable {
         
     public Internship() {}
 
-    public Internship(String name, String pdfPath, Company id_company, Category id_category) {
+    public Internship(String name, String pdfPath, String description, Company id_company, Category id_category) {
         this.name = name;
         this.pdfPath = pdfPath;
+        this.description = description;
         this.id_company = id_company;
         this.id_category = id_category;
     }
@@ -72,6 +76,14 @@ public class Internship implements Serializable {
 
     public void setPdfPath(String pdfPath) {
         this.pdfPath = pdfPath;
+    }
+    
+    public String getDescription() {
+        return this.description;
+    }
+    
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     public Company getId_company() {
