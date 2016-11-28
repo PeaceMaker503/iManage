@@ -35,13 +35,13 @@
               
         <jsp:include page="./Header.jsp"/>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+        <form action="Search" method="post">
 		<!-- Sidebar -->
 		<div class="container-fluid">
 		  <div class="row content">
 			<div class="col-sm-2 sidenav">
 			  <h4>Internship Offers by Departement</h4>
-			  <ul class="nav nav-pills nav-stacked" id="category">
+			  <ul name="category" class="nav nav-pills nav-stacked" id="category">
                               <li class="active"><a>All</a></li>
                                 <c:forEach var="element" items="${categoryList}">
                                 <li><a>${element.name}</a></li> 
@@ -61,24 +61,28 @@
                             <option>${element.name}</option> 
                         </c:forEach>
                     </select>
-
+                    <input name="sidebarValue" type="text" id="sidebarValue"></input>
                     <!-- Search Engine -->
                     <div class="input-group" >
-                        <input type="text" class="form-control" placeholder="Search Internship by Tag..">
+                        <input type="text" name="keywords" class="form-control" placeholder="Search Internship by Tag..">
                         <span class="input-group-btn">
                         </span>
                     </div>
                     <br /><br />
-                    <input id="paramButton" type="button" value="Rechercher" onclick="Search()" style="margin-left: 9%;"/>
+                    <input id="paramButton" type="submit" value="Rechercher" style="margin-left: 9%;"/>
+                    <a><% if(request.getAttribute("test") != null) {
+                         out.print(request.getAttribute("test"));
+                    }
+                    %></a>
                     <br /><br />
         
         
 		  <h4><small>INTERNSHIP OFFERS OF COMPUTER AND NETWORKS ENGINEERING</small></h4>
 		  <hr>
                   <div class="flex-list">
-                      <lu>
+                      <ul>
                   <c:forEach var="internship" items="${internshipList}">
-                      <li>
+                      <li style="width:100%">
                     <h2>${internship.name}</h2>
                     <h5><span class="glyphicon glyphicon-time"></span> Sep 27th, 2016.</h5>
                     <h5><span class="label label-danger">LABEL</span> <span class="label label-primary">Label</span></h5><br>
@@ -90,29 +94,27 @@
 
                     <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">View PDF</a>
                     <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
-                      </li>
+                      </li><br/>
                   </c:forEach>
-                    </lu>
+                    </ul>
                   </div>
 		</div>
 		</div>
-				
-		</div>
+            </div>
+        </form>
         <jsp:include page="./Footer.jsp"/>
         
     </body>
     
     <script type="text/javascript">
     
-        function Search() {
-            
-        }
+        
         
         $("#category li").on("click", function() {
             $("#category").find("li").removeClass("active");
             $(this).addClass("active");
+            $("#sidebarValue").val($(this).text());
         });
-        
 
         $('#search').addClass('active');
   

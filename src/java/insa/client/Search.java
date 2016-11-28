@@ -41,6 +41,15 @@ public class Search extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
+        response.setContentType("text/html");
         
+        request.setAttribute("internshipList", InternshipService.searchInternship());
+        request.setAttribute("companyList", InternshipService.getCompanies());
+        request.setAttribute("categoryList", InternshipService.getCategories());
+        String keywords = request.getParameter("keywords");
+        String company = request.getParameter("select");
+        String category = request.getParameter("category");
+        request.setAttribute("test", "keywords: " + keywords + "\tcompany: " + company + "\tcategory: " + category);
+        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
     }
 }
