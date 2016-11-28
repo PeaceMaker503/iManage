@@ -24,7 +24,7 @@ public interface IDao {
     public UserProfile addUserProfile(UserProfile userProfile);
     public UserProfile deleteUserProfileById(Long id);
     public UserProfile updateUserProfile(UserProfile userProfile);
-    
+   	
     public Company getCompanyById(Long id);
     public Company getCompanyByName(String name);
     public Company addCompany(Company company);

@@ -55,5 +55,10 @@ public class UserProfileWS
 		return metier.getUserProfileById(id);
 	}
 
+	@WebMethod(operationName = "getUserAccountByLogin")
+	public UserAccount getUserAccountByLogin(@WebParam(name = "login") String login) {
+		return metier.getUserAccountByLogin(login);
+	}
+	
 
 }

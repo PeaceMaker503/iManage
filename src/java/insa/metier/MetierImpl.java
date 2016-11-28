@@ -41,6 +41,12 @@ public class MetierImpl implements IMetier {
 	{
 		return dao.getUserProfileById(id);
 	}
+	
+	public UserAccount getUserAccountByLogin(String login) 
+	{
+		return dao.getUserAccountByLogin(login);
+	}
+	
 	    
     public UserAccount addUserAccount(String login , String password, String mail)
     {
