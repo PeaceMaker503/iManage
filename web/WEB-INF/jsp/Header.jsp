@@ -30,7 +30,7 @@
 
                         <ul class="nav navbar-nav navbar-right">
                         <li id="profile"><a href="<%=request.getContextPath()+"/ViewUpdateUserProfile?login=" + request.getParameter("login")%>" style="font-weight: bold;"><span class="glyphicon glyphicon-user"></span> <%=request.getParameter("login")%></a></li>
-                        <li><a href="<%=request.getContextPath()+"/Login?login=" + request.getParameter("login")%>"><span class="glyphicon glyphicon-off"  style="font-weight: bold;"></span>  Logout</a></li>
+                        <li><a href="<%=request.getContextPath()+"/Login?login=" + request.getParameter("login")%>" style="font-weight: bold;"><span class="glyphicon glyphicon-off"></span>  Logout</a></li>
                 </ul>
                 </div>
         </nav> 

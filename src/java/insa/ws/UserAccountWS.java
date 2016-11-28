@@ -5,9 +5,11 @@
  */
 package insa.ws;
 
+import insa.dao.IDao;
 import insa.db.UserAccount;
 import insa.db.UserProfile;
 import insa.metier.IMetier;
+import insa.metier.MetierImpl;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -50,5 +52,13 @@ public class UserAccountWS
         return metier.linkUserProfile(login, profile);
     }
 
+    /**
+     * Web service operation
+     */
+    @WebMethod(operationName = "linkPassword")
+    public UserAccount linkPassword(@WebParam(name = "login") String login, @WebParam(name = "mail") String mail) {
+        IDao dao = ((MetierImpl)metier).getDao();
+        return dao.getUserAccountByLogin(login);
+    }
 
 }

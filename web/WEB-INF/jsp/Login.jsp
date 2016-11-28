@@ -49,9 +49,10 @@
                                 <div id="insideLiens" class="row"> 
                                     <form id="formulaireConnexion" action="CreateUserAccount" method="get">
                                         <button id="creationCompte" class="col-xs-6 boutonsCompte">Create an account</button>
-                                        <a id="motDePasseOublie" class="col-xs-6 boutonsCompte">Forgot your password?</a>
                                     </form>
-                                    
+                                    <form id="formulaireConnexion" action="RecoverPassword" method="get">
+                                        <button id="motDePasseOublie" class="col-xs-6 boutonsCompte">Forgot your password?</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
