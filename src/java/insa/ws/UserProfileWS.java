@@ -47,5 +47,13 @@ public class UserProfileWS
         return metier.deleteUserProfile(id);
     }
 
+	/**
+	 * Web service operation
+	 */
+	@WebMethod(operationName = "getUserProfile")
+	public UserProfile getUserProfileById(@WebParam(name = "id") long id) {
+		return metier.getUserProfileById(id);
+	}
+
 
 }

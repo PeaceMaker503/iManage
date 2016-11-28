@@ -36,13 +36,18 @@ public class MetierImpl implements IMetier {
         UserProfile up = new UserProfile(lastName, firstName, phone, mail, cvPath);
         return dao.addUserProfile(up);
     }
-    
+	
+	public UserProfile getUserProfileById(Long id) 
+	{
+		return dao.getUserProfileById(id);
+	}
+	    
     public UserAccount addUserAccount(String login , String password, String mail)
     {
         UserAccount ua = new UserAccount(login, password, mail);
         return dao.addUserAccount(ua);
     }
-    
+	    
     @Override
     public UserProfile deleteUserProfile(Long id)
     {
