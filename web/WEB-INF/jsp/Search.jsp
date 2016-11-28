@@ -13,7 +13,11 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-
+        
+        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
+        <script src="https://code.jquery.com/jquery-3.1.1.min.js"integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+       
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
@@ -25,23 +29,20 @@
         <link href="/iManage/Web-Content/StyleHome/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     
-        <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js" type="text/javascript"></script>
-        <script src="https://code.jquery.com/jquery-3.1.1.min.js"integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-        
+ 
     </head>
     
     <body>
               
         <jsp:include page="./Header.jsp"/>
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-
+        <form action="Search" method="post">
 		<!-- Sidebar -->
 		<div class="container-fluid">
 		  <div class="row content">
 			<div class="col-sm-2 sidenav">
 			  <h4>Internship Offers by Departement</h4>
-			  <ul class="nav nav-pills nav-stacked" id="category">
+			  <ul name="category" class="nav nav-pills nav-stacked" id="category">
                               <li class="active"><a>All</a></li>
                                 <c:forEach var="element" items="${categoryList}">
                                 <li><a>${element.name}</a></li> 
@@ -61,24 +62,28 @@
                             <option>${element.name}</option> 
                         </c:forEach>
                     </select>
-
+                    <input name="sidebarValue" type="text" id="sidebarValue"></input>
                     <!-- Search Engine -->
                     <div class="input-group" >
-                        <input type="text" class="form-control" placeholder="Search Internship by Tag..">
+                        <input type="text" name="keywords" class="form-control" placeholder="Search Internship by Tag..">
                         <span class="input-group-btn">
                         </span>
                     </div>
                     <br /><br />
-                    <input id="paramButton" type="button" value="Rechercher" onclick="Search()" style="margin-left: 9%;"/>
+                    <input id="paramButton" type="submit" value="Rechercher" style="margin-left: 9%;"/>
+                    <a><% if(request.getAttribute("test") != null) {
+                         out.print(request.getAttribute("test"));
+                    }
+                    %></a>
                     <br /><br />
         
         
 		  <h4><small>INTERNSHIP OFFERS OF COMPUTER AND NETWORKS ENGINEERING</small></h4>
 		  <hr>
                   <div class="flex-list">
-                      <lu>
+                      <ul>
                   <c:forEach var="internship" items="${internshipList}">
-                      <li>
+                      <li style="width:100%">
                     <h2>${internship.name}</h2>
                     <h5><span class="glyphicon glyphicon-time"></span> Sep 27th, 2016.</h5>
                     <h5><span class="label label-danger">LABEL</span> <span class="label label-primary">Label</span></h5><br>
@@ -90,29 +95,27 @@
 
                     <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">View PDF</a>
                     <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
-                      </li>
+                      </li><br/>
                   </c:forEach>
-                    </lu>
+                    </ul>
                   </div>
 		</div>
 		</div>
-				
-		</div>
+            </div>
+        </form>
         <jsp:include page="./Footer.jsp"/>
         
     </body>
     
     <script type="text/javascript">
     
-        function Search() {
-            
-        }
+        
         
         $("#category li").on("click", function() {
             $("#category").find("li").removeClass("active");
             $(this).addClass("active");
+            $("#sidebarValue").val($(this).text());
         });
-        
 
         $('#search').addClass('active');
   
