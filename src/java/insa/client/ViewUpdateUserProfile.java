@@ -6,7 +6,9 @@
 package insa.client;
 
 import insa.db.UserAccount;
+import insa.db.UserProfile;
 import insa.ws.UserAccountWS;
+import insa.ws.UserProfileWS;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -21,11 +23,14 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ViewUpdateUserProfile", urlPatterns = {"/ViewUpdateUserProfile"})
 public class ViewUpdateUserProfile extends HttpServlet 
 {
-    private static UserAccountWS userAccountService = new insa.ws.UserAccountWS() ;
+    private static UserAccountWS userAccountService = new insa.ws.UserAccountWS();
+	private static UserProfileWS userProfileService = new insa.ws.UserProfileWS();
+	
     
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
+		request.setAttribute("userProfile",userProfileService.getUserProfileById(1	));
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ViewUpdateUserProfile.jsp").forward(request, response);
     }
 

@@ -15,6 +15,7 @@ import insa.db.UserAccount;
 public interface IMetier 
 {
     public UserAccount verifyUserAccount(String login, String password);
+	public UserProfile getUserProfileById(Long id);
     public UserProfile addUserProfile(String firstName, String lastName, String mail, String phone, String cvPath);
     public UserAccount addUserAccount(String login , String mail , String password);
     public UserAccount linkUserProfile(String login, UserProfile up);
