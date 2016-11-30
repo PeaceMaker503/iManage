@@ -43,13 +43,13 @@ public class Search extends HttpServlet {
     {
         response.setContentType("text/html");
         
-        request.setAttribute("internshipList", InternshipService.searchInternship());
         request.setAttribute("companyList", InternshipService.getCompanies());
         request.setAttribute("categoryList", InternshipService.getCategories());
         String keywords = request.getParameter("keywords");
-        String company = request.getParameter("select");
-        String category = request.getParameter("category");
+        String company = request.getParameter("selectCompany");
+        String category = request.getParameter("selectCategory");
         request.setAttribute("test", "keywords: " + keywords + "\tcompany: " + company + "\tcategory: " + category);
+        request.setAttribute("internshipList", InternshipService.getInternshipByCriteria(company, category, keywords));
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
     }
 }

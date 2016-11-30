@@ -35,7 +35,9 @@
     <body>
               
         <jsp:include page="./Header.jsp"/>
+        
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+        
         <form action="Search" method="post">
 		<!-- Sidebar -->
 		<div class="container-fluid">
@@ -56,13 +58,19 @@
 		<div class="col-sm-10">
          
                     Company : 
-                    <select name="select">
+                    <select name="selectCompany">
                         <option>All</option> 
                         <c:forEach var="element" items="${companyList}">
                             <option>${element.name}</option> 
                         </c:forEach>
                     </select>
-                    <input name="sidebarValue" type="text" id="sidebarValue"></input>
+                    Category : 
+                    <select name="selectCategory">
+                        <option>All</option> 
+                        <c:forEach var="element" items="${categoryList}">
+                            <option>${element.name}</option> 
+                        </c:forEach>
+                    </select>
                     <!-- Search Engine -->
                     <div class="input-group" >
                         <input type="text" name="keywords" class="form-control" placeholder="Search Internship by Tag..">
@@ -90,6 +98,8 @@
                     <div class="col-sm-2 text-center">
                           <img src="/iManage/Web-Content/StyleHome/img/air-france.jpg" class="img-circle" height="65" width="65" alt="Avatar">
                     </div>
+                    <p>Company : ${internship.id_company.name}</p>
+                    <p>Category : ${internship.id_category.name}</p>
                     <p>${internship.description}</p>
                     <br><br>
 

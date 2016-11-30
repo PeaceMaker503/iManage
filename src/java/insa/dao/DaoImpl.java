@@ -337,5 +337,41 @@ public class DaoImpl implements IDao {
             return null;
     }
     
-    
+    @Override
+    public List<Internship> getInternshipByCompanyNameCategoryNameWhereTitleContains(String companyName, String categoryName, String keywords) {
+        String query = "from Internship as i";
+        
+        System.out.println("QUERY : " + query);
+        HashMap<String, Object> params = new HashMap<>();
+        if (!(companyName.equals("All")) || !(categoryName.equals("All")) || !(keywords.equals(""))) {
+            query += " where ";
+            if (!(keywords.equals(""))) {
+                query += "i.name like :condition";
+                params.put("condition", "%" + keywords + "%");
+            }
+            if (!companyName.equals("All")) {
+                if (!(keywords.equals(""))) {
+                    query += " and i.id_company = :company";
+                } else {
+                    query += "i.id_company = :company";
+                }
+                params.put("company", this.getCompanyByName(companyName));
+            }
+            if (!categoryName.equals("All")) {
+                if (!(keywords.equals("")) || !categoryName.equals("All")) {
+                    query += " and i.id_category = :category";
+                } else {
+                    query += "i.id_category = :category";
+                }
+                params.put("category", this.getCategoryByName(categoryName));
+            }
+        }
+        System.out.println("QUERY : " + query);
+        List<Internship> list = hibernateManager.execute(query, params, Internship.class);
+        if(list != null)
+            return list;
+        else
+            return null;
+    }
+
 }

@@ -123,4 +123,12 @@ public class InternshipWS {
         return list;
     }
     //
+    
+    @WebMethod(operationName = "getInternshipByCriteria")
+    public List<Internship> getInternshipByCriteria(String company, String category, String keywords) {
+        IDao dao = ((MetierImpl)metier).getDao();
+        List<Internship> list = dao.getInternshipByCompanyNameCategoryNameWhereTitleContains(company, category, keywords);
+        return list;
+    }
+    
 }
