@@ -24,13 +24,13 @@ import javax.servlet.http.HttpServletResponse;
 public class ViewUpdateUserProfile extends HttpServlet 
 {
     private static UserAccountWS userAccountService = new insa.ws.UserAccountWS();
-	private static UserProfileWS userProfileService = new insa.ws.UserProfileWS();
+	private static UserProfileWS userProfileService = new insa.ws.UserProfileWS(); 
 	
-    
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-		request.setAttribute("userProfile",userProfileService.getUserProfileById(1	));
+		long userID = userProfileService.getUserAccountByLogin(request.getParameter("login")).getId();
+		request.setAttribute("userProfile",userProfileService.getUserProfileById(userID));
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ViewUpdateUserProfile.jsp").forward(request, response);
     }
 
