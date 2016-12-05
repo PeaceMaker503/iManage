@@ -43,21 +43,7 @@
 		<div class="container-fluid">
 		  <div class="row content">
 			<div class="col-sm-2 sidenav">
-			  <h4>Internship Offers by Departement</h4>
-			  <ul name="category" class="nav nav-pills nav-stacked" id="category">
-                              <li class="active"><a>All</a></li>
-                                <c:forEach var="element" items="${categoryList}">
-                                <li><a>${element.name}</a></li> 
-                                </c:forEach>
-			  </ul><br>
-
-			</div>
-
-		<!-- Internship Offers --> 		
-		<!-- Offer Template -->
-		<div class="col-sm-10">
-         
-                    Company : 
+			  Company : 
                     <select name="selectCompany">
                         <option>All</option> 
                         <c:forEach var="element" items="${companyList}">
@@ -79,6 +65,14 @@
                     </div>
                     <br /><br />
                     <input id="paramButton" type="submit" value="Rechercher" style="margin-left: 9%;"/>
+			</div>
+
+                      
+		<!-- Internship Offers --> 		
+		<!-- Offer Template -->
+		<div class="col-sm-10">
+         
+                    
                     <a><% if(request.getAttribute("test") != null) {
                          out.print(request.getAttribute("test"));
                     }
@@ -103,7 +97,7 @@
                     <p>${internship.description}</p>
                     <br><br>
 
-                    <a href="#" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">View PDF</a>
+                    <a href="<%=request.getContextPath()+"/Pdf?path="%>${internship.pdfPath}" target="_blank" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">View PDF</a>
                     <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
                       </li><br/>
                   </c:forEach>
@@ -118,9 +112,7 @@
     </body>
     
     <script type="text/javascript">
-    
-        
-        
+
         $("#category li").on("click", function() {
             $("#category").find("li").removeClass("active");
             $(this).addClass("active");
