@@ -19,6 +19,7 @@ public interface IMetier
 	public UserProfile getUserProfileById(Long id);
     public UserProfile addUserProfile(String firstName, String lastName, String mail, String phone, String cvPath);
     public UserAccount addUserAccount(String login , String mail , String password);
+	public UserAccount deleteUserAccountById(Long id);
     public UserAccount linkUserProfile(String login, UserProfile up);
     public UserProfile deleteUserProfile(Long id);
 }
