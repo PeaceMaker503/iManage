@@ -62,4 +62,5 @@
     <bean id="metier" class="insa.metier.MetierImpl">
         <property name="dao" ref="dao"></property>
     </bean>
+
 </beans>
