@@ -48,6 +48,11 @@ public class UserProfileWS
     }
 	
 	
+	@WebMethod(operationName = "deleteUserAccount")
+	public UserAccount deleteUserAccountById(Long id) {
+		return metier.deleteUserAccountById(id);
+	}
+	
 	/**
 	 * Web service operation
 	 */

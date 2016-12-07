@@ -53,6 +53,11 @@ public class MetierImpl implements IMetier {
         UserAccount ua = new UserAccount(login, password, mail);
         return dao.addUserAccount(ua);
     }
+	
+	@Override 
+	public UserAccount deleteUserAccountById(Long id) {
+		return dao.deleteUserAccountById(id);
+	}
 	    
     @Override
     public UserProfile deleteUserProfile(Long id)
