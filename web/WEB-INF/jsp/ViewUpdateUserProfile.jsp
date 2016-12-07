@@ -72,7 +72,7 @@
 					  <input class="btn btn-primary" value="Save Changes" type="submit">
 					  <span></span>
 					  <input class="btn btn-default" value="Cancel" type="reset">
-					  <input class="btn btn-danger" value="Delete Account" type="button">
+					  <a class="btn btn-danger" href="<%=request.getContextPath()+"/DeleteAccount?login=" + request.getParameter("login")%>"/>Delete Account</a>
 					</div>
 				  </div>
 				</form>

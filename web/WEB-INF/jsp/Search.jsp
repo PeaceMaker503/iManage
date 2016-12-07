@@ -38,34 +38,34 @@
         
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         
-        <form action="Search" method="post">
+        <form action="<%="Search?login=" + request.getParameter("login")%>" method="post">
 		<!-- Sidebar -->
 		<div class="container-fluid">
-		  <div class="row content">
-			<div class="col-sm-2 sidenav">
-			  Company : 
-                    <select name="selectCompany">
-                        <option>All</option> 
-                        <c:forEach var="element" items="${companyList}">
-                            <option>${element.name}</option> 
-                        </c:forEach>
-                    </select>
-                    Category : 
-                    <select name="selectCategory">
-                        <option>All</option> 
-                        <c:forEach var="element" items="${categoryList}">
-                            <option>${element.name}</option> 
-                        </c:forEach>
-                    </select>
-                    <!-- Search Engine -->
-                    <div class="input-group" >
-                        <input type="text" name="keywords" class="form-control" placeholder="Search Internship by Tag..">
-                        <span class="input-group-btn">
-                        </span>
+                    <div class="row content">
+                        <div class="col-sm-2 sidenav">
+			Company : 
+                        <select name="selectCompany">
+                            <option>All</option> 
+                            <c:forEach var="element" items="${companyList}">
+                                <option>${element.name}</option> 
+                            </c:forEach>
+                        </select>
+                        Category : 
+                        <select name="selectCategory">
+                            <option>All</option> 
+                            <c:forEach var="element" items="${categoryList}">
+                                <option>${element.name}</option> 
+                            </c:forEach>
+                        </select>
+                        <!-- Search Engine -->
+                        <div class="input-group" >
+                            <input type="text" name="keywords" class="form-control" placeholder="Search Internship by Tag..">
+                            <span class="input-group-btn">
+                            </span>
+                        </div>
+                        <br /><br />
+                        <input id="paramButton" type="submit" value="Rechercher" style="margin-left: 9%;"/>
                     </div>
-                    <br /><br />
-                    <input id="paramButton" type="submit" value="Rechercher" style="margin-left: 9%;"/>
-			</div>
 
                       
 		<!-- Internship Offers --> 		

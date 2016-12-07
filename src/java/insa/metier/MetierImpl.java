@@ -8,6 +8,7 @@ package insa.metier;
 import insa.dao.DaoImpl;
 import insa.dao.IDao;
 import insa.db.*;
+import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
@@ -52,6 +53,11 @@ public class MetierImpl implements IMetier {
         UserAccount ua = new UserAccount(login, password, mail);
         return dao.addUserAccount(ua);
     }
+	
+	@Override 
+	public UserAccount deleteUserAccountById(Long id) {
+		return dao.deleteUserAccountById(id);
+	}
 	    
     @Override
     public UserProfile deleteUserProfile(Long id)
@@ -85,5 +91,24 @@ public class MetierImpl implements IMetier {
     {
         this.dao = dao;
     }
+
+    public List<Internship> searchInternship() {
+        List<Internship> list = dao.getAllInternships();
+        return list;
+    }
     
+    public List<Category> getCategories() {
+        List<Category> list = dao.getAllCategories();
+        return list;
+    }
+    
+    public List<Company> getCompanies() {
+        List<Company> list = dao.getAllCompanies();
+        return list;
+    }
+    
+    public List<Internship> getInternshipByCriteria(String company, String category, String keywords) {
+        List<Internship> list = dao.getInternshipByCompanyNameCategoryNameWhereTitleContains(company, category, keywords);
+        return list;
+    }
 }

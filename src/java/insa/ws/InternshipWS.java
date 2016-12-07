@@ -69,27 +69,25 @@ public class InternshipWS {
 
     @WebMethod(operationName = "SearchIntership")
     public List<Internship> searchInternship() {
-        IDao dao = ((MetierImpl)metier).getDao();
-        List<Internship> list = dao.getAllInternships();
-        return list;
+        return ((MetierImpl)metier).searchInternship();
     }
     
     @WebMethod(operationName = "AddCompany")
-    public Company addCompany() {
+    public Company test_addCompany() {
         IDao dao = ((MetierImpl)metier).getDao();
         Company company = dao.addCompany(new Company("ABC", "0629453838", "mail@mail.com", "la"));
         return company;
     }
     
     @WebMethod(operationName = "AddCategory")
-    public Category addCategory() {
+    public Category test_addCategory() {
         IDao dao = ((MetierImpl)metier).getDao();
         Category category = dao.addCategory(new Category("Python"));
         return category;
     }
     
     @WebMethod(operationName = "AddInternship")
-    public Internship addInternship() {
+    public Internship test_addInternship() {
         IDao dao = ((MetierImpl)metier).getDao();
         Internship internship = dao.addInternship(new Internship("Python Full Stack", "c://ici", "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM", dao.getCompanyByName("Yseop"), dao.getCategoryByName("Python")));
         return internship;
@@ -104,16 +102,12 @@ public class InternshipWS {
     
     @WebMethod(operationName = "debug_getCategories")
     public List<Category> getCategories() {
-        IDao dao = ((MetierImpl)metier).getDao();
-        List<Category> list = dao.getAllCategories();
-        return list;
+        return ((MetierImpl)metier).getCategories();
     }
     
     @WebMethod(operationName = "debug_getCompanies")
     public List<Company> getCompanies() {
-        IDao dao = ((MetierImpl)metier).getDao();
-        List<Company> list = dao.getAllCompanies();
-        return list;
+        return ((MetierImpl)metier).getCompanies();
     }
     
     @WebMethod(operationName = "debug_getInternshipsWhereTitleContains")
@@ -126,9 +120,7 @@ public class InternshipWS {
     
     @WebMethod(operationName = "getInternshipByCriteria")
     public List<Internship> getInternshipByCriteria(String company, String category, String keywords) {
-        IDao dao = ((MetierImpl)metier).getDao();
-        List<Internship> list = dao.getInternshipByCompanyNameCategoryNameWhereTitleContains(company, category, keywords);
-        return list;
+        return ((MetierImpl)metier).getInternshipByCriteria(company, category, keywords);
     }
     
 }
