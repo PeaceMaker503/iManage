@@ -38,7 +38,7 @@
         
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         
-        <form action="Search" method="post">
+        <form action="<%="Search?login=" + request.getParameter("login")%>" method="post">
 		<!-- Sidebar -->
 		<div class="container-fluid">
 		  <div class="row content">

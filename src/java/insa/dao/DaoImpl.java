@@ -358,7 +358,7 @@ public class DaoImpl implements IDao {
                 params.put("company", this.getCompanyByName(companyName));
             }
             if (!categoryName.equals("All")) {
-                if (!(keywords.equals("")) || !categoryName.equals("All")) {
+                if (!(keywords.equals("")) || !(companyName.equals("All"))) {
                     query += " and i.id_category = :category";
                 } else {
                     query += "i.id_category = :category";
