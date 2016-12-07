@@ -1,3 +1,4 @@
+
 <%-- 
     Document   : profile
     Created on : 5 nov. 2016, 22:51:00
@@ -33,37 +34,25 @@
 			  <!-- edit form column -->
 			  <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
 				<h3>Personal Info</h3>
-				<form class="form-horizontal" role="form">
+				<form class="form-horizontal" method="post">
 				  <div class="form-group">
-					<label class="col-lg-3 control-label">First name</label>
+					<label class="col-lg-3 control-label" for="firstname">First name</label>
 					<div class="col-lg-8">
-					  <input class="form-control" value="<c:out value="${userProfile.firstName}"/>" type="text">
+					  <input class="form-control" id="firstname" name="firstname" value="<c:out value="${userProfile.firstName}"/>" type="text">
 					</div>
 				  </div>
 				  <div class="form-group">
-					<label class="col-lg-3 control-label">Last name</label>
+					<label class="col-lg-3 control-label" for="lastname" >Last name</label>
 					<div class="col-lg-8">
-					  <input class="form-control" value="<c:out value="${userProfile.lastName}"/>" type="text">
+					  <input class="form-control" id="lastname" name="lastname" value="<c:out value="${userProfile.lastName}"/>" type="text">
 					</div>
 				  </div>
 				  <div class="form-group">
-					<label class="col-lg-3 control-label">Phone</label>
+					<label class="col-lg-3 control-label" for="phone" >Phone</label>
 					<div class="col-lg-8">
-					  <input class="form-control" value="<c:out value="${userProfile.phone}"/>" type="text">
+					  <input class="form-control" id="phone" name="phone" value="<c:out value="${userProfile.phone}"/>" type="text">
 					</div>
 				  </div>
-				  <!--div class="form-group">
-					<label class="col-md-3 control-label">Password:</label>
-					<div class="col-md-8">
-					  <input class="form-control" value="11111122333" type="password">
-					</div>
-				  </div>
-				  <div class="form-group">
-					<label class="col-md-3 control-label">Confirm password:</label>
-					<div class="col-md-8">
-					  <input class="form-control" value="11111122333" type="password">
-					</div>
-				  </div-->
                   <div class="form-group">
 					<label class="col-lg-3 control-label" for="mail">Email address</label>
 					<div class="col-lg-8">
@@ -80,7 +69,7 @@
 				  <div class="form-group">
 					<label class="col-md-3 control-label"></label>
 					<div class="col-md-8">
-					  <input class="btn btn-primary" value="Save Changes" type="button">
+					  <input class="btn btn-primary" value="Save Changes" type="submit">
 					  <span></span>
 					  <input class="btn btn-default" value="Cancel" type="reset">
 					  <input class="btn btn-danger" value="Delete Account" type="button">

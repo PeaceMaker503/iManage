@@ -46,8 +46,7 @@ public class MetierImpl implements IMetier {
 	{
 		return dao.getUserAccountByLogin(login);
 	}
-	
-	    
+		    
     public UserAccount addUserAccount(String login , String password, String mail)
     {
         UserAccount ua = new UserAccount(login, password, mail);
@@ -59,7 +58,7 @@ public class MetierImpl implements IMetier {
     {
         return dao.deleteUserProfileById(id);
     }
-    
+	    
     @Override
     public UserAccount linkUserProfile(String login, UserProfile up)
     {

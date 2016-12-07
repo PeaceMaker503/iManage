@@ -15,6 +15,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.Pattern;
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 
 /**
  *
@@ -33,8 +35,11 @@ public class UserAccount implements Serializable {
     @Column(unique=true)
     private String mail; 
     private String password;
+	
+	
     @OneToOne
     @JoinColumn(referencedColumnName="id")
+	@Cascade(CascadeType.DELETE)
     private UserProfile id_profile;
     
     public UserAccount() {}

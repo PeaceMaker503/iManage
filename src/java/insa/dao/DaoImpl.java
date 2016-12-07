@@ -49,7 +49,7 @@ public class DaoImpl implements IDao {
     }
     
     @Override
-     public UserProfile addUserProfile(UserProfile userProfile)
+    public UserProfile addUserProfile(UserProfile userProfile)
     {
         Long id = hibernateManager.addObjectToDatabase(userProfile);
         if(id != null)

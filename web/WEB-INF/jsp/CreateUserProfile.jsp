@@ -45,12 +45,12 @@
                           <!-- edit form column -->
 			  <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
 				<h3>Personal Info</h3>
-                                <form class="form-horizontal" method="post" action="<%=request.getContextPath()+"/CreateUserProfile?login=" + request.getParameter("login")%>">
+                <form class="form-horizontal" method="post" action="<%=request.getContextPath()+"/CreateUserProfile?login=" + request.getParameter("login")%>">
 				  <div class="form-group">
-                                       <label class="col-lg-3 control-label" for="lastname">Lastname</label>
-                                       <div class="col-lg-8">
-                                            <input class="form-control" id="lastname" name="lastname" type="text">
-                                       </div>
+                    <label class="col-lg-3 control-label" for="lastname">Lastname</label>
+                    <div class="col-lg-8">
+                      <input class="form-control" id="lastname" name="lastname" type="text">
+                    </div>
 				  </div>
 				  <div class="form-group">
 					<label class="col-lg-3 control-label" for="firstname">Firstname</label>

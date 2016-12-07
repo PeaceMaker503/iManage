@@ -46,7 +46,8 @@ public class UserProfileWS
         //TODO write your implementation code here:
         return metier.deleteUserProfile(id);
     }
-
+	
+	
 	/**
 	 * Web service operation
 	 */
@@ -59,6 +60,9 @@ public class UserProfileWS
 	public UserAccount getUserAccountByLogin(@WebParam(name = "login") String login) {
 		return metier.getUserAccountByLogin(login);
 	}
+	
+	
+	
 	
 
 }
