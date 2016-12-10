@@ -60,7 +60,16 @@ public class Search extends HttpServlet {
         byte[] bytesCat = category.getBytes(StandardCharsets.ISO_8859_1);
         category = new String(bytesCat, StandardCharsets.UTF_8);
         
-        request.setAttribute("test", "keywords: " + keywords + "\tcompany: " + company + "\tcategory: " + category);
+        request.setAttribute("keywords", keywords.toUpperCase());
+        if (company.equals("All"))
+            request.setAttribute("company", "ALL COMPANIES");
+        else
+            request.setAttribute("company", company.toUpperCase());
+        if (category.equals("All"))
+            request.setAttribute("category", "ALL CATEGORIES");
+        else
+            request.setAttribute("category", category.toUpperCase());
+        
         request.setAttribute("internshipList", InternshipService.getInternshipByCriteria(company, category, keywords));
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
     }

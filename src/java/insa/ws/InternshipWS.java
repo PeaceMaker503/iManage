@@ -75,7 +75,7 @@ public class InternshipWS {
     @WebMethod(operationName = "AddCompany")
     public Company test_addCompany() {
         IDao dao = ((MetierImpl)metier).getDao();
-        Company company = dao.addCompany(new Company("ABC", "0629453838", "mail@mail.com", "la"));
+        Company company = dao.addCompany(new Company("é", "0629453838", "mail@mail.com", "la"));
         return company;
     }
     
