@@ -44,17 +44,15 @@
 				<br>
 				<form method="post" action="<%="Upload?login=" + request.getParameter("login")%>" enctype="multipart/form-data" >
 						<label class="col-lg-3 control-label" for="cv">Cover Letter</label>
-						<input type="file" accept="application/pdf" name="file" id="file" class="btn btn-default" />
+						<input style="display:inline;" type="file" accept="application/pdf" name="file" id="file" class="btn btn-default" />
 						
 						<c:if test="${userProfile.cvPath != null}">
-							<a href="<%=request.getContextPath()+"/Pdf?path="%>${userProfile.cvPath}" target="_blank" class="btn btn-default" role="button" aria-pressed="true">View PDF</a>
+							<a style="display:inline;" href="<%=request.getContextPath()+"/Pdf?path="%>${userProfile.cvPath}" target="_blank" class="btn btn-default" role="button" aria-pressed="true">View PDF</a>
 						</c:if>					
 						
 						<input type="submit" class="btn btn-default" onclick="buttonSubmitClicked(event)" value="Upload Cover Letter"  name="upload" id="upload" />
 				</form>	
-				
-				
-				
+				<br>				
 				<form class="form-horizontal" method="post">
 				  <div class="form-group">
 					<label class="col-lg-3 control-label" for="Me">Title</label>
