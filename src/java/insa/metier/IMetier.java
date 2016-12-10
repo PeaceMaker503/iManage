@@ -26,6 +26,7 @@ public interface IMetier
 	public UserAccount deleteUserAccountById(Long id);
     public UserAccount linkUserProfile(String login, UserProfile up);
     public UserProfile deleteUserProfile(Long id);
+	public UserProfile updateUserProfile(UserProfile userProfile);
     public List<Internship> searchInternship();
     public List<Category> getCategories();
     public List<Company> getCompanies();

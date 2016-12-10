@@ -64,6 +64,12 @@ public class MetierImpl implements IMetier {
     {
         return dao.deleteUserProfileById(id);
     }
+	
+	@Override 
+	public UserProfile updateUserProfile(UserProfile userProfile) 
+	{
+		return dao.updateUserProfile(userProfile);
+	}
 	    
     @Override
     public UserAccount linkUserProfile(String login, UserProfile up)
