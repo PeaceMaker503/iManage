@@ -41,7 +41,7 @@
 							<a href="<%=request.getContextPath()+"/Pdf?path="%>${userProfile.cvPath}" target="_blank" class="btn btn-default" role="button" aria-pressed="true">View PDF</a>
 						</c:if>					
 						
-						<input type="submit" class="btn btn-default" value="Upload CV" name="upload" id="upload" />
+						<input type="submit" class="btn btn-default" onclick="buttonSubmitClicked(event)" value="Upload CV"  name="upload" id="upload" />
 					</form>				
 				</div>
 			  </div>
@@ -95,5 +95,16 @@
     <script>
     $('#profile').addClass('active');
     </script>
+	
+	
+	<script>
+		function buttonSubmitClicked(event) {
+
+			if (!document.getElementById("file").value) {
+				event.preventDefault();
+				alert("Please choose a file!");
+			}
+		}
+	</script>
 
 </html>
