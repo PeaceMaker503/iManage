@@ -14,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
 /**
@@ -29,17 +30,21 @@ public class UserProfile implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
+    @NotNull
     private String lastName;
-    
+    @NotNull
     private String firstName;
     
+    @NotNull
     @Column(columnDefinition="char(10)")
     @Pattern(regexp="[0-9]{10}")
     private String phone;
     
+    @NotNull
     @Pattern(regexp="[0-9A-Za-z_]+[@][0-9A-Za-z_]+[.][0-9A-Za-z_]+")
     private String mail;
     
+    @NotNull
     @Column(unique=true)
     private String cvPath;
     

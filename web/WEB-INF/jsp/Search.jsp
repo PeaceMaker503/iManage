@@ -20,10 +20,13 @@
        
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
+       
         <!-- Custom CSS -->
         <link href="/iManage/Web-Content/StyleHome/css/landing-page.css" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="/iManage/Web-Content/search-page.css">
+        <link rel="stylesheet" type="text/css" href="/iManage/Web-Content/search-page.css">         
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+
         
         <!-- Custom Fonts -->
         <link href="/iManage/Web-Content/StyleHome/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
@@ -43,29 +46,39 @@
 		<div class="container-fluid">
                     <div class="row content">
                         <div class="col-sm-2 sidenav">
-			Company : 
-                        <select name="selectCompany">
-                            <option>All</option> 
-                            <c:forEach var="element" items="${companyList}">
-                                <option>${element.name}</option> 
-                            </c:forEach>
-                        </select>
-                        Category : 
-                        <select name="selectCategory">
-                            <option>All</option> 
-                            <c:forEach var="element" items="${categoryList}">
-                                <option>${element.name}</option> 
-                            </c:forEach>
-                        </select>
-                        <!-- Search Engine -->
-                        <div class="input-group" >
-                            <input type="text" name="keywords" class="form-control" placeholder="Search Internship by Tag..">
-                            <span class="input-group-btn">
-                            </span>
+                            <div class="title-criteria">
+                                   Company
+                            </div>
+                 
+                            <select class="selectpicker col-xs-12" name="selectCompany" data-style="btn-primary" >
+                                <option>All</option> 
+                                <c:forEach var="element" items="${companyList}">
+                                    <option>${element.name}</option> 
+                                </c:forEach>
+                            </select>
+                            <div class="title-criteria">
+                                   Category
+                            </div> 
+                            <select name="selectCategory" class="selectpicker col-xs-12" data-style="btn-info">
+                                <option>All</option> 
+                                <c:forEach var="element" items="${categoryList}">
+                                    <option>${element.name}</option> 
+                                </c:forEach>
+                            </select>
+                            <!-- Search Engine -->
+                            <div class="form-group col-xs-12">
+                                <div class="title-criteria">
+                                   Keywords
+                                </div>
+                                <input type="text" name="keywords" class="form-control" placeholder="Search Internship by Tag..">
+                                <span class="input-group-btn">
+                                </span>
+                            </div>
+                            <div class="col-xs-12">
+                                <input id="paramButton"  class="btn btn-secondary col-xs-12" type="submit" value="Rechercher" style="margin-top:20px"/>
+                            </div>
+                            
                         </div>
-                        <br /><br />
-                        <input id="paramButton" type="submit" value="Rechercher" style="margin-left: 9%;"/>
-                    </div>
 
                       
 		<!-- Internship Offers --> 		
