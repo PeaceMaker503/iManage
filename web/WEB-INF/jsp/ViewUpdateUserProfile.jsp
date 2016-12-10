@@ -35,7 +35,7 @@
 				<div class="col-md-4 col-sm-6 col-xs-12">				
 					<form method="post" action="<%="Upload?login=" + request.getParameter("login")%>" enctype="multipart/form-data" >
 						<label class="col-lg-3 control-label" for="cv">CV</label>
-						<input type="file" name="file" id="file" class="btn btn-default" />
+						<input type="file" accept="application/pdf" name="file" id="file" class="btn btn-default" />
 						
 						<c:if test="${userProfile.cvPath != null}">
 							<a href="<%=request.getContextPath()+"/Pdf?path="%>${userProfile.cvPath}" target="_blank" class="btn btn-default" role="button" aria-pressed="true">View PDF</a>

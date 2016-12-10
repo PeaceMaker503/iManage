@@ -14,9 +14,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 
-/**
- * File upload servlet example
- */
 @WebServlet(name = "FileUploadServlet", urlPatterns = {"/Upload"})
 @MultipartConfig
 public class FileUploadServlet extends HttpServlet {
@@ -26,16 +23,6 @@ public class FileUploadServlet extends HttpServlet {
     private final static Logger LOGGER =
             Logger.getLogger(FileUploadServlet.class.getCanonicalName());
 
-    /**
-     * Processes requests for both HTTP
-     * <code>GET</code> and
-     * <code>POST</code> methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request,
             HttpServletResponse response)
             throws ServletException, IOException {
@@ -53,30 +40,12 @@ public class FileUploadServlet extends HttpServlet {
         return null;
     }
 
-    /**
-     * Handles the HTTP
-     * <code>GET</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
-    /**
-     * Handles the HTTP
-     * <code>POST</code> method.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -85,7 +54,6 @@ public class FileUploadServlet extends HttpServlet {
         final String path = "/home/prmm95/NetBeansProjects/iManage/static/pdf";
         final Part filePart = request.getPart("file");
         final String fileName = "cv_" + request.getParameter("login") + ".pdf";
-		System.out.println(request.getParameter("login"));
 		long userProfileID = userProfileService.getUserAccountByLogin("prmm95").getId_profile().getId();
 		UserProfile userProfile = userProfileService.getUserProfileById(userProfileID);
 		userProfile.setCvPath(path + "/" + fileName);		
@@ -99,10 +67,10 @@ public class FileUploadServlet extends HttpServlet {
             out = new FileOutputStream(new File(path + File.separator
                     + fileName));
             filecontent = filePart.getInputStream();
-
-            int read = 0;
-            final byte[] bytes = new byte[1024];
-
+			
+			int read = 0;
+			final byte[] bytes = new byte[1024];
+	
             while ((read = filecontent.read(bytes)) != -1) {
                 out.write(bytes, 0, read);
             }
@@ -130,15 +98,5 @@ public class FileUploadServlet extends HttpServlet {
                 writer.close();
             }
         }
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
-    @Override
-    public String getServletInfo() {
-        return "Servlet that uploads files to a user-defined destination";
     }
 }
