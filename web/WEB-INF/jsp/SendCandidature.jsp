@@ -41,17 +41,6 @@
 			  <!-- edit form column -->
 			  <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
 				<h3>Offer: (Name of the offer) - # XXXX</h3>
-				<br>
-				<form method="post" action="<%="Upload?login=" + request.getParameter("login")%>" enctype="multipart/form-data" >
-						<label class="col-lg-3 control-label" for="cv">Cover Letter</label>
-						<input style="display:inline;" type="file" accept="application/pdf" name="file" id="file" class="btn btn-default" />
-						
-						<c:if test="${userProfile.cvPath != null}">
-							<a style="display:inline;" href="<%=request.getContextPath()+"/Pdf?path="%>${userProfile.cvPath}" target="_blank" class="btn btn-default" role="button" aria-pressed="true">View PDF</a>
-						</c:if>					
-						
-						<input type="submit" class="btn btn-default" onclick="buttonSubmitClicked(event)" value="Upload Cover Letter"  name="upload" id="upload" />
-				</form>	
 				<br>				
 				<form class="form-horizontal" method="post">
 				  <div class="form-group">
@@ -59,20 +48,23 @@
 					<div class="col-lg-8">
 					  <input class="form-control" id="firstname" name="firstname" value="<c:out value="${userProfile.firstName}"/>" type="text">
 					</div>
-					<br><br><br>
-					<div class="form-group">
+				  </div>
+				  <div class="form-group">
 					<label class="col-lg-3 control-label" for="mail">Message</label>
 					<div class="col-lg-8">
-                        <textarea rows="4" cols="50" class="form-control" name="comment" form="usrform">Enter text here...</textarea>
+                        <textarea rows="4" cols="50" class="form-control" name="comment" form="usrform"></textarea>
 					</div>
 				  </div> 
+				  <div class="form-group">
+					<label class="col-lg-3 control-label" for="cv">Cover Letter</label>
+					<div class="col-lg-8">
+						<input style="display:inline;" type="file" accept="application/pdf" name="file" id="file" class="btn btn-default" />
+					</div>	
 				  </div>
 				  <div class="form-group">
 					<label class="col-md-3 control-label"></label>
 					<div class="col-md-8">
-					  <input class="btn btn-primary" value="Save Changes" type="submit" name="saveChanges">
-					  <span></span>
-					  <input class="btn btn-default" value="Cancel" type="reset">
+					  <input class="btn btn-primary" value="Send candidature" type="submit" name="saveChanges">
 					</div>
 				  </div>
 				</form>
