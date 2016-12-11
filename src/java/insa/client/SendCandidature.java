@@ -72,7 +72,12 @@ public class SendCandidature extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		processRequest(request, response);
+		System.out.println(request.getParameter("title"));
+		System.out.println(request.getParameter("message"));
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidatures.jsp").forward(request, response);
+		// Verify if a file was sent 
+		// Save the file on the correct path 
+		// Create the candidature object and make the foreign keys
 	}
 
 	/**

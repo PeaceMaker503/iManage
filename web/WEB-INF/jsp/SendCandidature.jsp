@@ -44,15 +44,15 @@
 				<br>				
 				<form class="form-horizontal" method="post">
 				  <div class="form-group">
-					<label class="col-lg-3 control-label" for="Me">Title</label>
+					<label class="col-lg-3 control-label" for="title">Title</label>
 					<div class="col-lg-8">
-					  <input class="form-control" id="firstname" name="firstname" value="<c:out value="${userProfile.firstName}"/>" type="text">
+					  <input class="form-control" id="title" name="title" type="text">
 					</div>
 				  </div>
 				  <div class="form-group">
-					<label class="col-lg-3 control-label" for="mail">Message</label>
+					<label class="col-lg-3 control-label" for="message">Message</label>
 					<div class="col-lg-8">
-                        <textarea rows="4" cols="50" class="form-control" name="comment" form="usrform"></textarea>
+                      <textarea rows="4" cols="50" class="form-control" id="message" name="message"></textarea>
 					</div>
 				  </div> 
 				  <div class="form-group">
@@ -64,7 +64,7 @@
 				  <div class="form-group">
 					<label class="col-md-3 control-label"></label>
 					<div class="col-md-8">
-					  <input class="btn btn-primary" value="Send candidature" type="submit" name="saveChanges">
+					  <input class="btn btn-primary" value="Send candidature" type="submit" name="sendCandidature" onclick="buttonSubmitClicked(event)">
 					</div>
 				  </div>
 				</form>
@@ -73,6 +73,7 @@
 		</div>		
 		
 		<jsp:include page="./Footer.jsp"/>
+		
     </body>
 	
 	    <script>
