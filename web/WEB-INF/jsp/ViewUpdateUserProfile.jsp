@@ -25,15 +25,9 @@
         <div class="container" style="padding-top: 0px; padding-bottom: 10px;">
 			<h1 class="page-header">Edit Profile</h1>
 			<div class="row">
-			  <!-- left column -->
-			  <div class="col-md-4 col-sm-6 col-xs-12">
-				<div class="text-center">
-				  <img src="/iManage/Web-Content/StyleViewUpdateUserProfile/img/User.png" class="avatar img-circle img-thumbnail" alt="avatar", style="height: 200px;">
-				</div>
-			  </div>
+				
 			  <!-- edit form column -->
 			  <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
-				<h3>Personal Info</h3>
 				<form class="form-horizontal" method="post">
 				  <div class="form-group">
 					<label class="col-lg-3 control-label" for="firstname">First name</label>
@@ -58,18 +52,11 @@
 					<div class="col-lg-8">
                         <input type="email" id="mail" name="mail" class="form-control" value="<c:out value="${userProfile.mail}"/>">
 					</div>
-				  </div>
-				  <div class="form-group">
-					<label class="col-lg-3 control-label" for="cv">CV</label>
-					<div class="col-lg-8">
-                        <input type="file" class="text-center center-block well well-sm">
-					</div>
-				  </div>
-				  
+				  </div> 
 				  <div class="form-group">
 					<label class="col-md-3 control-label"></label>
 					<div class="col-md-8">
-					  <input class="btn btn-primary" value="Save Changes" type="submit">
+					  <input class="btn btn-primary" value="Save Changes" type="submit" name="saveChanges">
 					  <span></span>
 					  <input class="btn btn-default" value="Cancel" type="reset">
 					  <a class="btn btn-danger" href="<%=request.getContextPath()+"/DeleteAccount?login=" + request.getParameter("login")%>"/>Delete Account</a>
@@ -77,19 +64,47 @@
 				  </div>
 				</form>
 			  </div>
+					
+			  <div class="col-md-4 col-sm-6 col-xs-12">
+				<br>
+				<div class="col-md-4 col-sm-6 col-xs-12">				
+					<form method="post" action="<%="Upload?login=" + request.getParameter("login")%>" enctype="multipart/form-data" >
+						<label class="col-lg-3 control-label" for="cv">Curriculum Vitae</label>
+						<input type="file" accept="application/pdf" name="file" id="file" class="btn btn-default" />
+						<br>
+						<c:if test="${userProfile.cvPath != null}">
+							<a style="display:inline;" href="<%=request.getContextPath()+"/Pdf?path="%>${userProfile.cvPath}" target="_blank" class="btn btn-default" role="button" aria-pressed="true">View PDF</a>
+						</c:if>			
+						<br>
+						<br>
+						<input style="display:inline;" type="submit" class="btn btn-default" onclick="buttonSubmitClicked(event)" value="Upload CV"  name="upload" id="upload" />
+					</form>				
+				</div>
+			  </div>	
+					
+					
+					
+					
 			</div>
 		</div>
-		
+							
 	<jsp:include page="./Footer.jsp"/>
 		
     </body>
     
-     <script>
+    <script>
     $('#profile').addClass('active');
-   </script>
+    </script>
+	
+	
+	<script>
+		function buttonSubmitClicked(event) {
+
+			if (!document.getElementById("file").value) {
+				event.preventDefault();
+				alert("Please choose a file!");
+			}
+		}
+	</script>
 
 </html>
-
-<!--
-	supprimer account.
--->
