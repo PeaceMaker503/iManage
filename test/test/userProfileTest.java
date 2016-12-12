@@ -47,7 +47,7 @@ public class userProfileTest {
     public void AddUserAccountAlreadyExistTest()
     {
         //compte déjà présent dans la bdd
-        UserAccount u = metier.addUserAccount("monlogin", "mail@m.fr", "toto");
+        UserAccount u = metier.addUserAccount("user", "user@mail.com", "passwd");
         assertTrue(u == null);
     }
     
@@ -71,7 +71,7 @@ public class userProfileTest {
     public void AddUserProfileTest()
     {
         /* Nouveau profile*/
-        UserProfile u = metier.addUserProfile("Steve", "Job", "job@vacheALait.com", "0614895030", "home/apple.pdf");
+        UserProfile u = metier.addUserProfile("Steve", "Job", "apple@vacheALait.com", "0614895030", "home/apple.pdf");
         assertTrue(u != null);
     }
     
@@ -79,7 +79,7 @@ public class userProfileTest {
     public void AddUserProfileAlreadyExistTest()
     {
         /*profile déja existant*/
-        UserProfile u = metier.addUserProfile("Steve", "Job", "job@vacheALait.com", "0614895030", "home/apple.pdf");
+        UserProfile u = metier.addUserProfile("fname", "lname", "user2@mail.com", "0494668842", "/home/file.pdf");
         assertTrue(u == null);
     }
     
