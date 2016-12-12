@@ -6,6 +6,7 @@
 package insa.metier;
 
 import insa.dao.IDao;
+import insa.db.Candidature;
 import insa.db.Category;
 import insa.db.Company;
 import insa.db.Internship;
@@ -31,4 +32,12 @@ public interface IMetier
     public List<Category> getCategories();
     public List<Company> getCompanies();
     public List<Internship> getInternshipByCriteria(String company, String category, String keywords);
+	
+	public Candidature getCandidatureById(Long id);
+    public Candidature addCandidature(Candidature candidature);
+    public Candidature deleteCandidatureById(Long id);
+    public Candidature updateCandidature(Candidature candidature);
+	
+	
+	
 }
