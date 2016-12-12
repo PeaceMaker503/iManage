@@ -67,17 +67,15 @@
 					
 			  <div class="col-md-4 col-sm-6 col-xs-12">
 				<br>
-				<div class="col-md-4 col-sm-6 col-xs-12">				
+				<div class="col-xs-12">				
 					<form method="post" action="<%="Upload?login=" + request.getParameter("login")%>" enctype="multipart/form-data" >
-						<label class="col-lg-3 control-label" for="cv">Curriculum Vitae</label>
+						<label class="col-xs-12 control-label" for="cv">Curriculum Vitae</label>
 						<input type="file" accept="application/pdf" name="file" id="file" class="btn btn-default" />
 						<br>
 						<c:if test="${userProfile.cvPath != null}">
-							<a style="display:inline;" href="<%=request.getContextPath()+"/Pdf?path="%>${userProfile.cvPath}" target="_blank" class="btn btn-default" role="button" aria-pressed="true">View PDF</a>
+							<a class="col-xs-5 btn btn-default" style="display:inline;" href="<%=request.getContextPath()+"/Pdf?path="%>${userProfile.cvPath}" target="_blank" role="button" aria-pressed="true">View CV</a>
 						</c:if>			
-						<br>
-						<br>
-						<input style="display:inline;" type="submit" class="btn btn-default" onclick="buttonSubmitClicked(event)" value="Upload CV"  name="upload" id="upload" />
+						<input class="col-xs-push-1 col-xs-6 btn btn-default" style="display:inline;" type="submit" onclick="buttonSubmitClicked(event)" value="Upload CV"  name="upload" id="upload" />
 					</form>				
 				</div>
 			  </div>	
