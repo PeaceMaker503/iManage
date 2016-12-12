@@ -47,6 +47,11 @@ public class UserProfileWS
         return metier.deleteUserProfile(id);
     }
 	
+	@WebMethod(operationName = "updateUserProfile")
+	public UserProfile updateUserProfile(UserProfile userProfile) 
+	{
+		return metier.updateUserProfile(userProfile);
+	}
 	
 	@WebMethod(operationName = "deleteUserAccount")
 	public UserAccount deleteUserAccountById(Long id) {

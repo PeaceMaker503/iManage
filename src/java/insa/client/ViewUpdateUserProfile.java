@@ -38,22 +38,15 @@ public class ViewUpdateUserProfile extends HttpServlet
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-		String lastname = request.getParameter("lastname");
-        String firstname = request.getParameter("firstname");
-        String phone = request.getParameter("phone");
-        String mail = request.getParameter("mail");
-        String cvPath = request.getParameter("cvPath");
-		String login = request.getParameter("login");
-		
 		UserAccount userAccount = userProfileService.getUserAccountByLogin(request.getParameter("login")); 
-		long oldProfileID = userAccount.getId_profile().getId();
-		
-		// Create new profile and link it 
-		UserProfile userPro = userProfileService.addUserProfile(firstname, lastname, phone, cvPath, mail);
-        UserAccount ua = userAccountService.linkUserProfile(login, userPro);
-		long userProfileID2 = userProfileService.getUserAccountByLogin(request.getParameter("login")).getId_profile().getId();
-        request.setAttribute("userProfile",userProfileService.getUserProfileById(userProfileID2));
-		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ViewUpdateUserProfile.jsp").forward(request, response);
-		userProfileService.deleteUserProfile(oldProfileID);
+		long userProfileID = userAccount.getId_profile().getId();
+		UserProfile userProfile = userProfileService.getUserProfileById(userProfileID);
+		userProfile.setFirstName(request.getParameter("firstname"));
+		userProfile.setLastName(request.getParameter("lastname"));
+		userProfile.setPhone(request.getParameter("phone"));
+		userProfile.setMail(request.getParameter("mail"));
+		userProfileService.updateUserProfile(userProfile);
+		request.setAttribute("userProfile",userProfile);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ViewUpdateUserProfile.jsp").forward(request,response);
     }
 }
