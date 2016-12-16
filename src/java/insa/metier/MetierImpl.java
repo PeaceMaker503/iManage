@@ -117,4 +117,25 @@ public class MetierImpl implements IMetier {
         List<Internship> list = dao.getInternshipByCompanyNameCategoryNameWhereTitleContains(company, category, keywords);
         return list;
     }
+	
+	public Message getCandidatureById(Long id) {
+		return dao.getCandidatureById(id);
+	}
+	
+    public Message addCandidature(Message candidature) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+	
+    public Message deleteCandidatureById(Long id) {
+		return dao.deleteCandidatureById(id);		
+	}
+	
+    public Message updateCandidature(Message candidature) {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+	
+	public Internship getInternshipByID(long id) {
+		return dao.getInternshipById(id);
+	}
+	
 }

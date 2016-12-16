@@ -122,5 +122,10 @@ public class InternshipWS {
     public List<Internship> getInternshipByCriteria(String company, String category, String keywords) {
         return ((MetierImpl)metier).getInternshipByCriteria(company, category, keywords);
     }
+	
+	@WebMethod(operationName = "getInternshipByID")
+	public Internship getInternshipByID(long id) {
+		return ((MetierImpl)metier).getInternshipByID(id);
+	}
     
 }

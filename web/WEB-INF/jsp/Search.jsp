@@ -111,7 +111,7 @@
                     <br><br>
 
                     <a href="<%=request.getContextPath()+"/Pdf?path="%>${internship.pdfPath}" target="_blank" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">View PDF</a>
-                    <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
+                    <a href="<%=request.getContextPath()+"/SendCandidature?login=" + request.getParameter("login")%>&offer_id=${internship.id}"  class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
                       </li><br/>
                   </c:forEach>
                     </ul>

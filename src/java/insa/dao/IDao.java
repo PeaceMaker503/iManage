@@ -50,5 +50,10 @@ public interface IDao {
     public Category deleteCategoryById(Long id);
     public Category updateCategory(Category category);
     public List<Category> getAllCategories();
+	
+	public Message getCandidatureById(Long id);
+    public Message addCandidature(Message candidature);
+    public Message deleteCandidatureById(Long id);
+    public Message updateCandidature(Message candidature);
     
 }
