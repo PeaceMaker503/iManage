@@ -144,12 +144,21 @@ public class userProfileTest {
         assertTrue(listInternship.size() == 4);
     }
     
-     @Test
+    @Test
     public void getInternshipByCriteriaTest()
     {
         /*recherche stage dans la catégorie biologie*/
-        List<Internship> listInternship = metier.getInternshipByCriteria("", "biologie", "");
+        List<Internship> listInternship = metier.getInternshipByCriteria("All", "biologie", "");
         //System.out.println("************* size internship list :" + listInternship.size());
-        assertTrue(listInternship.size() == 0);
+        assertTrue(listInternship.get(0).getName().equals( "amelioration nouvelle enzyme"));
+    }
+    
+    @Test
+    public void getInternshipByCriteriaCategoryNotExistTest()
+    {
+        /*recherche stage dans la catégorie biologie*/
+        List<Internship> listInternship = metier.getInternshipByCriteria("All", "math", "");
+        //System.out.println("************* size internship list :" + listInternship.size());
+        assertTrue(listInternship.size()==0);
     }
 }
