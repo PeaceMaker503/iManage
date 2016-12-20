@@ -40,8 +40,8 @@ public interface IMetier
 =======*/
     public UserProfile updateUserProfile(UserProfile userProfile);
         
-	// Candidatures:
-	public Message getCandidatureById(Long id);
+    // Candidatures:
+    public Message getCandidatureById(Long id);
     public Message addCandidature(Message candidature);
     public Message deleteCandidatureById(Long id);
     public Message updateCandidature(Message candidature);

@@ -7,6 +7,7 @@ package test;
 
 //import insa.db.UserAccount;
 import insa.db.*;
+import java.util.List;
 import insa.metier.MetierImpl;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
@@ -132,5 +133,23 @@ public class userProfileTest {
         /*profil déjà existant*/
         UserProfile up = metier.getUserProfileUsingAccountLogin("BelleFontaine");
         assertTrue(up != null);
+    }
+    
+    @Test
+    public void searchInternshipTest()
+    {
+        /*recherche l'ensemble des stages*/
+        List<Internship> listInternship = metier.searchInternship();
+        //System.out.println("************* size internship list :" + listInternship.size());
+        assertTrue(listInternship.size() == 4);
+    }
+    
+     @Test
+    public void getInternshipByCriteriaTest()
+    {
+        /*recherche stage dans la catégorie biologie*/
+        List<Internship> listInternship = metier.getInternshipByCriteria("", "biologie", "");
+        //System.out.println("************* size internship list :" + listInternship.size());
+        assertTrue(listInternship.size() == 0);
     }
 }

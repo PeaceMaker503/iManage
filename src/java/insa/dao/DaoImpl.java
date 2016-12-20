@@ -411,7 +411,7 @@ public class DaoImpl implements IDao {
                 params.put("category", this.getCategoryByName(categoryName));
             }
         }
-        System.out.println("QUERY : " + query);
+        System.out.println("=============================QUERY : " + query);
         List<Internship> list = hibernateManager.execute(query, params, Internship.class);
         if(list != null)
             return list;
