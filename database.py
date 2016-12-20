@@ -6,11 +6,17 @@ import pymysql
 
 listTables = ['UserAccount', 'Internship', 'Company', 'Category', 'UserProfile']
 
-userAccount = {
-	'name':'user',
-	'password' : 'passwd',
-	'mail' : 'user@mail.com'
-}
+#userAccount = {
+#	'name':'user',
+#	'password' : 'passwd',
+#	'mail' : 'user@mail.com'
+#}
+
+#UserAccountToDelete = {
+#	'name':'ichigo',
+#	'password' : 'bleach',
+#	'mail' : 'manga@cool.com'
+#}
 
 userProfile = {
 	'firstName':'fname',
@@ -36,10 +42,10 @@ class databaseManager:
 			print str(e)
 			self.conn.rollback()
 
-	def addUserAccount(self):
+	def addUserAccount(self,name,password,mail):
 		try:
 			self.cursor.execute(""" INSERT INTO UserAccount (login, password, mail) VALUES ('%s', '%s', '%s'); """ 
-								% (userAccount['name'], userAccount['password'], userAccount['mail']))
+								% (name, password,mail))
 			self.conn.commit()
 		except Exception as e:
 			print str(e)
@@ -57,5 +63,8 @@ class databaseManager:
 if __name__ == '__main__':
 	d1= databaseManager()
 	d1.emptyDatase()
-	d1.addUserAccount()
+	#new account 
+	d1.addUserAccount("user","passwd","user@mail.com")
+	#account to delete
+	d1.addUserAccount("ichigo","bleach","manga@cool.com")
 	d1.addUserProfile()

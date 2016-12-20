@@ -71,7 +71,7 @@ public class userProfileTest {
     public void AddUserProfileTest()
     {
         /* Nouveau profile*/
-        UserProfile u = metier.addUserProfile("Steve", "Job", "apple@vacheALait.com", "0614895030", "home/apple.pdf");
+        UserProfile u = metier.addUserProfile("Steve", "Job", "job@vacheALait.com", "0614895030", "home/apple.pdf");
         assertTrue(u != null);
     }
     
@@ -79,7 +79,7 @@ public class userProfileTest {
     public void AddUserProfileAlreadyExistTest()
     {
         /*profile déja existant*/
-        UserProfile u = metier.addUserProfile("fname", "lname", "user2@mail.com", "0494668842", "/home/file.pdf");
+        UserProfile u = metier.addUserProfile("fname", "fname", "job@vacheALait.com", "0614895030", "/home/file.pdf");
         assertTrue(u == null);
     }
     
@@ -97,5 +97,32 @@ public class userProfileTest {
         /*champs vides*/
         UserProfile u = metier.addUserProfile(null, null, null, null, null);
         assertTrue(u == null);
+    }
+    
+    @Test
+    public void deleteUserAccountByIdNotExistTest()
+    {
+        /*compte non existant d'id 100*/
+        long id = 100;
+        UserAccount ua = metier.deleteUserAccountById(id);
+        assertTrue(ua == null);
+    }
+    
+    @Test
+    public void deleteUserAccountByIdAlreadyExistTest()
+    {
+        /*compte non existant d'id 100*/
+        UserAccount uaTest = metier.getUserAccountByLogin("ichigo");
+        UserAccount ua = metier.deleteUserAccountById(uaTest.getId());
+        assertTrue(ua != null);
+    }
+    
+    @Test
+    public void deleteUserProfileNotExistTest()
+    {
+        /*compte non existant d'id 100*/
+        long id = 100;
+        UserProfile up = metier.deleteUserProfile(id);
+        assertTrue(up == null);
     }
 }
