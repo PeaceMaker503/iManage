@@ -29,7 +29,7 @@ public class UserAccount implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
     @Column(unique=true)
     @NotNull
     private String login;

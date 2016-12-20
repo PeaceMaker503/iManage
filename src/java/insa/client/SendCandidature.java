@@ -5,6 +5,9 @@
  */
 package insa.client;
 
+import insa.db.Internship;
+import insa.ws.InternshipWS;
+import insa.ws.UserProfileWS;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -28,6 +31,9 @@ public class SendCandidature extends HttpServlet {
 	 * @throws ServletException if a servlet-specific error occurs
 	 * @throws IOException if an I/O error occurs
 	 */
+	
+	private static InternshipWS internshipService = new insa.ws.InternshipWS();
+	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
@@ -57,6 +63,12 @@ public class SendCandidature extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		long offer_id = Long.valueOf(request.getParameter("offer_id"));
+		Internship internshipOffer = internshipService.getInternshipByID(offer_id);
+		request.setAttribute("internshipOffer",internshipOffer);
+		request.setAttribute("login",request.getParameter("login"));
+		System.out.println(request.getParameter("login"));
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/SendCandidature.jsp").forward(request, response);
 		
 	}

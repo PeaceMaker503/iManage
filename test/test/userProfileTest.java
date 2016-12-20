@@ -102,8 +102,8 @@ public class userProfileTest {
     @Test
     public void deleteUserAccountByIdNotExistTest()
     {
-        /*compte non existant d'id 100*/
-        long id = 100;
+        /*compte non existant d'id 1000*/
+        long id = 1000;
         UserAccount ua = metier.deleteUserAccountById(id);
         assertTrue(ua == null);
     }
@@ -111,7 +111,7 @@ public class userProfileTest {
     @Test
     public void deleteUserAccountByIdAlreadyExistTest()
     {
-        /*compte non existant d'id 100*/
+        /*compte  existant dont le login est ichigo*/
         UserAccount uaTest = metier.getUserAccountByLogin("ichigo");
         UserAccount ua = metier.deleteUserAccountById(uaTest.getId());
         assertTrue(ua != null);
@@ -120,9 +120,17 @@ public class userProfileTest {
     @Test
     public void deleteUserProfileNotExistTest()
     {
-        /*compte non existant d'id 100*/
-        long id = 100;
+        /*profil non existant d'id 1000*/
+        long id = 1000;
         UserProfile up = metier.deleteUserProfile(id);
         assertTrue(up == null);
+    }
+    
+    @Test
+    public void deleteUserProfileAlreadyExistTest()
+    {
+        /*profil déjà existant*/
+        UserProfile up = metier.getUserProfileUsingAccountLogin("BelleFontaine");
+        assertTrue(up != null);
     }
 }

@@ -5,30 +5,54 @@
  */
 package insa.metier;
 
-import insa.dao.IDao;
+import insa.db.Message;
 import insa.db.Category;
 import insa.db.Company;
 import insa.db.Internship;
 import insa.db.UserProfile;
 import insa.db.UserAccount;
 import java.util.List;
+
 /**
  *
  * @author Halim
  */
+
 public interface IMetier 
 {
-    public UserAccount getUserAccountByLogin(String login);
+	// User accounts: 
+	public UserAccount getUserAccountByLogin(String login);
     public UserAccount verifyUserAccount(String login, String password);
-    public UserProfile getUserProfileById(Long id);
-    public UserProfile addUserProfile(String firstName, String lastName, String mail, String phone, String cvPath);
-    public UserAccount addUserAccount(String login , String mail , String password);
+	public UserAccount addUserAccount(String login , String mail , String password);
     public UserAccount deleteUserAccountById(Long id);
+	
+	// User profiles:
+    public UserProfile getUserProfileById(Long id);
+    public UserProfile getUserProfileUsingAccountLogin(String login);
+    public UserProfile addUserProfile(String firstName, String lastName, String mail, String phone, String cvPath);
     public UserAccount linkUserProfile(String login, UserProfile up);
     public UserProfile deleteUserProfile(Long id);
-	public UserProfile updateUserProdeleteUserProfilefile(UserProfile userProfile);
+/*<<<<<<< HEAD
+    //public UserProfile updateUserProdeleteUserProfilefile(UserProfile userProfile);
     public List<Internship> searchInternship();
     public List<Category> getCategories();
     public List<Company> getCompanies();
+=======*/
+    public UserProfile updateUserProfile(UserProfile userProfile);
+        
+	// Candidatures:
+	public Message getCandidatureById(Long id);
+    public Message addCandidature(Message candidature);
+    public Message deleteCandidatureById(Long id);
+    public Message updateCandidature(Message candidature);
+	
+    // Internships:
+    public Internship getInternshipByID(long id);
+    public List<Internship> searchInternship();
     public List<Internship> getInternshipByCriteria(String company, String category, String keywords);
+	
+    // Companies and categories:
+    public List<Category> getCategories();
+    public List<Company> getCompanies();
+	
 }

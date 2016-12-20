@@ -5,6 +5,7 @@
  */
 package insa.dao;
 
+import insa.db.Message;
 import insa.db.Category;
 import insa.db.Company;
 import insa.db.Internship;
@@ -110,6 +111,12 @@ public class DaoImpl implements IDao {
     public UserProfile getUserProfileById(Long id) {
         return hibernateManager.getObjectFromDatabase(UserProfile.class, id);
     }
+    
+     public UserProfile getUserProfileUsingAccountLogin(String login)
+     {
+         UserAccount ua= this.getUserAccountByLogin(login);
+         return hibernateManager.getObjectFromDatabase(UserProfile.class, ua.getId_profile().getId());
+     }
 
     @Override
     public UserProfile deleteUserProfileById(Long id) {
@@ -247,7 +254,44 @@ public class DaoImpl implements IDao {
         else
             return null;
     }
-    
+	
+	@Override
+	public Message getCandidatureById(Long id) {
+		return hibernateManager.getObjectFromDatabase(Message.class, id);
+	}
+	
+	@Override
+    public Message addCandidature(Message candidature) {
+		Long id = hibernateManager.addObjectToDatabase(candidature);
+        if(id != null)
+        {
+            candidature.setId(id);
+            return candidature;
+        }
+        else
+            return null; 
+	
+	}
+	
+	@Override
+    public Message deleteCandidatureById(Long id) {
+        Message candidature = hibernateManager.getObjectFromDatabase(Message.class, id);
+        boolean res = hibernateManager.deleteObjectFromDatabase(candidature);
+        if(res)
+            return candidature;
+        else
+            return null;	
+	}
+	
+	@Override
+    public Message updateCandidature(Message candidature) {
+		boolean res = hibernateManager.updateObjectInDatabase(candidature);
+        if(res)
+            return candidature;
+        else
+            return null;
+	}	
+	
     @Override
     public List<Internship> getInternshipByCategoryName(String name)
     {
