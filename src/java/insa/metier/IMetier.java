@@ -27,23 +27,31 @@ public interface IMetier
     public UserAccount deleteUserAccountById(Long id);
 	
 	// User profiles:
-	public UserProfile getUserProfileById(Long id);
+    public UserProfile getUserProfileById(Long id);
+    public UserProfile getUserProfileUsingAccountLogin(String login);
     public UserProfile addUserProfile(String firstName, String lastName, String mail, String phone, String cvPath);
     public UserAccount linkUserProfile(String login, UserProfile up);
     public UserProfile deleteUserProfile(Long id);
-	public UserProfile updateUserProfile(UserProfile userProfile);
+/*<<<<<<< HEAD
+    //public UserProfile updateUserProdeleteUserProfilefile(UserProfile userProfile);
+    public List<Internship> searchInternship();
+    public List<Category> getCategories();
+    public List<Company> getCompanies();
+=======*/
+    public UserProfile updateUserProfile(UserProfile userProfile);
         
-	// Candidatures:
-	public Message getCandidatureById(Long id);
+    // Candidatures:
+    public Message getCandidatureById(Long id);
     public Message addCandidature(Message candidature);
     public Message deleteCandidatureById(Long id);
     public Message updateCandidature(Message candidature);
 	
-	// Internships:
-	public Internship getInternshipByID(long id);
-	public List<Internship> searchInternship();
+    // Internships:
+    public Internship getInternshipByID(long id);
+    public List<Internship> searchInternship();
     public List<Internship> getInternshipByCriteria(String company, String category, String keywords);
 	
+//<<<<<<< HEAD
 	// Companies and categories:
 	public List<Category> getCategories();
         public List<Company> getCompanies();
@@ -53,4 +61,10 @@ public interface IMetier
         public Company getCompanyById(Long id);
         public Company updateCompany(Company company);
 
+/*=======
+    // Companies and categories:
+    public List<Category> getCategories();
+    public List<Company> getCompanies();
+	
+>>>>>>> a9c55cd42466755c6ece798245d9a160d32eb387*/
 }

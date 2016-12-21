@@ -116,6 +116,12 @@ public class DaoImpl implements IDao {
     public UserProfile getUserProfileById(Long id) {
         return hibernateManager.getObjectFromDatabase(UserProfile.class, id);
     }
+    
+     public UserProfile getUserProfileUsingAccountLogin(String login)
+     {
+         UserAccount ua= this.getUserAccountByLogin(login);
+         return hibernateManager.getObjectFromDatabase(UserProfile.class, ua.getId_profile().getId());
+     }
 
     @Override
     public UserProfile deleteUserProfileById(Long id) {
@@ -410,7 +416,7 @@ public class DaoImpl implements IDao {
                 params.put("category", this.getCategoryByName(categoryName));
             }
         }
-        System.out.println("QUERY : " + query);
+        System.out.println("=============================QUERY : " + query);
         List<Internship> list = hibernateManager.execute(query, params, Internship.class);
         if(list != null)
             return list;
