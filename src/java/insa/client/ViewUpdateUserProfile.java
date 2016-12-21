@@ -29,9 +29,9 @@ public class ViewUpdateUserProfile extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-		long userProfileID = userProfileService.getUserAccountByLogin(request.getParameter("login")).getId_profile().getId();
-		UserProfile userProfile = userProfileService.getUserProfileById(userProfileID);
-		request.setAttribute("userProfile",userProfile);
+        long userProfileID = userProfileService.getUserAccountByLogin(request.getParameter("login")).getId_profile().getId();
+	UserProfile userProfile = userProfileService.getUserProfileById(userProfileID);
+	request.setAttribute("userProfile",userProfile);
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ViewUpdateUserProfile.jsp").forward(request, response);
     }
 

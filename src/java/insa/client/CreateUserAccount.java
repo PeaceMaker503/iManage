@@ -35,7 +35,8 @@ public class CreateUserAccount extends HttpServlet
        String userName = request.getParameter("loginCr");
        String password = request.getParameter("motDePasseCr");
        String mail = request.getParameter("emailAddressCr");
-       UserAccount u = userAccountService.addUserAccount(userName, mail, password);
+       String userCategory = request.getParameter("selectUserCategory");
+       UserAccount u = userAccountService.addUserAccount(userName, mail, password, userCategory);
        if(u==null)
        {
            response.sendRedirect("CreateUserAccount");

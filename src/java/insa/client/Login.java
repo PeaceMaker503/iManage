@@ -83,18 +83,28 @@ public class Login extends HttpServlet {
        String login = request.getParameter("login");
        String password = request.getParameter("motDePasse");
        UserAccount userAccount = userAccountService.verifyUserAccount(login, password);
-       
+       String userCategory = userAccount.getUserCategory();
+
+       //System.out.println("------------- User category" + userCategory);
        if(userAccount == null){
             request.setAttribute("exists", "false" );
             this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Login.jsp").forward(request, response);
        }
        else
        {
-           if(userAccount.getId_profile() == null){
-               response.sendRedirect("CreateUserProfile?login=" + login);
-           }
-           else{
-               response.sendRedirect("Home?login=" + login);
+           if(userAccount.getId_profile() == null && userCategory.compareTo("Student")==0){
+                    response.sendRedirect("CreateUserProfile?login=" + login);
+            }
+            else if(userAccount.getId_Company_profile() == null && userCategory.compareTo("Company")==0){
+                    response.sendRedirect("CreateCompanyProfile?login=" + login);    
+            }
+            else{
+                if(userCategory.compareTo("Student")==0){
+                   response.sendRedirect("Home?login=" + login);
+                }
+                else if(userCategory.compareTo("Company")==0){
+                   response.sendRedirect("HomeCompany?login=" + login);
+                }
            }
        }
     }

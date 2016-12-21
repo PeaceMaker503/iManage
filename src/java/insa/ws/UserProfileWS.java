@@ -7,6 +7,7 @@ package insa.ws;
 
 import insa.db.UserAccount;
 import insa.db.UserProfile;
+import insa.db.Company;
 import insa.metier.IMetier;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
@@ -38,6 +39,12 @@ public class UserProfileWS
         return metier.addUserProfile(firstName, lastName, mail, phone, cvPath);
     }
     
+    @WebMethod(operationName = "addCompanyProfile")
+    public Company addCompanyProfile(@WebParam(name = "name") String name, @WebParam(name = "phone") String phone, @WebParam(name = "mail") String mail, @WebParam(name = "address") String address) {
+        //TODO write your implementation code here:
+        return metier.addCompanyProfile(name, phone, mail, address);
+    }
+    
         /**
      * Web service operation
      */
@@ -45,6 +52,10 @@ public class UserProfileWS
     public UserProfile deleteUserProfile(@WebParam(name = "id") long id) {
         //TODO write your implementation code here:
         return metier.deleteUserProfile(id);
+    }
+    
+    public Company deleteCompanyProfile(@WebParam(name = "id") long id) {
+         return metier.deleteCompanyProfile(id);
     }
 	
 	@WebMethod(operationName = "updateUserProfile")
@@ -70,9 +81,17 @@ public class UserProfileWS
 	public UserAccount getUserAccountByLogin(@WebParam(name = "login") String login) {
 		return metier.getUserAccountByLogin(login);
 	}
-	
-	
-	
-	
+        
+	@WebMethod(operationName = "getCompanyById")
+	public Company getCompanyById(@WebParam(name = "id") long id) {
+		return metier.getCompanyById(id);
+	}
+        
+        @WebMethod(operationName = "updateCompany")
+	public Company updateCompany(Company company) 
+	{
+		return metier.updateCompany(company);
+        }
+		
 
 }

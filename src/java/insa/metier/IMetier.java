@@ -23,7 +23,7 @@ public interface IMetier
 	// User accounts: 
 	public UserAccount getUserAccountByLogin(String login);
     public UserAccount verifyUserAccount(String login, String password);
-	public UserAccount addUserAccount(String login , String mail , String password);
+	public UserAccount addUserAccount(String login , String mail , String password, String userCategory);
     public UserAccount deleteUserAccountById(Long id);
 	
 	// User profiles:
@@ -46,6 +46,11 @@ public interface IMetier
 	
 	// Companies and categories:
 	public List<Category> getCategories();
-    public List<Company> getCompanies();
-	
+        public List<Company> getCompanies();
+        public Company addCompanyProfile(String name, String phone, String mail, String address);
+	public UserAccount linkCompanyProfile(String login, Company comp);
+        public Company deleteCompanyProfile(Long id);
+        public Company getCompanyById(Long id);
+        public Company updateCompany(Company company);
+
 }

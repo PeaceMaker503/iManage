@@ -6,7 +6,7 @@
 package insa.client;
 
 import insa.db.UserAccount;
-import insa.db.UserProfile;
+import insa.db.Company;
 import insa.ws.UserAccountWS;
 import insa.ws.UserProfileWS;
 import java.io.IOException;
@@ -21,13 +21,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jordycabannes
  */
-@WebServlet(name = "CreateUserProfile", urlPatterns = {"/CreateUserProfile"})
-public class CreateUserProfile extends HttpServlet {
+@WebServlet(name = "CreateCompanyProfile", urlPatterns = {"/CreateCompanyProfile"})
+public class CreateCompanyProfile extends HttpServlet {
 
-    
     private static UserAccountWS userAccountService = new UserAccountWS() ;
     private static UserProfileWS userProfileService = new UserProfileWS() ;
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -45,10 +43,10 @@ public class CreateUserProfile extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet createProfile</title>");            
+            out.println("<title>Servlet CreateCompanyProfile</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet createProfile at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet CreateCompanyProfile at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,7 +64,7 @@ public class CreateUserProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CreateUserProfile.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CreateCompanyProfile.jsp").forward(request, response);
     }
 
     /**
@@ -80,26 +78,27 @@ public class CreateUserProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String lastname = request.getParameter("lastname");
-            String firstname = request.getParameter("firstname");
+            String name = request.getParameter("name");
+            String address = request.getParameter("address");
             String phone = request.getParameter("phone");
             String mail = request.getParameter("mail");
-            String cvPath = "a"; //request.getParameter("cvPath");
             
-            UserProfile userPro = userProfileService.addUserProfile(firstname, lastname, phone, cvPath, mail);
-            if(userPro == null)
+            Company company = userProfileService.addCompanyProfile(name, phone, mail, address);
+            if(company == null)
             {
-                this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CreateUserProfile.jsp").forward(request, response);
+                //System.out.println("--------------////// c'est null");
+                this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CreateCompanyProfile.jsp").forward(request, response);
             }
             else
             {
+                //System.out.println("--------------////// c'est pas null");
                 String login = request.getParameter("login");
-                System.out.println(login + " " + userPro.getId());
-                UserAccount ua = userAccountService.linkUserProfile(login, userPro);
+                System.out.println(login + " " + company.getId());
+                UserAccount ua = userAccountService.linkCompanyProfile(login, company);
                 if(ua == null)
-                    userProfileService.deleteUserProfile(userPro.getId());
+                    userProfileService.deleteCompanyProfile(company.getId());
                 else
-                    response.sendRedirect("Home?login=" + login);
+                    response.sendRedirect("HomeCompany?login=" + login);
             }
     }
 

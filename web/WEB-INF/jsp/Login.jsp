@@ -13,6 +13,8 @@
         <link rel="stylesheet" media="screen" type="text/css" href="/iManage/Web-Content/index.css"> 
         <script async src="https://www.youtube.com/iframe_api"></script>
         <script type="text/javascript" src="/iManage/Web-Content/index.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/css/bootstrap-select.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.1/js/bootstrap-select.min.js"></script>
     </head>
 
     <body>
@@ -27,14 +29,21 @@
                     <div id="connexion" class="container-fluid col-xs-12">
                         <div class="row" id="insideConnexion"> 
                             <form id="formulaireConnexion"  action="Login" class="col-xs-push-1 col-xs-10 col-sm-push-2 col-sm-8 col-md-push-3 col-md-6 col-lg-push-3 col-lg-6 centrerVerticalementForm" method="post">
-                                <div class="labelForm form-group">
+                                <div class="labelForm form-group" style="margin-left:15px;margin-right:15px">
                                     <label for="login">Login</label>
-                                    <input type="text" id="login" name="login" class="form-control">
+                                    <input type="text" id="login" name="login" class="form-control" required>
                                 </div>
-                                <div class="labelForm form-group">
+                                <div class="labelForm form-group" style="margin-left:15px;margin-right:15px">
                                     <label class="labelForm" for="motDePasse">Password</label>
-                                    <input type="password" id="motDeaPasse" name="motDePasse" class="form-control">
+                                    <input type="password" id="motDeaPasse" name="motDePasse" class="form-control" required>
                                 </div>
+                                <!--div class="labelForm form-group">
+                                    <label for="selectUserCategory">User category</label>
+                                    <select class="selectpicker col-xs-12 " id="selectUserCategory" name="selectUserCategory" data-style="btn-default">
+                                        <option>Student</option> 
+                                        <option>Company</option>
+                                    </select>
+                                </div-->
                                  <% if(request.getAttribute("exists") != null) {
                                         if((request.getAttribute("exists")).equals("false")){
                                  %>
@@ -48,10 +57,8 @@
                             <div id="liens" class="container-fluid col-xs-12">
                                 <div id="insideLiens" class="row"> 
                                     <form id="formulaireConnexion" action="CreateUserAccount" method="get">
-                                        <button id="creationCompte" class="col-xs-6 boutonsCompte">Create an account</button>
-                                    </form>
-                                    <form id="formulaireConnexion" action="RecoverPassword" method="get">
-                                        <button id="motDePasseOublie" class="col-xs-6 boutonsCompte">Forgot your password?</button>
+                                        <button id="creationCompte" class="col-xs-push-3 col-xs-3 boutonsCompte">Create an account</button>
+                                        <button id="motDePasseOublie" class="col-xs-push-3 col-xs-3 boutonsCompte">Forgot your password?</button>
                                     </form>
                                 </div>
                             </div>

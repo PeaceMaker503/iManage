@@ -5,10 +5,6 @@
  */
 package insa.client;
 
-import insa.db.UserAccount;
-import insa.db.UserProfile;
-import insa.ws.UserAccountWS;
-import insa.ws.UserProfileWS;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -21,12 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author jordycabannes
  */
-@WebServlet(name = "CreateUserProfile", urlPatterns = {"/CreateUserProfile"})
-public class CreateUserProfile extends HttpServlet {
-
-    
-    private static UserAccountWS userAccountService = new UserAccountWS() ;
-    private static UserProfileWS userProfileService = new UserProfileWS() ;
+@WebServlet(name = "HomeCompany", urlPatterns = {"/HomeCompany"})
+public class HomeCompany extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -45,10 +37,10 @@ public class CreateUserProfile extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet createProfile</title>");            
+            out.println("<title>Servlet HomeCompany</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet createProfile at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet HomeCompany at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -66,7 +58,7 @@ public class CreateUserProfile extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CreateUserProfile.jsp").forward(request, response);
+                this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeCompany.jsp").forward(request, response);
     }
 
     /**
@@ -80,27 +72,7 @@ public class CreateUserProfile extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            String lastname = request.getParameter("lastname");
-            String firstname = request.getParameter("firstname");
-            String phone = request.getParameter("phone");
-            String mail = request.getParameter("mail");
-            String cvPath = "a"; //request.getParameter("cvPath");
-            
-            UserProfile userPro = userProfileService.addUserProfile(firstname, lastname, phone, cvPath, mail);
-            if(userPro == null)
-            {
-                this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CreateUserProfile.jsp").forward(request, response);
-            }
-            else
-            {
-                String login = request.getParameter("login");
-                System.out.println(login + " " + userPro.getId());
-                UserAccount ua = userAccountService.linkUserProfile(login, userPro);
-                if(ua == null)
-                    userProfileService.deleteUserProfile(userPro.getId());
-                else
-                    response.sendRedirect("Home?login=" + login);
-            }
+        processRequest(request, response);
     }
 
     /**

@@ -48,9 +48,9 @@ public class MetierImpl implements IMetier {
 		return dao.getUserAccountByLogin(login);
 	}
 		    
-    public UserAccount addUserAccount(String login , String password, String mail)
+    public UserAccount addUserAccount(String login , String mail, String password, String userCategory)
     {
-        UserAccount ua = new UserAccount(login, password, mail);
+        UserAccount ua = new UserAccount(login, mail, password, userCategory);
         return dao.addUserAccount(ua);
     }
 	
@@ -65,6 +65,11 @@ public class MetierImpl implements IMetier {
         return dao.deleteUserProfileById(id);
     }
 	
+    @Override
+    public Company deleteCompanyProfile(Long id)
+    {
+        return dao.deleteCompanyById(id);
+    }
 	@Override 
 	public UserProfile updateUserProfile(UserProfile userProfile) 
 	{
@@ -79,6 +84,23 @@ public class MetierImpl implements IMetier {
         if(ua != null)
         {
             ua.setId_profile(up);
+            ua = dao.updateUserAccount(ua);
+            res = ua;
+        }
+        else
+            res = null;
+        
+        return res;
+    }
+    
+    @Override
+    public UserAccount linkCompanyProfile(String login, Company comp)
+    {
+        UserAccount res = null;
+        UserAccount ua = dao.getUserAccountByLogin(login);
+        if(ua != null)
+        {
+            ua.setId_Company_profile(comp);
             ua = dao.updateUserAccount(ua);
             res = ua;
         }
@@ -138,4 +160,18 @@ public class MetierImpl implements IMetier {
 		return dao.getInternshipById(id);
 	}
 	
+    public Company addCompanyProfile(String name, String phone, String mail, String address){
+        Company comp = new Company(name, phone, mail, address);
+        return dao.addCompany(comp);
+    }
+    
+    public Company getCompanyById(Long id){
+            return dao.getCompanyById(id);
+
+    }
+    
+    public Company updateCompany(Company company){
+        return dao.updateCompany(company);
+    }
+    
 }

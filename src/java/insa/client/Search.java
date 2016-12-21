@@ -9,6 +9,7 @@ import insa.db.Internship;
 import insa.db.UserAccount;
 import insa.ws.InternshipWS;
 import insa.ws.UserAccountWS;
+import insa.ws.UserProfileWS;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,6 +26,8 @@ import java.nio.charset.StandardCharsets;
 public class Search extends HttpServlet {
     
     private static UserAccountWS userAccountService = new insa.ws.UserAccountWS() ;
+        private static UserProfileWS userProfileService = new insa.ws.UserProfileWS() ;
+
     private static InternshipWS InternshipService = new InternshipWS() ;
 
 
@@ -36,6 +39,16 @@ public class Search extends HttpServlet {
         request.setAttribute("internshipList", InternshipService.searchInternship());
         request.setAttribute("companyList", InternshipService.getCompanies());
         request.setAttribute("categoryList", InternshipService.getCategories());
+        
+        UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+        String userCategory = ua.getUserCategory();
+        if(userCategory.compareTo("Student")==0){
+            request.setAttribute("student","true");
+        }
+        else{
+            request.setAttribute("student","false");
+        }
+        
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
     }
 
@@ -43,6 +56,15 @@ public class Search extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         response.setContentType("text/html");
+        
+        UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+        String userCategory = ua.getUserCategory();
+        if(userCategory.compareTo("Student")==0){
+            request.setAttribute("student","true");
+        }
+        else{
+            request.setAttribute("student","false");
+        }
         
         request.setAttribute("companyList", InternshipService.getCompanies());
         request.setAttribute("categoryList", InternshipService.getCategories());

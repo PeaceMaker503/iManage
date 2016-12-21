@@ -8,6 +8,7 @@ package insa.ws;
 import insa.dao.IDao;
 import insa.db.UserAccount;
 import insa.db.UserProfile;
+import insa.db.Company;
 import insa.metier.IMetier;
 import insa.metier.MetierImpl;
 import javax.jws.WebService;
@@ -32,9 +33,9 @@ public class UserAccountWS
     }
 
     @WebMethod(operationName = "addUserAccount")
-    public UserAccount addUserAccount(@WebParam(name = "login") String login, @WebParam(name = "mail") String mail, @WebParam(name = "password") String password) {
+    public UserAccount addUserAccount(@WebParam(name = "login") String login, @WebParam(name = "mail") String mail, @WebParam(name = "password") String password, @WebParam(name = "selectUserCategory") String userCategory) {
         //TODO write your implementation code here:
-       return metier.addUserAccount(login, mail, password);
+       return metier.addUserAccount(login, mail, password, userCategory);
     }
 
     @WebMethod(operationName = "verifyUserAccount")
@@ -50,6 +51,12 @@ public class UserAccountWS
     public UserAccount linkUserProfile(@WebParam(name = "login") String login, @WebParam(name = "profile") UserProfile profile) {
         //TODO write your implementation code here:
         return metier.linkUserProfile(login, profile);
+    }
+    
+    @WebMethod(operationName = "linkCompanyProfile")
+    public UserAccount linkCompanyProfile(@WebParam(name = "login") String login, @WebParam(name = "company") Company comp) {
+        //TODO write your implementation code here:
+        return metier.linkCompanyProfile(login, comp);
     }
 
     /**

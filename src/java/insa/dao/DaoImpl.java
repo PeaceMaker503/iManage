@@ -42,11 +42,14 @@ public class DaoImpl implements IDao {
         Long id = hibernateManager.addObjectToDatabase(userAccount);
         if(id != null)
         {
+            //System.out.println("C'est pas nul");
             userAccount.setId(id);
             return userAccount;
         }
-        else
+        else{
+            //System.out.println("C'est nul");
             return null;
+        }
     }
     
     @Override
@@ -78,7 +81,9 @@ public class DaoImpl implements IDao {
     @Override
     public Company addCompany(Company company)
     {
+        System.out.println("+++++++++++++++++ Valeur de id avant ");
         Long id = hibernateManager.addObjectToDatabase(company);
+        System.out.println("+++++++++++++++++ Valeur de id après" + id.toString());
         if(id != null)
         {
             company.setId(id);

@@ -47,7 +47,7 @@
                 <value>insa.db.Company</value>  
                 <value>insa.db.Category</value>  
                 <value>insa.db.Internship</value>  
-				<value>insa.db.Message</value>         
+                <value>insa.db.Message</value>         
             </list>
         </property>
     </bean>

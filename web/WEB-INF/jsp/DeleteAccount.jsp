@@ -22,7 +22,7 @@
 		
 		<!-- Body -->
 		<div class="container" style="padding-top: 0px; padding-bottom: 10px;">
-			<h1 class="page-header">Delete Profile</h1>
+			<h1 class="page-header">Delete Account</h1>
 			<div class="row">
 			  <!-- left column -->
 			  <div class="col-md-4 col-sm-6 col-xs-12">
