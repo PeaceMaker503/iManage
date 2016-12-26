@@ -11,6 +11,7 @@ import insa.db.UserProfile;
 import insa.db.Company;
 import insa.metier.IMetier;
 import insa.metier.MetierImpl;
+import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -67,5 +68,14 @@ public class UserAccountWS
         IDao dao = ((MetierImpl)metier).getDao();
         return dao.getUserAccountByLogin(login);
     }
-
+    
+    @WebMethod(operationName = "getUserAccountByEmail")
+    public UserAccount getUserAccountByEmail(@WebParam(name = "mail") String mail) {
+        return metier.getUserAccountByEmail(mail);
+    }
+    
+    @WebMethod(operationName = "getAllUserAccount")
+    public List<UserAccount> getAllUserAccount(){
+        return metier.getAllUserAccount();
+    }
 }

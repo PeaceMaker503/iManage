@@ -41,6 +41,17 @@ public class Search extends HttpServlet {
         request.setAttribute("categoryList", InternshipService.getCategories());
         
         UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+        if(ua==null){
+                System.out.println("////////////ua est null");
+        }
+        else{
+            System.out.println("////////////ua n'est pas null");
+
+        }
+        System.out.println("---------------- valeur du login en haut : "+request.getParameter("login"));
+        System.out.println("---------------- valeur du login : " +ua.getLogin());
+        System.out.println("---------------- valeur de category : " +ua.getUserCategory());
+
         String userCategory = ua.getUserCategory();
         if(userCategory.compareTo("Student")==0){
             request.setAttribute("student","true");

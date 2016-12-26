@@ -5,12 +5,15 @@
  */
 package insa.metier;
 
-import insa.db.Message;
+import insa.db.Candidature;
 import insa.db.Category;
 import insa.db.Company;
 import insa.db.Internship;
+import insa.db.Message;
 import insa.db.UserProfile;
 import insa.db.UserAccount;
+import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,6 +28,8 @@ public interface IMetier
     public UserAccount verifyUserAccount(String login, String password);
 	public UserAccount addUserAccount(String login , String mail , String password, String userCategory);
     public UserAccount deleteUserAccountById(Long id);
+    public UserAccount getUserAccountByEmail(String mail);
+    public List<UserAccount> getAllUserAccount();
 	
 	// User profiles:
     public UserProfile getUserProfileById(Long id);
@@ -41,17 +46,17 @@ public interface IMetier
     public UserProfile updateUserProfile(UserProfile userProfile);
         
     // Candidatures:
-    public Message getCandidatureById(Long id);
-    public Message addCandidature(Message candidature);
-    public Message deleteCandidatureById(Long id);
-    public Message updateCandidature(Message candidature);
+    public Candidature getCandidatureById(Long id);
+    public Candidature addCandidature(Candidature candidature);
+    public Candidature deleteCandidatureById(Long id);
+    public Candidature updateCandidature(Candidature candidature);
 	
     // Internships:
     public Internship getInternshipByID(long id);
     public List<Internship> searchInternship();
     public List<Internship> getInternshipByCriteria(String company, String category, String keywords);
 	
-//<<<<<<< HEAD
+
 	// Companies and categories:
 	public List<Category> getCategories();
         public List<Company> getCompanies();
@@ -61,10 +66,14 @@ public interface IMetier
         public Company getCompanyById(Long id);
         public Company updateCompany(Company company);
 
-/*=======
-    // Companies and categories:
-    public List<Category> getCategories();
-    public List<Company> getCompanies();
-	
->>>>>>> a9c55cd42466755c6ece798245d9a160d32eb387*/
+        // Messages:
+        public Message getMessageById(Long id);
+        public Message addMessage(String object, String content, Date date, Boolean read);
+        public Message deleteMessageById(Long id);
+        public Message updateMessage(String object, String content, Date date, Boolean read);
+        public List<Message> searchMessage(UserAccount ua);
+        public Message linkUserAccountSender(UserAccount ua, Long id);
+        public Message linkUserAccountListRecipients(Collection<UserAccount> list, Long id);
+        public List<Message> searchSentMessages(Long id);
+        public List<UserAccount> getAllReceiverAccount(Message message);
 }

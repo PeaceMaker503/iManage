@@ -8,6 +8,10 @@ package insa.metier;
 import insa.dao.DaoImpl;
 import insa.dao.IDao;
 import insa.db.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -38,11 +42,17 @@ public class MetierImpl implements IMetier {
         return dao.addUserProfile(up);
     }
 	
-	public UserProfile getUserProfileById(Long id) 
-	{
-		return dao.getUserProfileById(id);
-	}
+    public UserProfile getUserProfileById(Long id) 
+    {
+	return dao.getUserProfileById(id);
+    }
+        
+    public UserAccount getUserAccountByEmail(String mail){
+        return dao.getUserAccountByEmail(mail); 
+    }
+
 	
+    @Override
 	public UserAccount getUserAccountByLogin(String login) 
 	{
 		return dao.getUserAccountByLogin(login);
@@ -145,19 +155,19 @@ public class MetierImpl implements IMetier {
         return list;
     }
 	
-	public Message getCandidatureById(Long id) {
+	public Candidature getCandidatureById(Long id) {
 		return dao.getCandidatureById(id);
 	}
 	
-    public Message addCandidature(Message candidature) {
+    public Candidature addCandidature(Candidature candidature) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 	
-    public Message deleteCandidatureById(Long id) {
+    public Candidature deleteCandidatureById(Long id) {
 		return dao.deleteCandidatureById(id);		
 	}
 	
-    public Message updateCandidature(Message candidature) {
+    public Candidature updateCandidature(Candidature candidature) {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 	
@@ -178,5 +188,89 @@ public class MetierImpl implements IMetier {
     public Company updateCompany(Company company){
         return dao.updateCompany(company);
     }
+    
+    public Message getMessageById(Long id){
+        return dao.getMessageById(id);
+    }
+    
+    public Message addMessage(String object, String content, Date date, Boolean read){
+        Message message = new Message(object, content, date, read); 
+        return dao.addMessage(message);
+    }
+    public Message deleteMessageById(Long id){
+        return dao.deleteMessageById(id);
+    }
+    
+    public Message updateMessage(String object, String content, Date date, Boolean read){
+        Message message = new Message(object, content, date, read); 
+        return dao.updateMessage(message);
+    }
+    
+    public List<Message> searchMessage(UserAccount ua){
+        List<Message> list = dao.getAllMessages(ua);
+        return list;
+    }
+    
+    @Override
+    public Message linkUserAccountSender(UserAccount ua, Long id)
+    {
+        Message res = null;
+        Message message = dao.getMessageById(id);
+        if(message != null)
+        {
+            message.setSender(ua);
+            message = dao.updateMessage(message);
+            res = message;
+        }
+        else
+            res = null;
+        
+        return res;
+    }
+    
+    @Override
+    public Message linkUserAccountListRecipients(Collection<UserAccount> list, Long id){
+        Message res = null;
+        Message message = dao.getMessageById(id);
+        if(message != null)
+        {
+            message.setReceiver(list);
+            for(Iterator<UserAccount> i = list.iterator(); i.hasNext(); ){
+                    UserAccount item = i.next();
+                    ArrayList<Message> messagesUA = new ArrayList<Message>();
+                    for(Iterator<Message> it =dao.getAllMessages(item).iterator(); it.hasNext(); ){
+                        Message itemMsg = it.next();
+                        messagesUA.add(itemMsg);
+                    }
+                    messagesUA.add(message);
+                    item.setMessages(messagesUA);
+                    dao.updateUserAccount(item);
+            }
+            message = dao.updateMessage(message);
+            res = message;
+        }
+        else{
+            res = null;
+        }
+        return res;
+    }
+    
+    public List<Message> searchSentMessages(Long id){
+        List<Message> list = dao.getAllSentMessages(id);
+        return list;      
+    }
+    
+    public List<UserAccount> getAllUserAccount(){
+        List<UserAccount> list = dao.getAllUserAccount();
+        return list;      
+    }
+    
+    public List<UserAccount> getAllReceiverAccount(Message message){
+        List<UserAccount> list = dao.getAllReceiverAccount(message);
+        return list;
+    }
+
+
+
     
 }

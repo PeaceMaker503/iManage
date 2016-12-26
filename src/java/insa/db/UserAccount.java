@@ -7,12 +7,18 @@ package insa.db;
 
 import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
@@ -60,6 +66,12 @@ public class UserAccount implements Serializable {
     @JoinColumn(referencedColumnName="id")
     @Cascade(CascadeType.DELETE)
     private Company id_Company_profile;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="messages_account",
+                joinColumns={@JoinColumn(name="userAccount_id", referencedColumnName="id")},
+                inverseJoinColumns={@JoinColumn(name="message_id", referencedColumnName="id")})
+    private Collection<Message> messages=new ArrayList<Message>();
     
     public UserAccount() {}
     
@@ -159,6 +171,20 @@ public class UserAccount implements Serializable {
      */
     public void setUserCategory(String userCategory) {
         this.userCategory = userCategory;
+    }
+    
+        /**
+     * @return the messages
+     */
+    public Collection<Message> getMessages() {
+        return messages;
+    }
+
+    /**
+     * @param messages the messages to set
+     */
+    public void setMessages(Collection<Message> messages) {
+        this.messages = messages;
     }
     
 }

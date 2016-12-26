@@ -4,164 +4,158 @@
  * and open the template in the editor.
  */
 package insa.db;
-
 import java.io.Serializable;
-import java.util.Date;
+import java.util.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
-
+import javax.persistence.Temporal;
+import org.hibernate.annotations.CascadeType;
 /**
  *
- * @author prmm95
+ * @author jordycabannes
  */
 @Entity
-@Table(name="Message")
-public class Message implements Serializable {
+public class Message implements Serializable  {
+    
+    private static final long serialVersionUID = 1L;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    
+    @Column
+    private String objectMail;
+    
+    @Column
+    private String content;
+    
+    @Column
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date dateMail;
+    
+    @Column
+    private Boolean readMail;
+    
+    @OneToOne
+    @JoinColumn(referencedColumnName="id")
+    private UserAccount sender;
+    
+    @ManyToMany(fetch = FetchType.LAZY, mappedBy="messages")
+    private Collection<UserAccount> receiver = new ArrayList<UserAccount>();
 
-	private static final long serialVersionUID = 1L;
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-	private Long id;
-	
-	@Column
-	private String title;
-	
-	@Column
-	private String content;
-	
-	@Column
-	private String coverLetterPath;
-	
-	@OneToOne
-	@JoinColumn(referencedColumnName="id")
-	private Internship id_internship;
-	
-	@OneToOne
-	@JoinColumn(referencedColumnName="id")
-	private UserAccount id_userAccount;
-	
-	@OneToOne
-	@JoinColumn(referencedColumnName="id")
-	private Company id_company;
+    public Message() {
+    }
+    
+    public Message(String object, String content, Date date, Boolean read){
+        this.objectMail=object;
+        this.content=content;
+        this.dateMail=date;
+        this.readMail=read;
+    }
+    
+        /**
+     * @return the id
+     */
+    public Long getId() {
+        return id;
+    }
 
-	@Column 
-	private String status;
-	
-	// Autogeneration
-	@Column
-	private Date createdAt;
-	
-	public Message(){}
+    /**
+     * @param id the id to set
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public Message(String title, String content, String coverLetterPath, Internship id_internship, UserAccount id_userAccount, String status) {
-		this.title = title;
-		this.content = content;
-		this.coverLetterPath = coverLetterPath;
-		this.id_internship = id_internship;
-		this.id_userAccount = id_userAccount;
-	}
-	
-	public Long getId() {
-		return id;
-	}
+    /**
+     * @return the object
+     */
+    public String getObject() {
+        return objectMail;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-	
-	public String getTitle() {
-		return title;
-	}
+    /**
+     * @param object the object to set
+     */
+    public void setObject(String object) {
+        this.objectMail = object;
+    }
 
-	public void setTitle(String title) {
-		this.title = title;
-	}
+    /**
+     * @return the content
+     */
+    public String getContent() {
+        return content;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    /**
+     * @param content the content to set
+     */
+    public void setContent(String content) {
+        this.content = content;
+    }
 
-	public void setContent(String content) {
-		this.content = content;
-	}
+    /**
+     * @return the date
+     */
+    public Date getDate() {
+        return dateMail;
+    }
 
-	public String getCoverLetterPath() {
-		return coverLetterPath;
-	}
+    /**
+     * @param date the date to set
+     */
+    public void setDate(Date date) {
+        this.dateMail = date;
+    }
 
-	public void setCoverLetterPath(String coverLetterPath) {
-		this.coverLetterPath = coverLetterPath;
-	}
+    /**
+     * @return the read
+     */
+    public Boolean getRead() {
+        return readMail;
+    }
 
-	public Internship getId_internship() {
-		return id_internship;
-	}
+    /**
+     * @param read the read to set
+     */
+    public void setRead(Boolean read) {
+        this.readMail = read;
+    }
 
-	public void setId_internship(Internship id_internship) {
-		this.id_internship = id_internship;
-	}
+    /**
+     * @return the sender
+     */
+    public UserAccount getSender() {
+        return sender;
+    }
 
-	public UserAccount getId_userAccount() {
-		return id_userAccount;
-	}
+    /**
+     * @param sender the sender to set
+     */
+    public void setSender(UserAccount sender) {
+        this.sender = sender;
+    }
 
-	public void setId_userAccount(UserAccount id_userAccount) {
-		this.id_userAccount = id_userAccount;
-	}
+    /**
+     * @return the receiver
+     */
+    public Collection<UserAccount> getReceiver() {
+        return receiver;
+    }
 
-	public String getStatus() {
-		return status;
-	}
-
-	public void setStatus(String status) {
-		this.status = status;
-	}
-
-	public Date getCreatedAt() {
-		return createdAt;
-	}
-
-	public void setCreatedAt(Date createdAt) {
-		this.createdAt = createdAt;
-	}
-	
-	public Company getId_company() {
-		return id_company;
-	}
-
-	public void setId_company(Company id_company) {
-		this.id_company = id_company;
-	}
-	
-	@Override
-	public int hashCode() {
-		int hash = 0;
-		hash += (id != null ? id.hashCode() : 0);
-		return hash;
-	}
-
-	@Override
-	public boolean equals(Object object) {
-		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof Message)) {
-			return false;
-		}
-		Message other = (Message) object;
-		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public String toString() {
-		return "insa.db.Message[ id=" + id + " ]";
-	}
-	
+    /**
+     * @param receiver the receiver to set
+     */
+    public void setReceiver(Collection<UserAccount> receiver) {
+        this.receiver = receiver;
+    }
 }

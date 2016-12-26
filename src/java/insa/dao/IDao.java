@@ -19,6 +19,8 @@ public interface IDao {
     public UserAccount addUserAccount(UserAccount userAccount);
     public UserAccount deleteUserAccountById(Long id);
     public UserAccount updateUserAccount(UserAccount id);
+    public UserAccount getUserAccountByEmail(String mail);
+    public List<UserAccount> getAllUserAccount();
     
     public UserProfile getUserProfileById(Long id);
     public UserProfile getUserProfileUsingAccountLogin(String login);
@@ -52,9 +54,17 @@ public interface IDao {
     public Category updateCategory(Category category);
     public List<Category> getAllCategories();
 	
-	public Message getCandidatureById(Long id);
-    public Message addCandidature(Message candidature);
-    public Message deleteCandidatureById(Long id);
-    public Message updateCandidature(Message candidature);
+    public Candidature getCandidatureById(Long id);
+    public Candidature addCandidature(Candidature candidature);
+    public Candidature deleteCandidatureById(Long id);
+    public Candidature updateCandidature(Candidature candidature);
     
+    public Message getMessageById(Long id);
+    public Message addMessage(Message message);
+    public Message deleteMessageById(Long id);
+    public Message updateMessage(Message message);
+    public List<Message> getAllMessages(UserAccount ua);
+    public List<Message> getAllSentMessages(Long id);
+    public List<UserAccount> getAllReceiverAccount(Message message);
+
 }

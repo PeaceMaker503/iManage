@@ -5,10 +5,11 @@
  */
 package insa.dao;
 
-import insa.db.Message;
+import insa.db.Candidature;
 import insa.db.Category;
 import insa.db.Company;
 import insa.db.Internship;
+import insa.db.Message;
 import insa.db.UserAccount;
 import insa.db.UserProfile;
 import insa.utils.HibernateManager;
@@ -81,9 +82,9 @@ public class DaoImpl implements IDao {
     @Override
     public Company addCompany(Company company)
     {
-        System.out.println("+++++++++++++++++ Valeur de id avant ");
+        //System.out.println("+++++++++++++++++ Valeur de id avant ");
         Long id = hibernateManager.addObjectToDatabase(company);
-        System.out.println("+++++++++++++++++ Valeur de id après" + id.toString());
+        //System.out.println("+++++++++++++++++ Valeur de id après" + id.toString());
         if(id != null)
         {
             company.setId(id);
@@ -197,11 +198,30 @@ public class DaoImpl implements IDao {
        HashMap<String, Object> params = new HashMap<>();
        params.put("login", login);
        List<UserAccount> list = hibernateManager.execute(query, params, UserAccount.class);
-       if(list != null && list.size() == 1)
+       
+       if(list != null && list.size() == 1){
            return list.get(0);
-       else
+        }
+       else{
            return null;
+       }
     }
+    
+    @Override
+    public UserAccount getUserAccountByEmail(String mail){
+        String query = "from UserAccount as u where u.mail= :mail";
+       HashMap<String, Object> params = new HashMap<>();
+       params.put("mail", mail);
+       List<UserAccount> list = hibernateManager.execute(query, params, UserAccount.class);
+       
+       if(list != null && list.size() == 1){
+           return list.get(0);
+        }
+       else{
+           return null;
+       }
+    }
+
     
     @Override
     public List<Internship> getInternshipByCategory(Category category)
@@ -261,12 +281,12 @@ public class DaoImpl implements IDao {
     }
 	
 	@Override
-	public Message getCandidatureById(Long id) {
-		return hibernateManager.getObjectFromDatabase(Message.class, id);
+	public Candidature getCandidatureById(Long id) {
+		return hibernateManager.getObjectFromDatabase(Candidature.class, id);
 	}
 	
 	@Override
-    public Message addCandidature(Message candidature) {
+    public Candidature addCandidature(Candidature candidature) {
 		Long id = hibernateManager.addObjectToDatabase(candidature);
         if(id != null)
         {
@@ -279,8 +299,8 @@ public class DaoImpl implements IDao {
 	}
 	
 	@Override
-    public Message deleteCandidatureById(Long id) {
-        Message candidature = hibernateManager.getObjectFromDatabase(Message.class, id);
+    public Candidature deleteCandidatureById(Long id) {
+        Candidature candidature = hibernateManager.getObjectFromDatabase(Candidature.class, id);
         boolean res = hibernateManager.deleteObjectFromDatabase(candidature);
         if(res)
             return candidature;
@@ -289,7 +309,7 @@ public class DaoImpl implements IDao {
 	}
 	
 	@Override
-    public Message updateCandidature(Message candidature) {
+    public Candidature updateCandidature(Candidature candidature) {
 		boolean res = hibernateManager.updateObjectInDatabase(candidature);
         if(res)
             return candidature;
@@ -423,5 +443,96 @@ public class DaoImpl implements IDao {
         else
             return null;
     }
+
+    public Message getMessageById(Long id){
+        return hibernateManager.getObjectFromDatabase(Message.class, id);
+    }
+    
+    public Message addMessage(Message message){
+        Long id = hibernateManager.addObjectToDatabase(message);
+        if(id != null)
+        {
+            message.setId(id);
+            return message;
+        }
+        else
+            return null;
+    }
+    
+    public Message deleteMessageById(Long id){
+        Message message = hibernateManager.getObjectFromDatabase(Message.class, id);
+        boolean res = hibernateManager.deleteObjectFromDatabase(message);
+        if(res)
+            return message;
+        else
+            return null;	
+	}
+    
+    public Message updateMessage(Message message){
+        boolean res = hibernateManager.updateObjectInDatabase(message);
+        if(res)
+            return message;
+        else
+            return null;
+    }
+    
+    @Override
+    public List<Message> getAllMessages(UserAccount ua){
+        //String query = "SELECT Message.id, Message.content, Message.dateMail, Message.objectMail, Message.readMail, Message.sender_id FROM messages_account LEFT JOIN Message ON messages_account.message_id=Message.id WHERE messages_account.userAccount_id= :id_send";
+        String query ="from Message as m where :user_account MEMBER OF receiver";
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("user_account", ua);
+        List<Message> list = hibernateManager.execute(query, params, Message.class);
+        if(list != null){
+            return list;
+        }
+        else{
+            return null;
+        }
+    }
+    
+    public List<Message> getAllSentMessages(Long id){
+        //String query = "SELECT Message.id, Message.content, Message.dateMail, Message.objectMail, Message.readMail, Message.sender_id FROM messages_account LEFT JOIN Message ON messages_account.message_id=Message.id WHERE messages_account.userAccount_id= :id_send";
+        String query ="from Message as m where m.sender.id= :id";
+
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        List<Message> list = hibernateManager.execute(query, params, Message.class);
+        if(list != null){
+            return list;
+        }
+        else{
+            return null;
+        }
+    }
+
+    public List<UserAccount> getAllUserAccount(){
+        String query ="from UserAccount";
+        List<UserAccount> list = hibernateManager.execute(query, UserAccount.class);
+        if(list != null){
+            return list;
+        }
+        else{
+            return null;
+        }
+    }
+    
+    public List<UserAccount> getAllReceiverAccount(Message message){
+        String query = "from UserAccount as ua where :message MEMBER OF messages";
+        HashMap<String, Object> params = new HashMap<>();
+        params.put("message", message);
+        List<UserAccount> list = hibernateManager.execute(query, params, UserAccount.class);
+        /*for(Iterator<UserAccount> i = list.iterator(); i.hasNext(); ){
+            UserAccount item = i.next();
+            System.out.println("////////////// voilà le log : "+item.getLogin());
+        }*/
+
+        if(list != null)
+            return list;
+        else
+            return null;
+    }
+
 
 }
