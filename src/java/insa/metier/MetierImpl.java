@@ -107,7 +107,7 @@ public class MetierImpl implements IMetier {
         
         return res;
     }
-    
+
     @Override
     public UserAccount linkCompanyProfile(String login, Company comp)
     {
@@ -159,8 +159,14 @@ public class MetierImpl implements IMetier {
 		return dao.getCandidatureById(id);
 	}
 	
+/*<<<<<<< HEAD
     public Candidature addCandidature(Candidature candidature) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+=======*/
+    public Candidature createCandidature(String title, String message, String coverLetterPath) {
+		Candidature candidature = new Candidature(title,message,coverLetterPath,null,null,null);
+		return dao.addCandidature(candidature);		
+//>>>>>>> f4d1d5c109e119c7b397c520eace93f88e85e22e
 	}
 	
     public Candidature deleteCandidatureById(Long id) {
@@ -174,7 +180,7 @@ public class MetierImpl implements IMetier {
 	public Internship getInternshipByID(long id) {
 		return dao.getInternshipById(id);
 	}
-	
+
     public Company addCompanyProfile(String name, String phone, String mail, String address){
         Company comp = new Company(name, phone, mail, address);
         return dao.addCompany(comp);
@@ -188,6 +194,7 @@ public class MetierImpl implements IMetier {
     public Company updateCompany(Company company){
         return dao.updateCompany(company);
     }
+//<<<<<<< HEAD
     
     public Message getMessageById(Long id){
         return dao.getMessageById(id);
@@ -221,12 +228,29 @@ public class MetierImpl implements IMetier {
             message.setSender(ua);
             message = dao.updateMessage(message);
             res = message;
-        }
+            }
         else
             res = null;
-        
         return res;
     }
+//=======
+
+	
+	public Candidature linkOfferToCandidature(long candID, Internship offer) {
+		Candidature res = null;
+        Candidature ua = dao.getCandidatureById(candID);
+        if(ua != null)
+        {
+            ua.setId_internship(offer);
+            ua = dao.updateCandidature(ua);
+            res = ua;
+         }
+        else
+            res = null;
+        return res;
+    }
+        
+        
     
     @Override
     public Message linkUserAccountListRecipients(Collection<UserAccount> list, Long id){
@@ -273,4 +297,41 @@ public class MetierImpl implements IMetier {
 
 
     
+
+	
+	public Candidature linkUserToCandidature(long cand_id,UserAccount userAccount) {
+		Candidature res = null;
+        Candidature ua = dao.getCandidatureById(cand_id);
+        if(ua != null)
+        {
+            ua.setId_userAccount(userAccount);
+            ua = dao.updateCandidature(ua);
+            res = ua;
+        }
+        else
+            res = null;
+        return res;	
+	}
+	
+	@Override
+	public Candidature linkCompanyToCandidature(long cand_id,Company company) {
+		Candidature res = null;
+        Candidature ua = dao.getCandidatureById(cand_id);
+        if(ua != null)
+        {
+            ua.setId_company(company);
+            ua = dao.updateCandidature(ua);
+            res = ua;
+        }
+        else
+            res = null;
+        
+        return res;	
+	}
+	
+	public List<Candidature> getCandidaturesByUserID(long user_id) {
+		List<Candidature> list = dao.getCandidaturesByUserID(user_id);
+        return list; 
+	}
+	
 }

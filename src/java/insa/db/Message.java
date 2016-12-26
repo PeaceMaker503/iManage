@@ -19,10 +19,13 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import org.hibernate.annotations.CascadeType;
+import javax.persistence.TemporalType;
+
 /**
  *
  * @author jordycabannes
  */
+
 @Entity
 public class Message implements Serializable  {
     

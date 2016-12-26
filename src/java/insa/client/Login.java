@@ -83,7 +83,6 @@ public class Login extends HttpServlet {
        String login = request.getParameter("login");
        String password = request.getParameter("motDePasse");
        UserAccount userAccount = userAccountService.verifyUserAccount(login, password);
-       String userCategory = userAccount.getUserCategory();
 
        //System.out.println("------------- User category" + userCategory);
        if(userAccount == null){
@@ -92,6 +91,7 @@ public class Login extends HttpServlet {
        }
        else
        {
+		   String userCategory = userAccount.getUserCategory();
            if(userAccount.getId_profile() == null && userCategory.compareTo("Student")==0){
                     response.sendRedirect("CreateUserProfile?login=" + login);
             }

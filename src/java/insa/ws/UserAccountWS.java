@@ -68,6 +68,7 @@ public class UserAccountWS
         IDao dao = ((MetierImpl)metier).getDao();
         return dao.getUserAccountByLogin(login);
     }
+
     
     @WebMethod(operationName = "getUserAccountByEmail")
     public UserAccount getUserAccountByEmail(@WebParam(name = "mail") String mail) {
@@ -78,4 +79,5 @@ public class UserAccountWS
     public List<UserAccount> getAllUserAccount(){
         return metier.getAllUserAccount();
     }
+
 }

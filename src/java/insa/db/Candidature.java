@@ -4,21 +4,26 @@
  * and open the template in the editor.
  */
 package insa.db;
-
 import java.io.Serializable;
-import java.util.Date;
+import java.util.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import org.hibernate.annotations.CascadeType;
+import javax.persistence.TemporalType;
 
 /**
  *
- * @author prmm95
+ * @author jordycabannes
  */
 @Entity
 @Table(name="Candidature")
@@ -29,11 +34,11 @@ public class Candidature implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	
-	/*@Column
-	private String title;*/
+	@Column
+	private String title;
 	
-	/*@Column
-	private String content;*/
+	@Column
+	private String content;
 	
 	@Column
 	private String coverLetterPath;
@@ -51,20 +56,21 @@ public class Candidature implements Serializable {
 	private Company id_company;
 
 	@Column 
-	private String status;
+	private String status = "Not yet studied";
 	
 	// Autogeneration
 	@Column
-	private Date createdAt;
+	@Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt = new Date();
 	
 	public Candidature(){}
 
-	public Candidature(/*String title, String content,*/ String coverLetterPath, /*Internship id_internship, UserAccount id_userAccount,*/ String status) {
-		//this.title = title;
-		//this.content = content;
+	public Candidature(String title, String content, String coverLetterPath, Internship id_internship, UserAccount id_userAccount, String status) {
+		this.title = title;
+		this.content = content;
 		this.coverLetterPath = coverLetterPath;
-		//this.id_internship = id_internship;
-		//this.id_userAccount = id_userAccount;
+		this.id_internship = id_internship;
+		this.id_userAccount = id_userAccount;
 	}
 	
 	public Long getId() {
@@ -75,7 +81,7 @@ public class Candidature implements Serializable {
 		this.id = id;
 	}
 	
-	/*public String getTitle() {
+	public String getTitle() {
 		return title;
 	}
 
@@ -89,7 +95,7 @@ public class Candidature implements Serializable {
 
 	public void setContent(String content) {
 		this.content = content;
-	}*/
+	}
 
 	public String getCoverLetterPath() {
 		return coverLetterPath;
@@ -161,7 +167,7 @@ public class Candidature implements Serializable {
 
 	@Override
 	public String toString() {
-		return "insa.db.Candidature[ id=" + id + " ]";
+		return "insa.db.Message[ id=" + id + " ]";
 	}
 	
 }

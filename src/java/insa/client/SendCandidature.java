@@ -5,8 +5,12 @@
  */
 package insa.client;
 
+import insa.db.Company;
 import insa.db.Internship;
+import insa.db.Candidature;
+import insa.db.UserAccount;
 import insa.ws.InternshipWS;
+import insa.ws.CandidatureWS;
 import insa.ws.UserProfileWS;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -33,6 +37,8 @@ public class SendCandidature extends HttpServlet {
 	 */
 	
 	private static InternshipWS internshipService = new insa.ws.InternshipWS();
+	private static CandidatureWS candidatureService = new insa.ws.CandidatureWS();
+	private static UserProfileWS userProfileService = new insa.ws.UserProfileWS();
 	
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
@@ -84,12 +90,32 @@ public class SendCandidature extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		System.out.println(request.getParameter("title"));
-		System.out.println(request.getParameter("message"));
-		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidatures.jsp").forward(request, response);
-		// Verify if a file was sent 
-		// Save the file on the correct path 
-		// Create the candidature object and make the foreign keys
+		
+		String login = request.getParameter("login");
+		String candTitle = request.getParameter("title");
+		String candMessage = request.getParameter("message");
+		
+		// TODO: Verify if a file was sent 
+		// TODO: Save the file on the correct path 
+		String coverLetterPath = "/home/prmm95/NetBeansProjects/iManage/static/coverLetters/" 
+				+ login + "/" + "offre_id" + ".pdf"; 
+					
+		Candidature candidature = candidatureService.createCandidature(candTitle,candMessage,coverLetterPath);
+		
+		// Link candidature with the respective internship offer:
+		long offer_id = Long.parseLong(request.getParameter("offer_id"));
+		Internship offer = internshipService.getInternshipByID(offer_id);
+		candidatureService.linkOfferToCandidature(candidature.getId(),offer);
+		
+		// Link candidature with the respective user:
+		UserAccount userAccount = userProfileService.getUserAccountByLogin(login);
+		candidatureService.linkUserToCandidature(candidature.getId(),userAccount);
+		
+		// Link candidature with the respective company:
+		Company company = offer.getId_company();
+		candidatureService.linkCompanyToCandidature(candidature.getId(),company);
+					
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidatures.jsp").forward(request, response);	
 	}
 
 	/**

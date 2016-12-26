@@ -5,8 +5,11 @@
  */
 package insa.client;
 
+import insa.db.Candidature;
+import insa.db.Company;
 import insa.db.Internship;
 import insa.db.UserAccount;
+import insa.ws.CandidatureWS;
 import insa.ws.InternshipWS;
 import insa.ws.UserAccountWS;
 import insa.ws.UserProfileWS;
@@ -17,6 +20,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Objects;
 
 /**
  *
@@ -26,17 +32,41 @@ import java.nio.charset.StandardCharsets;
 public class Search extends HttpServlet {
     
     private static UserAccountWS userAccountService = new insa.ws.UserAccountWS() ;
-        private static UserProfileWS userProfileService = new insa.ws.UserProfileWS() ;
-
+    private static UserProfileWS userProfileService = new insa.ws.UserProfileWS() ;
     private static InternshipWS InternshipService = new InternshipWS() ;
-
+	private static CandidatureWS candidatureService = new insa.ws.CandidatureWS();
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         response.setContentType("text/html");
-        
-        request.setAttribute("internshipList", InternshipService.searchInternship());
+        String login = request.getParameter("login");		
+		long user_id = userProfileService.getUserAccountByLogin(login).getId();
+		List<Internship> internshipList = InternshipService.searchInternship();
+		List<Candidature> candidatureList = candidatureService.getCandidaturesByUserID(user_id);
+				
+		Iterator<Internship> iOffer = internshipList.iterator();
+		Iterator<Candidature> iCandidature = candidatureList.iterator();
+				
+		while (iCandidature.hasNext()) {
+			
+			Candidature currentCandidature = iCandidature.next();
+			
+			while (iOffer.hasNext()) {
+		
+				Internship currentOffer = iOffer.next();
+			
+				if (Objects.equals(currentOffer, currentCandidature.getId_internship())) {
+					iOffer.remove();
+					iCandidature.remove();
+					break;
+				}
+			
+			}
+			
+		}		
+		
+        request.setAttribute("internshipList",internshipList);
         request.setAttribute("companyList", InternshipService.getCompanies());
         request.setAttribute("categoryList", InternshipService.getCategories());
         

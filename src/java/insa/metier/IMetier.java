@@ -22,6 +22,7 @@ import java.util.List;
  */
 
 public interface IMetier 
+
 {
 	// User accounts: 
 	public UserAccount getUserAccountByLogin(String login);
@@ -37,34 +38,36 @@ public interface IMetier
     public UserProfile addUserProfile(String firstName, String lastName, String mail, String phone, String cvPath);
     public UserAccount linkUserProfile(String login, UserProfile up);
     public UserProfile deleteUserProfile(Long id);
-/*<<<<<<< HEAD
-    //public UserProfile updateUserProdeleteUserProfilefile(UserProfile userProfile);
-    public List<Internship> searchInternship();
-    public List<Category> getCategories();
-    public List<Company> getCompanies();
-=======*/
-    public UserProfile updateUserProfile(UserProfile userProfile);
+	public UserProfile updateUserProfile(UserProfile userProfile);
         
     // Candidatures:
-    public Candidature getCandidatureById(Long id);
-    public Candidature addCandidature(Candidature candidature);
+    //public Candidature getCandidatureById(Long id);
+    //public Candidature addCandidature(Candidature candidature);
+    //public Candidature deleteCandidatureById(Long id);
+    //public Candidature updateCandidature(Candidature candidature);
+
+	// Candidatures:
+	public Candidature getCandidatureById(Long id);
+    public Candidature createCandidature(String title, String message, String coverLetterPath);
     public Candidature deleteCandidatureById(Long id);
     public Candidature updateCandidature(Candidature candidature);
+	public Candidature linkOfferToCandidature(long candID, Internship offer);
+	public Candidature linkUserToCandidature(long cand_id,UserAccount userAccount);
+	public Candidature linkCompanyToCandidature(long cand_id,Company company);
+	public List<Candidature> getCandidaturesByUserID(long user_id);
 	
-    // Internships:
-    public Internship getInternshipByID(long id);
-    public List<Internship> searchInternship();
+	
+	// Internships:
+	public Internship getInternshipByID(long id);
+	public List<Internship> searchInternship();
     public List<Internship> getInternshipByCriteria(String company, String category, String keywords);
 	
 
 	// Companies and categories:
-	public List<Category> getCategories();
-        public List<Company> getCompanies();
-        public Company addCompanyProfile(String name, String phone, String mail, String address);
-	public UserAccount linkCompanyProfile(String login, Company comp);
-        public Company deleteCompanyProfile(Long id);
-        public Company getCompanyById(Long id);
-        public Company updateCompany(Company company);
+	//public UserAccount linkCompanyProfile(String login, Company comp);
+        //public Company deleteCompanyProfile(Long id);
+        //public Company getCompanyById(Long id);
+        //public Company updateCompany(Company company);
 
         // Messages:
         public Message getMessageById(Long id);
@@ -76,4 +79,14 @@ public interface IMetier
         public Message linkUserAccountListRecipients(Collection<UserAccount> list, Long id);
         public List<Message> searchSentMessages(Long id);
         public List<UserAccount> getAllReceiverAccount(Message message);
+
+	// Companies and categories:
+	public List<Category> getCategories();
+    public List<Company> getCompanies();
+    public Company addCompanyProfile(String name, String phone, String mail, String address);
+	public UserAccount linkCompanyProfile(String login, Company comp);
+    public Company deleteCompanyProfile(Long id);
+    public Company getCompanyById(Long id);
+    public Company updateCompany(Company company);
+	
 }

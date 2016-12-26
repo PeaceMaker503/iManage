@@ -128,4 +128,10 @@ public class InternshipWS {
 		return ((MetierImpl)metier).getInternshipByID(id);
 	}
     
+//	@WebMethod(operationName = "getCompanyByID")
+//	public Company getCompanyByID(long id) {
+//		return ((MetierImpl)metier).getCompanyByID(id);
+//	}  
+	
+	
 }
