@@ -5,7 +5,7 @@
  */
 package insa.dao;
 
-import insa.db.Message;
+import insa.db.Candidature;
 import insa.db.Category;
 import insa.db.Company;
 import insa.db.Internship;
@@ -261,12 +261,12 @@ public class DaoImpl implements IDao {
     }
 	
 	@Override
-	public Message getCandidatureById(Long id) {
-		return hibernateManager.getObjectFromDatabase(Message.class, id);
+	public Candidature getCandidatureById(Long id) {
+		return hibernateManager.getObjectFromDatabase(Candidature.class, id);
 	}
 	
 	@Override
-    public Message addCandidature(Message candidature) {
+    public Candidature addCandidature(Candidature candidature) {
 		Long id = hibernateManager.addObjectToDatabase(candidature);
         if(id != null)
         {
@@ -279,8 +279,8 @@ public class DaoImpl implements IDao {
 	}
 	
 	@Override
-    public Message deleteCandidatureById(Long id) {
-        Message candidature = hibernateManager.getObjectFromDatabase(Message.class, id);
+    public Candidature deleteCandidatureById(Long id) {
+        Candidature candidature = hibernateManager.getObjectFromDatabase(Candidature.class, id);
         boolean res = hibernateManager.deleteObjectFromDatabase(candidature);
         if(res)
             return candidature;
@@ -289,7 +289,7 @@ public class DaoImpl implements IDao {
 	}
 	
 	@Override
-    public Message updateCandidature(Message candidature) {
+    public Candidature updateCandidature(Candidature candidature) {
 		boolean res = hibernateManager.updateObjectInDatabase(candidature);
         if(res)
             return candidature;

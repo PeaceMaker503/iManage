@@ -58,9 +58,9 @@ public interface IDao {
     public List<Category> getAllCategories();
 	
 	// Messages:
-	public Message getCandidatureById(Long id);
-    public Message addCandidature(Message candidature);
-    public Message deleteCandidatureById(Long id);
-    public Message updateCandidature(Message candidature);
+	public Candidature getCandidatureById(Long id);
+    public Candidature addCandidature(Candidature candidature);
+    public Candidature deleteCandidatureById(Long id);
+    public Candidature updateCandidature(Candidature candidature);
     
 }

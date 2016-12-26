@@ -17,16 +17,15 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import static javax.persistence.TemporalType.TIMESTAMP;
-import org.hibernate.annotations.CreationTimestamp;
 
 /**
  *
  * @author prmm95
  */
+
 @Entity
-@Table(name="Message")
-public class Message implements Serializable {
+@Table(name="Candidature")
+public class Candidature implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	@Id
@@ -62,9 +61,9 @@ public class Message implements Serializable {
 	@Temporal(TemporalType.TIMESTAMP)
     private Date createdAt = new Date();
 	
-	public Message(){}
+	public Candidature(){}
 
-	public Message(String title, String content, String coverLetterPath, Internship id_internship, UserAccount id_userAccount, String status) {
+	public Candidature(String title, String content, String coverLetterPath, Internship id_internship, UserAccount id_userAccount, String status) {
 		this.title = title;
 		this.content = content;
 		this.coverLetterPath = coverLetterPath;
@@ -154,10 +153,10 @@ public class Message implements Serializable {
 	@Override
 	public boolean equals(Object object) {
 		// TODO: Warning - this method won't work in the case the id fields are not set
-		if (!(object instanceof Message)) {
+		if (!(object instanceof Candidature)) {
 			return false;
 		}
-		Message other = (Message) object;
+		Candidature other = (Candidature) object;
 		if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
 			return false;
 		}

@@ -145,20 +145,20 @@ public class MetierImpl implements IMetier {
         return list;
     }
 	
-	public Message getCandidatureById(Long id) {
+	public Candidature getCandidatureById(Long id) {
 		return dao.getCandidatureById(id);
 	}
 	
-    public Message createCandidature(String title, String message, String coverLetterPath) {
-		Message candidature = new Message(title,message,coverLetterPath,null,null,null);
+    public Candidature createCandidature(String title, String message, String coverLetterPath) {
+		Candidature candidature = new Candidature(title,message,coverLetterPath,null,null,null);
 		return dao.addCandidature(candidature);		
 	}
 	
-    public Message deleteCandidatureById(Long id) {
+    public Candidature deleteCandidatureById(Long id) {
 		return dao.deleteCandidatureById(id);		
 	}
 	
-    public Message updateCandidature(Message candidature) {
+    public Candidature updateCandidature(Candidature candidature) {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 	
@@ -181,9 +181,9 @@ public class MetierImpl implements IMetier {
     }
 
 	
-	public Message linkOfferToCandidature(long candID, Internship offer) {
-		Message res = null;
-        Message ua = dao.getCandidatureById(candID);
+	public Candidature linkOfferToCandidature(long candID, Internship offer) {
+		Candidature res = null;
+        Candidature ua = dao.getCandidatureById(candID);
         if(ua != null)
         {
             ua.setId_internship(offer);
@@ -196,9 +196,9 @@ public class MetierImpl implements IMetier {
         return res;	
 	}
 	
-	public Message linkUserToCandidature(long cand_id,UserAccount userAccount) {
-		Message res = null;
-        Message ua = dao.getCandidatureById(cand_id);
+	public Candidature linkUserToCandidature(long cand_id,UserAccount userAccount) {
+		Candidature res = null;
+        Candidature ua = dao.getCandidatureById(cand_id);
         if(ua != null)
         {
             ua.setId_userAccount(userAccount);
@@ -210,8 +210,20 @@ public class MetierImpl implements IMetier {
         return res;	
 	}
 	
-	public Message linkCompanyToCandidature() {
-		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	@Override
+	public Candidature linkCompanyToCandidature(long cand_id,Company company) {
+		Candidature res = null;
+        Candidature ua = dao.getCandidatureById(cand_id);
+        if(ua != null)
+        {
+            ua.setId_company(company);
+            ua = dao.updateCandidature(ua);
+            res = ua;
+        }
+        else
+            res = null;
+        
+        return res;	
 	}
 	
 }

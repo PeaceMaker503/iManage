@@ -6,7 +6,8 @@
 package insa.ws;
 
 import insa.db.Internship;
-import insa.db.Message;
+import insa.db.Candidature;
+import insa.db.Company;
 import insa.db.UserAccount;
 import insa.metier.IMetier;
 import javax.jws.WebService;
@@ -21,11 +22,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  */
 
 @WebService(serviceName = "CandidaturesWS")
-public class MessageWS {
+public class CandidatureWS {
 	
 	private IMetier metier;
     
-    public MessageWS()
+    public CandidatureWS()
     {
         ApplicationContext ap = new ClassPathXmlApplicationContext("../../WEB-INF/applicationContext.xml");
         metier = (IMetier)ap.getBean("metier");
@@ -47,24 +48,24 @@ public class MessageWS {
 	 * @return 
 	 */
 	@WebMethod(operationName = "createCandidature")
-	public Message createCandidature(@WebParam(name="candTitle") String title, @WebParam(name="candMessage") String message, @WebParam(name="coverLetterPath") String coverLetterPath) {
+	public Candidature createCandidature(@WebParam(name="candTitle") String title, @WebParam(name="candMessage") String message, @WebParam(name="coverLetterPath") String coverLetterPath) {
 		return metier.createCandidature(title,message,coverLetterPath);
 	}
 	
 	
 	@WebMethod(operationName = "linkOfferToCandidature")
-	public Message linkOfferToCandidature(@WebParam(name="cand_id") long cand_id, @WebParam(name="offer") Internship offer) {
+	public Candidature linkOfferToCandidature(@WebParam(name="cand_id") long cand_id, @WebParam(name="offer") Internship offer) {
 		return metier.linkOfferToCandidature(cand_id,offer);
 	}
 	
 	@WebMethod(operationName = "linkUserToCandidature")
-	public Message linkUserToCandidature(@WebParam(name="cand_id") long cand_id, @WebParam(name="userAccount") UserAccount userAccount){
+	public Candidature linkUserToCandidature(@WebParam(name="cand_id") long cand_id, @WebParam(name="userAccount") UserAccount userAccount){
 		return metier.linkUserToCandidature(cand_id,userAccount);
 	}
 	
 	@WebMethod(operationName = "linkCompanyToCandidature")
-	public Message linkCompanyToCandidature(){
-		return null;
+	public Candidature linkCompanyToCandidature(@WebParam(name="cand_id") long cand_id, @WebParam(name="company") Company company) {
+		return metier.linkCompanyToCandidature(cand_id,company);
 	}
 		
 }

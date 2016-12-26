@@ -5,7 +5,7 @@
  */
 package insa.metier;
 
-import insa.db.Message;
+import insa.db.Candidature;
 import insa.db.Category;
 import insa.db.Company;
 import insa.db.Internship;
@@ -36,13 +36,13 @@ public interface IMetier
 	public UserProfile updateUserProfile(UserProfile userProfile);
         
 	// Candidatures:
-	public Message getCandidatureById(Long id);
-    public Message createCandidature(String title, String message, String coverLetterPath);
-    public Message deleteCandidatureById(Long id);
-    public Message updateCandidature(Message candidature);
-	public Message linkOfferToCandidature(long candID, Internship offer);
-	public Message linkUserToCandidature(long cand_id,UserAccount userAccount);
-	public Message linkCompanyToCandidature();
+	public Candidature getCandidatureById(Long id);
+    public Candidature createCandidature(String title, String message, String coverLetterPath);
+    public Candidature deleteCandidatureById(Long id);
+    public Candidature updateCandidature(Candidature candidature);
+	public Candidature linkOfferToCandidature(long candID, Internship offer);
+	public Candidature linkUserToCandidature(long cand_id,UserAccount userAccount);
+	public Candidature linkCompanyToCandidature(long cand_id,Company company);
 	
 	// Internships:
 	public Internship getInternshipByID(long id);
