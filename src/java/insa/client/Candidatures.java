@@ -67,7 +67,7 @@ public class Candidatures extends HttpServlet {
     {
 		String login = request.getParameter("login");		
 		long user_id = userProfileService.getUserAccountByLogin(login).getId();
-		request.setAttribute("candidatureList",candidatureService.getCandidaturesByUserID(user_id));
+		request.setAttribute("candidatureList",candidatureService.getCandidaturesByUserID(user_id));		
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidatures.jsp").forward(request, response);
     }
 

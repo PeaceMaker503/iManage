@@ -28,31 +28,40 @@
 	<!-- Body -->
 	<div class="container">					
 	  <h2>My Candidatures</h2>
-	  <table class="table table-bordered">
+	  
+	  <c:choose>
+		<c:when test="${!candidatureList.isEmpty()}"> 
+			<table class="table table-bordered">
+			  <thead>
+				<tr>
+				  <th>Company</th>
+				  <th>Offer</th>
+				  <th>Date</th>
+				  <th>Status</th>
+				  <th>Cancel</th>
+				</tr>
+			  </thead>
+
+			  <tbody>	
+				  <c:forEach var="candidature" items="${candidatureList}">
+					<tr>
+					  <td>${candidature.id_company.name}</td>
+					  <td><a href="${candidature.id_internship.pdfPath}">${candidature.id_internship.name}</a></td>
+					  <td>${candidature.createdAt}</td>
+					  <td>${candidature.status}</td>
+					  <td><a href="#">Delete candidature</a></td>
+					 </tr>							
+				  </c:forEach>	
+			  </tbody>
+			</table>
+		</c:when>
+		
+		<c:when test="${candidatureList.isEmpty()}">
+	      <h3>You have not sent candidatures.</h3>
+		  <br>
+		</c:when>
 		  
-	    <thead>
-	      <tr>
-		    <th>Company</th>
-			<th>Offer</th>
-			<th>Date</th>
-			<th>Status</th>
-			<th>Cancel</th>
-		  </tr>
-		</thead>
-			  
-		<tbody>				
-		  <c:forEach var="candidature" items="${candidatureList}">
-		    <tr>
-			  <td>${candidature.id_company.name}</td>
-			  <td><a href="${candidature.id_internship.pdfPath}">${candidature.id_internship.name}</a></td>
-			  <td>${candidature.createdAt}</td>
-			  <td>${candidature.status}</td>
-			  <td><a href="#">Delete candidature</a></td>
-			</tr>							
-		  </c:forEach>				  
-		</tbody>
-			  
-	  </table>
+	  </c:choose>			
 	</div>
 		
     <!-- Footer --> 
