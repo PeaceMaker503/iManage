@@ -116,7 +116,14 @@ public class Messages extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		processRequest(request, response);
+                String idS = request.getParameter("idm");
+                Long id = Long.parseLong(idS);
+                Message message = messageService.updateReadMessage(id);
+                if (message!=null)
+                        System.out.println("---------- Tout est OK!");
+                else
+                    System.out.println("---------- Rien est OK!");
+
 	}
 
 	/**

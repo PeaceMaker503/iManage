@@ -27,7 +27,7 @@ and open the template in the editor.
 }
 
 .listMsg{
-    height: 20px;
+    height: 100%;
     list-style:none;
     display:inline;
     border-top-width: 2px;

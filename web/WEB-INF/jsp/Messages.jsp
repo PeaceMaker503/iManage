@@ -103,12 +103,18 @@
                                                                                         contentMsgR.push("<c:out value='${message.content}'/>");
                                                                                         var j =i;
                                                                                         i++;
+                                                                                        var read = "<c:out value='${message.read}'/>";
                                                                                     </script>
-                                                                                    <ul id='prov' class="uMsgR col-xs-12"><script> document.getElementById("prov").id=j;</script>
+                                                                                    <ul id='prov' class="uMsgR col-xs-12" style="height:20px">
+                                                                                        <script> 
+                                                                                        if(read==="false"){document.getElementById("prov").style.fontWeight="bold";}    
+                                                                                        document.getElementById("prov").id=j;</script>
                                                                                                 <li class="listMsg col-xs-1"></li>
                                                                                                 <li class="listMsg col-xs-3">${message.sender.login}</li>
                                                                                                 <li class="listMsg col-xs-6">${message.object}</li>
                                                                                                 <li class="listMsg col-xs-2">${message.date}</li>
+                                                                                                <li style="visibility: hidden" class="listMsg col-xs-0">${message.id}</li>
+                                                                                                <li style="visibility: hidden" class="listMsg col-xs-0">${message.read}</li>
                                                                                              </ul> 
                                                                                 </c:forEach>
                                                                         </div>
@@ -286,11 +292,15 @@
                                                                                          contentMsgS.push("<c:out value='${sentMessage.content}'/>");
                                                                                             var j=i;
                                                                                             i++;
-                                                                                            
+                                                                                            var read = "<c:out value='${sentMessage.read}'/>";
+
                                                                                 </script>
                                                                                    
-                                                                                  <ul id='prov' class="uMsgS col-xs-12"><script> document.getElementById("prov").id=j;</script>
-                                                                                                <li class="listMsg col-xs-1"></li>
+                                                                                  <ul id='prov' class="uMsgS col-xs-12" style="height:20px"><script> 
+                                                                                      if(read==="false"){document.getElementById("prov").style.fontWeight="bold";}
+                                                                                                    document.getElementById("prov").id=j;
+                                                                                      </script>   
+                                                                                       <li class="listMsg col-xs-1"></li>                                                                                               
                                                                                                 <li id="prov2" class="listMsg col-xs-3 listDesReceivers">
                                                                                                     <script>
                                                                                                         document.getElementById("prov2").id="listDesReceivers"+j;
@@ -303,6 +313,9 @@
                                                                                                 </li>  
                                                                                                 <li class="listMsg col-xs-6">${sentMessage.object}</li>
                                                                                                 <li class="listMsg col-xs-2">${sentMessage.date}</li>
+                                                                                                <li style="visibility: hidden" class="listMsg col-xs-0">${sentMessage.id}</li>
+                                                                                                <li style="visibility: hidden" class="listMsg col-xs-0">${sentMessage.read}</li>
+
                                                                                              </ul> 
                                                                                 </c:forEach>        
                                                                         </div></div>
@@ -333,12 +346,35 @@
 
     $('.uMsgR').click(function(){
         var id = this.id;
+        var readm = this.children[6].innerHTML;
+        var idMsg = this.children[5].innerHTML;
         document.getElementById("displayContent").innerHTML=contentMsgR[id];
+        if(readm==="false"){
+            $.ajax({
+            url:'Messages',
+            data:{idm:idMsg},
+            type:'post',
+            cache:false
+         });
+     }
+        $(this).css("font-weight","normal");
     });
     
     $('.uMsgS').click(function(){
         var id = this.id;
+        var readm = this.children[6].innerHTML;
+        var idMsg = this.children[5].innerHTML;
         document.getElementById("displayContent").innerHTML=contentMsgS[id];
+        if(readm==="false"){
+            $.ajax({
+                url:'Messages',
+                data:{idm:idMsg},
+                type:'post',
+                cache:false
+             });
+         }
+        $(this).css("font-weight","normal");
+
     });
     
     var jObjSelect1 = $( "#divSent2" );
@@ -351,7 +387,8 @@
     jObjSelect1.find( "ul" ).each( function( i, item ){ 
         $( item ).prependTo( jObjSelect1 );
     });
- 
+    
+    
    </script>
 
 </html>

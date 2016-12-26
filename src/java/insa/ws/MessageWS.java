@@ -71,4 +71,11 @@ public class MessageWS {
         //TODO write your implementation code here:
         return metier.getAllReceiverAccount(message);
     }
+    
+    @WebMethod(operationName = "updateReadMessage")
+    public Message updateReadMessage(@WebParam(name = "id") Long id) {
+        //TODO write your implementation code here:
+        return metier.updateReadMessage(id);
+    }
+    
 }

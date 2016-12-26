@@ -79,7 +79,7 @@ public interface IMetier
         public Message linkUserAccountListRecipients(Collection<UserAccount> list, Long id);
         public List<Message> searchSentMessages(Long id);
         public List<UserAccount> getAllReceiverAccount(Message message);
-
+        public Message updateReadMessage(Long id);
 	// Companies and categories:
 	public List<Category> getCategories();
     public List<Company> getCompanies();

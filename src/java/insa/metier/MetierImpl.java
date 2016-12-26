@@ -334,4 +334,15 @@ public class MetierImpl implements IMetier {
         return list; 
 	}
 	
+        public Message updateReadMessage(Long id){
+            Message message = dao.getMessageById(id);
+            message.setRead(true);
+            message = dao.updateMessage(message);
+            if (message != null)
+                return message;
+            else
+                return null;
+            
+        }
+
 }
