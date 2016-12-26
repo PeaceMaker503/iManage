@@ -69,7 +69,7 @@ public class CandidatureWS {
 		return metier.linkCompanyToCandidature(cand_id,company);
 	}
 
-	public List<Company> getCandidaturesByUserID(long user_id) {
+	public List<Candidature> getCandidaturesByUserID(long user_id) {
 		return metier.getCandidaturesByUserID(user_id);
 	}
 		

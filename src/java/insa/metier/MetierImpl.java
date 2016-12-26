@@ -226,8 +226,8 @@ public class MetierImpl implements IMetier {
         return res;	
 	}
 	
-	public List<Company> getCandidaturesByUserID(long user_id) {
-		List<Company> list = dao.getCandidaturesByUserID(user_id);
+	public List<Candidature> getCandidaturesByUserID(long user_id) {
+		List<Candidature> list = dao.getCandidaturesByUserID(user_id);
         return list; 
 	}
 	

@@ -62,6 +62,6 @@ public interface IDao {
     public Candidature addCandidature(Candidature candidature);
     public Candidature deleteCandidatureById(Long id);
     public Candidature updateCandidature(Candidature candidature);
-	public List<Company> getCandidaturesByUserID(long user_id);
+	public List<Candidature> getCandidaturesByUserID(long user_id);
     
 }

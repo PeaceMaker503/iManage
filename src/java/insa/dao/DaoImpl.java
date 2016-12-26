@@ -425,14 +425,15 @@ public class DaoImpl implements IDao {
     }
 	
 	@Override
-	public List<Company> getCandidaturesByUserID(long user_id) {
+	public List<Candidature> getCandidaturesByUserID(long user_id) {
 		String query = "from Candidature as cand where cand.id_userAccount.id = :user_id";
 		HashMap<String, Object> params = new HashMap<>();
         params.put("user_id", user_id);
-        List<Company> list = hibernateManager.execute(query, params, Company.class);
+        List<Candidature> list = hibernateManager.execute(query, params, Candidature.class);
         if(list != null)
             return list;
         else
             return null;	
 	}
+	
 }
