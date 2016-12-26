@@ -41,7 +41,7 @@
     
 
         <body>
-        <jsp:include page="./HeaderCompany.jsp"/>
+        <jsp:include page="./Header.jsp"/>
              
         <div class="intro-header">
         <div class="container">
