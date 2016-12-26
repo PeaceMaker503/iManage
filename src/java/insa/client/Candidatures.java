@@ -5,7 +5,9 @@
  */
 package insa.client;
 
-import insa.db.Message;
+import insa.db.Candidature;
+import insa.ws.CandidatureWS;
+import insa.ws.UserProfileWS;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
@@ -23,6 +25,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "Candidatures", urlPatterns = {"/Candidatures"})
 public class Candidatures extends HttpServlet {
 
+	private static CandidatureWS candidatureService = new insa.ws.CandidatureWS();
+	private static UserProfileWS userProfileService = new insa.ws.UserProfileWS();
+	
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
 	 *
@@ -60,13 +65,9 @@ public class Candidatures extends HttpServlet {
 	@Override
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-		Message testMessage = new Message("title","message","/",null,null,"not yet studied");
-		
-		System.out.println(testMessage.getCreatedAt());
-		
-		List<Message> testList = new ArrayList<Message>();
-		testList.add(testMessage);
-		request.setAttribute("candidatureList",testList);
+		String login = request.getParameter("login");		
+		long user_id = userProfileService.getUserAccountByLogin(login).getId();
+		request.setAttribute("candidatureList",candidatureService.getCandidaturesByUserID(user_id));
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidatures.jsp").forward(request, response);
     }
 

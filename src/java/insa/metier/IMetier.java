@@ -43,6 +43,8 @@ public interface IMetier
 	public Candidature linkOfferToCandidature(long candID, Internship offer);
 	public Candidature linkUserToCandidature(long cand_id,UserAccount userAccount);
 	public Candidature linkCompanyToCandidature(long cand_id,Company company);
+	public List<Company> getCandidaturesByUserID(long user_id);
+	
 	
 	// Internships:
 	public Internship getInternshipByID(long id);

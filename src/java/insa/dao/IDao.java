@@ -57,10 +57,11 @@ public interface IDao {
     public Category updateCategory(Category category);
     public List<Category> getAllCategories();
 	
-	// Messages:
+	// Candidatures:
 	public Candidature getCandidatureById(Long id);
     public Candidature addCandidature(Candidature candidature);
     public Candidature deleteCandidatureById(Long id);
     public Candidature updateCandidature(Candidature candidature);
+	public List<Company> getCandidaturesByUserID(long user_id);
     
 }

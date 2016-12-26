@@ -36,16 +36,18 @@
 			<th>Offer</th>
 			<th>Date</th>
 			<th>Status</th>
+			<th>Cancel</th>
 		  </tr>
 		</thead>
 			  
 		<tbody>				
 		  <c:forEach var="candidature" items="${candidatureList}">
 		    <tr>
-			  <td>name</td>
-			  <td><a href="#">${candidature.title}</a></td>
+			  <td>${candidature.id_company.name}</td>
+			  <td><a href="${candidature.id_internship.pdfPath}">${candidature.id_internship.name}</a></td>
 			  <td>${candidature.createdAt}</td>
 			  <td>${candidature.status}</td>
+			  <td><a href="#">Delete candidature</a></td>
 			</tr>							
 		  </c:forEach>				  
 		</tbody>

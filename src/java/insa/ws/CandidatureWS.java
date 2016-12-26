@@ -10,6 +10,7 @@ import insa.db.Candidature;
 import insa.db.Company;
 import insa.db.UserAccount;
 import insa.metier.IMetier;
+import java.util.List;
 import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
@@ -66,6 +67,10 @@ public class CandidatureWS {
 	@WebMethod(operationName = "linkCompanyToCandidature")
 	public Candidature linkCompanyToCandidature(@WebParam(name="cand_id") long cand_id, @WebParam(name="company") Company company) {
 		return metier.linkCompanyToCandidature(cand_id,company);
+	}
+
+	public List<Company> getCandidaturesByUserID(long user_id) {
+		return metier.getCandidaturesByUserID(user_id);
 	}
 		
 }
