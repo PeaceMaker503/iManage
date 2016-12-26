@@ -84,11 +84,12 @@ public class CreateUserProfile extends HttpServlet {
             String firstname = request.getParameter("firstname");
             String phone = request.getParameter("phone");
             String mail = request.getParameter("mail");
-            String cvPath = "a"; //request.getParameter("cvPath");
+            String cvPath = "a";
             
             UserProfile userPro = userProfileService.addUserProfile(firstname, lastname, phone, cvPath, mail);
             if(userPro == null)
             {
+				System.out.println("test");
                 this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CreateUserProfile.jsp").forward(request, response);
             }
             else

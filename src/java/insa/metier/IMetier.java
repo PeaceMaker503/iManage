@@ -19,6 +19,7 @@ import java.util.List;
  */
 
 public interface IMetier 
+
 {
 	// User accounts: 
 	public UserAccount getUserAccountByLogin(String login);
@@ -32,39 +33,29 @@ public interface IMetier
     public UserProfile addUserProfile(String firstName, String lastName, String mail, String phone, String cvPath);
     public UserAccount linkUserProfile(String login, UserProfile up);
     public UserProfile deleteUserProfile(Long id);
-/*<<<<<<< HEAD
-    //public UserProfile updateUserProdeleteUserProfilefile(UserProfile userProfile);
-    public List<Internship> searchInternship();
-    public List<Category> getCategories();
-    public List<Company> getCompanies();
-=======*/
-    public UserProfile updateUserProfile(UserProfile userProfile);
+	public UserProfile updateUserProfile(UserProfile userProfile);
         
-    // Candidatures:
-    public Message getCandidatureById(Long id);
-    public Message addCandidature(Message candidature);
+	// Candidatures:
+	public Message getCandidatureById(Long id);
+    public Message createCandidature(String title, String message, String coverLetterPath);
     public Message deleteCandidatureById(Long id);
     public Message updateCandidature(Message candidature);
+	public Message linkOfferToCandidature(long candID, Internship offer);
+	public Message linkUserToCandidature(long cand_id,UserAccount userAccount);
+	public Message linkCompanyToCandidature();
 	
-    // Internships:
-    public Internship getInternshipByID(long id);
-    public List<Internship> searchInternship();
+	// Internships:
+	public Internship getInternshipByID(long id);
+	public List<Internship> searchInternship();
     public List<Internship> getInternshipByCriteria(String company, String category, String keywords);
 	
-//<<<<<<< HEAD
 	// Companies and categories:
 	public List<Category> getCategories();
-        public List<Company> getCompanies();
-        public Company addCompanyProfile(String name, String phone, String mail, String address);
-	public UserAccount linkCompanyProfile(String login, Company comp);
-        public Company deleteCompanyProfile(Long id);
-        public Company getCompanyById(Long id);
-        public Company updateCompany(Company company);
-
-/*=======
-    // Companies and categories:
-    public List<Category> getCategories();
     public List<Company> getCompanies();
+    public Company addCompanyProfile(String name, String phone, String mail, String address);
+	public UserAccount linkCompanyProfile(String login, Company comp);
+    public Company deleteCompanyProfile(Long id);
+    public Company getCompanyById(Long id);
+    public Company updateCompany(Company company);
 	
->>>>>>> a9c55cd42466755c6ece798245d9a160d32eb387*/
 }

@@ -14,25 +14,29 @@ import java.util.List;
  */
 public interface IDao {
     
+	// User accounts:	
     public UserAccount getUserAccountByLogin(String login);
     public UserAccount getUserAccountById(Long id);
     public UserAccount addUserAccount(UserAccount userAccount);
     public UserAccount deleteUserAccountById(Long id);
     public UserAccount updateUserAccount(UserAccount id);
     
+	// User profiles:
     public UserProfile getUserProfileById(Long id);
     public UserProfile getUserProfileUsingAccountLogin(String login);
     public UserProfile addUserProfile(UserProfile userProfile);
     public UserProfile deleteUserProfileById(Long id);
     public UserProfile updateUserProfile(UserProfile userProfile);
    	
+	// Companies:
     public Company getCompanyById(Long id);
     public Company getCompanyByName(String name);
     public Company addCompany(Company company);
     public Company deleteCompanyById(Long id);
     public Company updateCompany(Company company);
     public List<Company> getAllCompanies();
-            
+        
+	// Internships:
     public Internship getInternshipById(Long id);
     public List<Internship> getInternshipByCategory(Category category);
     public List<Internship> getInternshipByCompany(Company company);
@@ -45,6 +49,7 @@ public interface IDao {
     public List<Internship> getAllInternships();
     public List<Internship> getInternshipsWhereTitleContains(String title);
     
+	// Categories:
     public Category getCategoryById(Long id);
     public Category getCategoryByName(String name);
     public Category addCategory(Category category);
@@ -52,6 +57,7 @@ public interface IDao {
     public Category updateCategory(Category category);
     public List<Category> getAllCategories();
 	
+	// Messages:
 	public Message getCandidatureById(Long id);
     public Message addCandidature(Message candidature);
     public Message deleteCandidatureById(Long id);

@@ -67,5 +67,5 @@ public class UserAccountWS
         IDao dao = ((MetierImpl)metier).getDao();
         return dao.getUserAccountByLogin(login);
     }
-
+	
 }

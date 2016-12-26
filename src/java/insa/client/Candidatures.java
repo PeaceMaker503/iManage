@@ -5,8 +5,11 @@
  */
 package insa.client;
 
+import insa.db.Message;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -57,6 +60,13 @@ public class Candidatures extends HttpServlet {
 	@Override
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
+		Message testMessage = new Message("title","message","/",null,null,"not yet studied");
+		
+		System.out.println(testMessage.getCreatedAt());
+		
+		List<Message> testList = new ArrayList<Message>();
+		testList.add(testMessage);
+		request.setAttribute("candidatureList",testList);
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidatures.jsp").forward(request, response);
     }
 

@@ -97,7 +97,7 @@ public class MetierImpl implements IMetier {
         
         return res;
     }
-    
+
     @Override
     public UserAccount linkCompanyProfile(String login, Company comp)
     {
@@ -149,8 +149,9 @@ public class MetierImpl implements IMetier {
 		return dao.getCandidatureById(id);
 	}
 	
-    public Message addCandidature(Message candidature) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public Message createCandidature(String title, String message, String coverLetterPath) {
+		Message candidature = new Message(title,message,coverLetterPath,null,null,null);
+		return dao.addCandidature(candidature);		
 	}
 	
     public Message deleteCandidatureById(Long id) {
@@ -164,7 +165,7 @@ public class MetierImpl implements IMetier {
 	public Internship getInternshipByID(long id) {
 		return dao.getInternshipById(id);
 	}
-	
+
     public Company addCompanyProfile(String name, String phone, String mail, String address){
         Company comp = new Company(name, phone, mail, address);
         return dao.addCompany(comp);
@@ -178,5 +179,39 @@ public class MetierImpl implements IMetier {
     public Company updateCompany(Company company){
         return dao.updateCompany(company);
     }
-    
+
+	
+	public Message linkOfferToCandidature(long candID, Internship offer) {
+		Message res = null;
+        Message ua = dao.getCandidatureById(candID);
+        if(ua != null)
+        {
+            ua.setId_internship(offer);
+            ua = dao.updateCandidature(ua);
+            res = ua;
+        }
+        else
+            res = null;
+        
+        return res;	
+	}
+	
+	public Message linkUserToCandidature(long cand_id,UserAccount userAccount) {
+		Message res = null;
+        Message ua = dao.getCandidatureById(cand_id);
+        if(ua != null)
+        {
+            ua.setId_userAccount(userAccount);
+            ua = dao.updateCandidature(ua);
+            res = ua;
+        }
+        else
+            res = null;
+        return res;	
+	}
+	
+	public Message linkCompanyToCandidature() {
+		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+	}
+	
 }

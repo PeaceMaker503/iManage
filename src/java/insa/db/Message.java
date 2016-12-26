@@ -15,6 +15,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+import static javax.persistence.TemporalType.TIMESTAMP;
+import org.hibernate.annotations.CreationTimestamp;
 
 /**
  *
@@ -51,11 +55,12 @@ public class Message implements Serializable {
 	private Company id_company;
 
 	@Column 
-	private String status;
+	private String status = "Not yet studied";
 	
 	// Autogeneration
 	@Column
-	private Date createdAt;
+	@Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt = new Date();
 	
 	public Message(){}
 

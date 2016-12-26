@@ -21,7 +21,7 @@
 			<div class="row">
 
 				<section class="content">
-					<h1>Table Filter</h1>
+					<h1>Messages</h1>
 					<div class="col-md-8 col-md-offset-2">
 						<div class="panel panel-default">
 							<div class="panel-body">
