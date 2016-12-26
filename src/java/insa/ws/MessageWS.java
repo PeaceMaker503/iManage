@@ -25,7 +25,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
  *
  * @author prmm95
  */
-@WebService(serviceName = "CandidaturesWS")
+@WebService(serviceName = "%esageWS")
 public class MessageWS {
 
     private IMetier metier;

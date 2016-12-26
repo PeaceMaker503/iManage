@@ -66,14 +66,9 @@
 			<div class="row">
 
 				<section class="content">
-<<<<<<< HEAD
 					<h1>Messaging Service</h1>
                                         <a class="col-xs-2 btn btn-default" style="display:inline;" href="<%=request.getContextPath()+"/WriteMessage?login="+request.getParameter("login")%>" role="button" aria-pressed="true">New Message</a>
 					<div class="col-xs-10">
-=======
-					<h1>Messages</h1>
-					<div class="col-md-8 col-md-offset-2">
->>>>>>> f4d1d5c109e119c7b397c520eace93f88e85e22e
 						<div class="panel panel-default">
 							<div class="panel-body">
 								<!--div class="pull-right">
