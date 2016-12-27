@@ -53,6 +53,13 @@ public class CandidatureWS {
 		return metier.createCandidature(title,message,coverLetterPath);
 	}
 	
+	/**
+	 * Web service operation
+	 */
+	@WebMethod(operationName = "deleteCandidature")
+	public Boolean deleteCandidature(@WebParam(name = "cand_id") long cand_id) {
+		return metier.deleteCandidatureById(cand_id);
+	}	
 	
 	@WebMethod(operationName = "linkOfferToCandidature")
 	public Candidature linkOfferToCandidature(@WebParam(name="cand_id") long cand_id, @WebParam(name="offer") Internship offer) {
@@ -72,5 +79,5 @@ public class CandidatureWS {
 	public List<Candidature> getCandidaturesByUserID(long user_id) {
 		return metier.getCandidaturesByUserID(user_id);
 	}
-		
+
 }

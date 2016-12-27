@@ -91,19 +91,21 @@ public class SendCandidature extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+		// Parameters:
 		String login = request.getParameter("login");
+		long user_id = userProfileService.getUserAccountByLogin(login).getId();
 		String candTitle = request.getParameter("title");
 		String candMessage = request.getParameter("message");
+		long offer_id = Long.parseLong(request.getParameter("offer_id"));
 		
 		// TODO: Verify if a file was sent 
 		// TODO: Save the file on the correct path 
 		String coverLetterPath = "/home/prmm95/NetBeansProjects/iManage/static/coverLetters/" 
-				+ login + "/" + "offre_id" + ".pdf"; 
+				+ login + "/" + offer_id + ".pdf"; 
 					
 		Candidature candidature = candidatureService.createCandidature(candTitle,candMessage,coverLetterPath);
 		
 		// Link candidature with the respective internship offer:
-		long offer_id = Long.parseLong(request.getParameter("offer_id"));
 		Internship offer = internshipService.getInternshipByID(offer_id);
 		candidatureService.linkOfferToCandidature(candidature.getId(),offer);
 		
@@ -114,7 +116,11 @@ public class SendCandidature extends HttpServlet {
 		// Link candidature with the respective company:
 		Company company = offer.getId_company();
 		candidatureService.linkCompanyToCandidature(candidature.getId(),company);
-					
+
+		// Redirect to Candidatures view:
+		request.setAttribute("login",login);
+		request.setAttribute("candidatureList",candidatureService.getCandidaturesByUserID(user_id));		
+		request.setAttribute("deletedCand",false);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidatures.jsp").forward(request, response);	
 	}
 

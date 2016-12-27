@@ -5,13 +5,10 @@
  */
 package insa.client;
 
-import insa.db.Candidature;
 import insa.ws.CandidatureWS;
 import insa.ws.UserProfileWS;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -68,6 +65,7 @@ public class Candidatures extends HttpServlet {
 		String login = request.getParameter("login");		
 		long user_id = userProfileService.getUserAccountByLogin(login).getId();
 		request.setAttribute("candidatureList",candidatureService.getCandidaturesByUserID(user_id));		
+		request.setAttribute("deletedCand",false);
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidatures.jsp").forward(request, response);
     }
 
@@ -82,14 +80,30 @@ public class Candidatures extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		processRequest(request, response);
+		
+		// Seach for the Candidature ID to delete:
+		long candidatureID = 0;				
+				
+		// Delete the candidature instance
+		Boolean deletedCand = candidatureService.deleteCandidature(candidatureID);
+		request.setAttribute("deletedCand",deletedCand);
+		
+		// TODO: Delete the Cover Letter file 
+		
+		// Redirect to the Candidatures view 
+		
+		
+		
+		
 	}
 
+	
+	
 	/**
 	 * Returns a short description of the servlet.
 	 *
 	 * @return a String containing servlet description
-	 */
+	 */	
 	@Override
 	public String getServletInfo() {
 		return "Short description";
