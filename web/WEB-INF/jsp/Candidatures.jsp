@@ -50,13 +50,9 @@
 					  <td><fmt:formatNumber type="number" pattern="0000" value="${candidature.id}"/></td>			  
 					  <td>${candidature.id_company.name}</td>
 					  <td><a href="${candidature.id_internship.pdfPath}">${candidature.id_internship.name}</a></td>
-					  <td><fmt:formatDate type="both" pattern="dd/MM/yyyy - HH:mm" value="${candidature.createdAt}"/></td>	  
+					  <td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidature.createdAt}"/></td>	  
 					  <td>${candidature.status}</td>
-					  <td>
-						<form class="form-horizontal" method="post">
-						  <input class="btn btn-danger" value="Delete Candidature" type="submit">						  
-						</form> 
-					  </td>
+					  <td><a href="<%=request.getContextPath()+"/DeleteCandidature?login=" + request.getParameter("login")%>&cand_id=${candidature.id}" class="btn btn-danger">Delete Candidature</a></td>
 					 </tr>							
 				  </c:forEach>	
 			  </tbody>
@@ -78,7 +74,7 @@
   <script>
     $('#candidatures').addClass('active');
   </script>
-
+  
 </html>
 
 
