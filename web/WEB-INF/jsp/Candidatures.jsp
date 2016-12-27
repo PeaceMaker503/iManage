@@ -21,6 +21,7 @@
   <body>
 	  
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	  
     <!-- Header --> 
 	<jsp:include page="./Header.jsp"/>
@@ -34,6 +35,7 @@
 			<table class="table table-bordered">
 			  <thead>
 				<tr>
+				  <th>Candidature ID</th>
 				  <th>Company</th>
 				  <th>Offer</th>
 				  <th>Date</th>
@@ -45,11 +47,16 @@
 			  <tbody>	
 				  <c:forEach var="candidature" items="${candidatureList}">
 					<tr>
+					  <td><fmt:formatNumber type="number" pattern="0000" value="${candidature.id}"/></td>			  
 					  <td>${candidature.id_company.name}</td>
 					  <td><a href="${candidature.id_internship.pdfPath}">${candidature.id_internship.name}</a></td>
-					  <td>${candidature.createdAt}</td>
+					  <td><fmt:formatDate type="both" pattern="dd/MM/yyyy - HH:mm" value="${candidature.createdAt}"/></td>	  
 					  <td>${candidature.status}</td>
-					  <td><a href="#">Delete candidature</a></td>
+					  <td>
+						<form class="form-horizontal" method="post">
+						  <input class="btn btn-danger" value="Delete Candidature" type="submit">						  
+						</form> 
+					  </td>
 					 </tr>							
 				  </c:forEach>	
 			  </tbody>

@@ -81,7 +81,7 @@ public class Candidatures extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		// Seach for the Candidature ID to delete:
+		// Search for the Candidature ID to delete:
 		long candidatureID = 0;				
 				
 		// Delete the candidature instance
