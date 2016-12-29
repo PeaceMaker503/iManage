@@ -23,8 +23,17 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	  
-    <!-- Header --> 
-	<jsp:include page="./Header.jsp"/>
+		<!-- Header --> 
+		<%  if(request.getAttribute("student") != null) {
+                                        if((request.getAttribute("student")).equals("true")){
+                                 %>
+                <jsp:include page="./Header.jsp"/>
+         <%}
+            else if((request.getAttribute("student")).equals("false")){
+                                 %>
+                <jsp:include page="./HeaderCompany.jsp"/>       
+         <%}                       
+        }%>
 	
 	<!-- Body -->
 	<div class="container">					

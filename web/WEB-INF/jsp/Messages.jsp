@@ -61,6 +61,7 @@
                 <jsp:include page="./HeaderCompany.jsp"/>       
          <%}                       
         }%>
+				
 		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         <div class="container">
 			<div class="row">
