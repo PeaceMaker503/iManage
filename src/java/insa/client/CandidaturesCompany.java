@@ -11,6 +11,8 @@ import insa.ws.InternshipWS;
 import insa.ws.UserProfileWS;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -69,8 +71,8 @@ public class CandidaturesCompany extends HttpServlet {
 		String login = request.getParameter("login");
 		long offer_id = Long.valueOf(request.getParameter("offer_id"));
 		Internship internshipOffer = internshipService.getInternshipByID(offer_id);
-		request.setAttribute("internshipOffer",internshipOffer);
 		long user_id = userProfileService.getUserAccountByLogin("alejandra").getId();
+		request.setAttribute("internshipOffer",internshipOffer);
 		request.setAttribute("candidatesList",candidatureService.getCandidaturesByUserID(user_id));
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CandidaturesCompany.jsp").forward(request, response);
 	}

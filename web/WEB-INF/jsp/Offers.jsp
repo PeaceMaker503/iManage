@@ -23,6 +23,9 @@
     </head>
 	
     <body>
+		
+		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+		<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
         
 		<!-- Header --> 
 		<jsp:include page="./HeaderCompany.jsp"/>
@@ -46,10 +49,10 @@
 			  </thead>
 
 			  <tbody>	
-				  <c:forEach var="candidature" items="${candidatureList}">
+				  <c:forEach var="offer" items="${internshipList}">
 					<tr>
-					  <td><fmt:formatNumber type="number" pattern="0000" value="${candidature.id}"/></td>			  
-					  <td><a href="${candidature.id_internship.pdfPath}">${candidature.id_internship.name}</a></td>
+					  <td><fmt:formatNumber type="number" pattern="0000" value="${offer.id}"/></td>
+					  <td>${offer.name}</td>
 					  <td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidature.createdAt}"/></td>	  
 					  <!-- JUST TO TEST -->
 					  <td><a href="<%=request.getContextPath()+"/CandidaturesCompany?login=" + request.getParameter("login")%>&offer_id=1">View Candidatures</a></td>
