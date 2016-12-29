@@ -5,6 +5,10 @@
  */
 package insa.client;
 
+import insa.db.Internship;
+import insa.ws.CandidatureWS;
+import insa.ws.InternshipWS;
+import insa.ws.UserProfileWS;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -20,6 +24,10 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "CandidaturesCompany", urlPatterns = {"/CandidaturesCompany"})
 public class CandidaturesCompany extends HttpServlet {
 
+	private static InternshipWS internshipService = new insa.ws.InternshipWS();
+	private static CandidatureWS candidatureService = new insa.ws.CandidatureWS();
+	private static UserProfileWS userProfileService = new insa.ws.UserProfileWS();
+	
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
 	 *
@@ -57,6 +65,13 @@ public class CandidaturesCompany extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+
+		String login = request.getParameter("login");
+		long offer_id = Long.valueOf(request.getParameter("offer_id"));
+		Internship internshipOffer = internshipService.getInternshipByID(offer_id);
+		request.setAttribute("internshipOffer",internshipOffer);
+		long user_id = userProfileService.getUserAccountByLogin("alejandra").getId();
+		request.setAttribute("candidatesList",candidatureService.getCandidaturesByUserID(user_id));
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CandidaturesCompany.jsp").forward(request, response);
 	}
 

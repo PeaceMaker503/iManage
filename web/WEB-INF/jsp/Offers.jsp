@@ -51,7 +51,9 @@
 					  <td><fmt:formatNumber type="number" pattern="0000" value="${candidature.id}"/></td>			  
 					  <td><a href="${candidature.id_internship.pdfPath}">${candidature.id_internship.name}</a></td>
 					  <td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidature.createdAt}"/></td>	  
-					  <td><a href="<%=request.getContextPath()+"/CandidaturesCompany?login=" + request.getParameter("login")%>&offer_id=${internship.id}">View Candidatures</a></td>
+					  <!-- JUST TO TEST -->
+					  <td><a href="<%=request.getContextPath()+"/CandidaturesCompany?login=" + request.getParameter("login")%>&offer_id=1">View Candidatures</a></td>
+					  <!--<td><a href="<%=request.getContextPath()+"/CandidaturesCompany?login=" + request.getParameter("login")%>&offer_id=${internship.id}">View Candidatures</a></td>-->
 					  <td><a href="<%=request.getContextPath()+"/EditOffer?login=" + request.getParameter("login")%>&offer_id=${internship.id}">Edit Offer</a></td>
 					  <td><a href="<%=request.getContextPath()+"/DeleteOffer?login=" + request.getParameter("login")%>&offer_id=${internship.id}" class="btn btn-danger">Delete Offer</a></td>
 					 </tr>							
