@@ -25,8 +25,8 @@
                 <li id="home"><a href="<%=request.getContextPath()+"/HomeCompany?login=" + request.getParameter("login")%>" style="font-weight: bold;"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                 <li id="search"><a href="<%=request.getContextPath()+"/Search?login=" + request.getParameter("login")%>" style="font-weight:bold;"><span class="glyphicon glyphicon-search"></span> Search</a></li>
                         <li id="messages"><a href="<%=request.getContextPath()+"/Messages?login=" + request.getParameter("login")%>" style="font-weight: bold;"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li> 
-                        <li id="candidatures"><a href="<%=request.getContextPath()+"/Candidatures?login=" + request.getParameter("login")%>" style="font-weight: bold;"><span class="glyphicon glyphicon-paste"></span> Candidatures</a></li>
-						<li id="candidatures"><a href="<%=request.getContextPath()+"/Candidatures?login=" + request.getParameter("login")%>" style="font-weight: bold;"><span class="glyphicon glyphicon-inbox"></span> My Offers</a></li>
+                        <li id="candidatures"><a href="<%=request.getContextPath()+"/CandidaturesCompany?login=" + request.getParameter("login")%>" style="font-weight: bold;"><span class="glyphicon glyphicon-paste"></span> Candidatures</a></li>
+						<li id="candidatures"><a href="<%=request.getContextPath()+"/Offers?login=" + request.getParameter("login")%>" style="font-weight: bold;"><span class="glyphicon glyphicon-inbox"></span> My Offers</a></li>
                         </ul>
 
                         <ul class="nav navbar-nav navbar-right">
