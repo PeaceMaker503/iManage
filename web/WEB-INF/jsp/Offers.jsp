@@ -30,7 +30,7 @@
 		<!-- Body -->
 		<h1>My Offers</h1>
 		
-		<a class="btn btn-primary" href="#" style="float:right">Add Offer</a>
+		<a class="btn btn-primary" href="<%=request.getContextPath()+"/AddOffer?login=" + request.getParameter("login")%>" style="float:right">Add Offer</a>
 		<br><br><br>
 		
 		<table class="table table-bordered">
@@ -51,9 +51,9 @@
 					  <td><fmt:formatNumber type="number" pattern="0000" value="${candidature.id}"/></td>			  
 					  <td><a href="${candidature.id_internship.pdfPath}">${candidature.id_internship.name}</a></td>
 					  <td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidature.createdAt}"/></td>	  
-					  <td><a href="<%=request.getContextPath()+"/DeleteCandidature?login=" + request.getParameter("login")%>&cand_id=${candidature.id}">View Candidatures</a></td>
-					  <td><a href="<%=request.getContextPath()+"/DeleteCandidature?login=" + request.getParameter("login")%>&cand_id=${candidature.id}">Edit Offer</a></td>
-					  <td><a href="<%=request.getContextPath()+"/DeleteCandidature?login=" + request.getParameter("login")%>&cand_id=${candidature.id}" class="btn btn-danger">Delete Offer</a></td>
+					  <td><a href="<%=request.getContextPath()+"/CandidaturesCompany?login=" + request.getParameter("login")%>&offer_id=${internship.id}">View Candidatures</a></td>
+					  <td><a href="<%=request.getContextPath()+"/EditOffer?login=" + request.getParameter("login")%>&offer_id=${internship.id}">Edit Offer</a></td>
+					  <td><a href="<%=request.getContextPath()+"/DeleteOffer?login=" + request.getParameter("login")%>&offer_id=${internship.id}" class="btn btn-danger">Delete Offer</a></td>
 					 </tr>							
 				  </c:forEach>	
 			  </tbody>

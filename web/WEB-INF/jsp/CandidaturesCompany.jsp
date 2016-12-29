@@ -17,7 +17,31 @@
 		<jsp:include page="./HeaderCompany.jsp"/>
 		
 		<!-- Body -->
-		<h1>Hello World!</h1>
+		<h1>Candidatures of the offer: (offer_name)</h1>
+		<br>
+		<table class="table table-bordered">
+			  <thead>
+				<tr>
+				  <th>Candidate Name</th>
+				  <th>CV</th>
+				  <th>Cover Letter</th>
+				  <th>Date</th>
+				  <th>Status</th>
+				</tr>
+			  </thead>
+
+			  <tbody>	
+				  <c:forEach var="candidate" items="${candidatesList}">
+					<tr>
+					  <td>Name student</td>			  
+					  <td><a href="#">lien_cv</a></td>
+					  <td><a href="#">lien_cl</a></td>
+					  <td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidature.createdAt}"/> dd/mm/yyyy at hh:mm</td>
+					  <td>Not yet studied (dropdown to modify)</td>
+					 </tr>							
+				  </c:forEach>	
+			  </tbody>
+		</table>
 		
 		<!-- Footer -->
 		<jsp:include page="./Footer.jsp"/>
