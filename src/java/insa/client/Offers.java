@@ -5,7 +5,9 @@
  */
 package insa.client;
 
+import insa.db.Company;
 import insa.db.Internship;
+import insa.db.UserAccount;
 import insa.ws.CandidatureWS;
 import insa.ws.InternshipWS;
 import insa.ws.UserAccountWS;
@@ -69,23 +71,18 @@ public class Offers extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+			
+		String login = request.getParameter("login");		
+		UserAccount companyAccount = userProfileService.getUserAccountByLogin(login);
+		Company companyProfile = userProfileService.getCompanyById(companyAccount.getId_Company_profile().getId());
 				
-		String company = new String("Entreprise".getBytes(),"UTF-8"); 
+		String company = new String(companyProfile.getName().getBytes(),"UTF-8"); 
         byte[] bytesComp = company.getBytes(StandardCharsets.ISO_8859_1);
         company = new String(bytesComp, StandardCharsets.UTF_8);
 		
 		List<Internship> internshipList = InternshipService.getInternshipByCriteria(company,"All","");
-		
-		if (internshipList.isEmpty()) {
-			System.out.println("EMPTY");
-			
-		}	
-		else {
-			System.out.println("NOT EMPTY");
-		}
-		
+
 		request.setAttribute("internshipList",internshipList);
-		
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Offers.jsp").forward(request, response);
 	}
 
