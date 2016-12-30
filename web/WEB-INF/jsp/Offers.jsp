@@ -17,8 +17,6 @@
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-
-		
 		
     </head>
 	
@@ -36,34 +34,46 @@
 		<a class="btn btn-primary" href="<%=request.getContextPath()+"/AddOffer?login=" + request.getParameter("login")%>" style="float:right">Add Offer</a>
 		<br><br><br>
 		
-		<table class="table table-bordered">
-			  <thead>
-				<tr>
-				  <th>ID</th>
-				  <th>Name</th>
-				  <th>Date</th>
-				  <th>Applications</th>
-				  <th>Edit</th>
-				  <th>Delete</th>
-				</tr>
-			  </thead>
-
-			  <tbody>	
-				  <c:forEach var="offer" items="${internshipList}">
+		<c:choose>
+						
+			<c:when test="${!internshipList.isEmpty()}">
+				<table class="table table-bordered">
+				  <thead>
 					<tr>
-					  <td><fmt:formatNumber type="number" pattern="0000" value="${offer.id}"/></td>
-					  <td>${offer.name}</td>
-					  <td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidature.createdAt}"/></td>	  
-					  <!-- JUST TO TEST -->
-					  <td><a href="<%=request.getContextPath()+"/CandidaturesCompany?login=" + request.getParameter("login")%>&offer_id=1">View Candidatures</a></td>
-					  <!--<td><a href="<%=request.getContextPath()+"/CandidaturesCompany?login=" + request.getParameter("login")%>&offer_id=${internship.id}">View Candidatures</a></td>-->
-					  <td><a href="<%=request.getContextPath()+"/EditOffer?login=" + request.getParameter("login")%>&offer_id=${internship.id}">Edit Offer</a></td>
-					  <td><a href="<%=request.getContextPath()+"/DeleteOffer?login=" + request.getParameter("login")%>&offer_id=${internship.id}" class="btn btn-danger">Delete Offer</a></td>
-					 </tr>							
-				  </c:forEach>	
-			  </tbody>
-			</table>
-		
+					  <th>ID</th>
+					  <th>Name</th>
+					  <th>Date</th>
+					  <th>Applications</th>
+					  <th>Edit</th>
+					  <th>Delete</th>
+					</tr>
+				  </thead>
+
+				  <tbody>	
+					  <c:forEach var="offer" items="${internshipList}">
+						<tr>
+						  <td><fmt:formatNumber type="number" pattern="0000" value="${offer.id}"/></td>
+						  <td>${offer.name}</td>
+						  <td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidature.createdAt}"/></td>	  
+						  <!-- JUST TO TEST -->
+						  <td><a href="<%=request.getContextPath()+"/CandidaturesCompany?login=" + request.getParameter("login")%>&offer_id=1">View Candidatures</a></td>
+						  <!--<td><a href="<%=request.getContextPath()+"/CandidaturesCompany?login=" + request.getParameter("login")%>&offer_id=${internship.id}">View Candidatures</a></td>-->
+						  <td><a href="<%=request.getContextPath()+"/EditOffer?login=" + request.getParameter("login")%>&offer_id=${internship.id}">Edit Offer</a></td>
+						  <td><a href="<%=request.getContextPath()+"/DeleteOffer?login=" + request.getParameter("login")%>&offer_id=${internship.id}" class="btn btn-danger">Delete Offer</a></td>
+						 </tr>							
+					  </c:forEach>	
+				  </tbody>
+				</table>
+				
+			</c:when>
+			
+			<c:when test="${internshipList.isEmpty()}">
+			    <h3>You have no offers added on iManage.</h3>
+			    <br>
+			</c:when>
+			
+		</c:choose>
+				
 		<!-- Footer -->
 		<jsp:include page="./Footer.jsp"/>
 				
