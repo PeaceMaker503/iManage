@@ -58,6 +58,9 @@ public class Candidature implements Serializable {
 	@Column 
 	private String status = "Not yet studied";
 	
+	@Column 
+	private String conventionPath = null;
+	
 	// Autogeneration
 	@Column
 	@Temporal(TemporalType.TIMESTAMP)
@@ -144,7 +147,16 @@ public class Candidature implements Serializable {
 	public void setId_company(Company id_company) {
 		this.id_company = id_company;
 	}
+
+	public String getConventionPath() {
+		return conventionPath;
+	}
+
+	public void setConventionPath(String conventionPath) {
+		this.conventionPath = conventionPath;
+	}
 	
+		
 	@Override
 	public int hashCode() {
 		int hash = 0;

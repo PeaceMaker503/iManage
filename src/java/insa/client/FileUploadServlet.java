@@ -50,11 +50,12 @@ public class FileUploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 		
+		String login = request.getParameter("login");
 		response.setContentType("text/html;charset=UTF-8");
         final String path = "/home/prmm95/NetBeansProjects/iManage/static/pdf";
         final Part filePart = request.getPart("file");
         final String fileName = "cv_" + request.getParameter("login") + ".pdf";
-		long userProfileID = userProfileService.getUserAccountByLogin("prmm95").getId_profile().getId();
+		long userProfileID = userProfileService.getUserAccountByLogin(login).getId_profile().getId();
 		UserProfile userProfile = userProfileService.getUserProfileById(userProfileID);
 		userProfile.setCvPath(path + "/" + fileName);		
 		userProfileService.updateUserProfile(userProfile);
