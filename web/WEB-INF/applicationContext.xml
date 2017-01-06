@@ -48,7 +48,6 @@
                 <value>insa.db.Company</value>  
                 <value>insa.db.Category</value>  
                 <value>insa.db.Internship</value>  
-                <value>insa.db.CompanyAccount</value>   
                 <value>insa.db.Candidature</value>   
             </list>
         </property>

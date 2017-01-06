@@ -24,7 +24,7 @@
             <div id="homePage" class="container-fluid col-xs-12 col-sm-push-2 col-sm-8 col-md-push-2 col-md-8 col-lg-push-2 col-lg-8">
                 <div id ="insideHomePage" class="row">
                     <div id="titleMain" class="col-lg-12">
-                        <img id="logoCompany" src="http://ibewmain.atstestweb.com/wp-content/uploads/sites/8/2015/04/handshake.png"/><p id="titleApp" class="centrerVerticalement">iManage</p>
+                        <p id="titleApp" class="centrerVerticalement">iManage</p>
                     </div>
                     <div id="connexion" class="container-fluid col-xs-12">
                         <div class="row" id="insideConnexion"> 

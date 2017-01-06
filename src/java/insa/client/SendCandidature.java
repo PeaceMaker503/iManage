@@ -91,6 +91,14 @@ public class SendCandidature extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
+                UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+                String userCategory = ua.getUserCategory();
+                if(userCategory.compareTo("Student")==0){
+                    request.setAttribute("student","true");
+                }
+                else{
+                    request.setAttribute("student","false");
+                }            
 		// Parameters:
 		String login = request.getParameter("login");
 		long user_id = userProfileService.getUserAccountByLogin(login).getId();
@@ -100,8 +108,8 @@ public class SendCandidature extends HttpServlet {
 		
 		// TODO: Verify if a file was sent 
 		// TODO: Save the file on the correct path 
-		String coverLetterPath = "/home/prmm95/NetBeansProjects/iManage/static/coverLetters/" 
-				+ login + "/" + offer_id + ".pdf"; 
+		String coverLetterPath = "/Users/jordycabannes/Desktop/iManage/web/Web-content/pdf/internshipOffer/Offre1.pdf"; 
+		//		+ login + "/" + offer_id + ".pdf"; 
 					
 		Candidature candidature = candidatureService.createCandidature(candTitle,candMessage,coverLetterPath);
 		

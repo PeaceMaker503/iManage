@@ -75,6 +75,11 @@ public class UserAccountWS
         return metier.getUserAccountByEmail(mail);
     }
     
+    @WebMethod(operationName = "getUserAccountByLogin")
+    public UserAccount getUserAccountByLogin(@WebParam(name = "login") String login) {
+        return metier.getUserAccountByLogin(login);
+    }
+    
     @WebMethod(operationName = "getAllUserAccount")
     public List<UserAccount> getAllUserAccount(){
         return metier.getAllUserAccount();
