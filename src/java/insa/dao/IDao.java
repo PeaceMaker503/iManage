@@ -20,6 +20,12 @@ public interface IDao {
     public UserAccount deleteUserAccountById(Long id);
     public UserAccount updateUserAccount(UserAccount id);
     
+    public CompanyAccount getCompanyAccountByLogin(String login);
+    public CompanyAccount getCompanyAccountById(Long id);
+    public CompanyAccount addCompanyAccount(CompanyAccount companyAccount);
+    public CompanyAccount deleteCompanyAccountById(Long id);
+    public CompanyAccount updateCompanyAccount(CompanyAccount id);
+    
     public UserProfile getUserProfileById(Long id);
     public UserProfile addUserProfile(UserProfile userProfile);
     public UserProfile deleteUserProfileById(Long id);

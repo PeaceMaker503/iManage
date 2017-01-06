@@ -8,6 +8,7 @@ package insa.metier;
 import insa.dao.IDao;
 import insa.db.Category;
 import insa.db.Company;
+import insa.db.CompanyAccount;
 import insa.db.Internship;
 import insa.db.UserProfile;
 import insa.db.UserAccount;
@@ -23,12 +24,17 @@ public interface IMetier
     public UserProfile getUserProfileById(Long id);
     public UserProfile addUserProfile(String firstName, String lastName, String mail, String phone, String cvPath);
     public UserAccount addUserAccount(String login , String mail , String password);
-	public UserAccount deleteUserAccountById(Long id);
+    public UserAccount deleteUserAccountById(Long id);
     public UserAccount linkUserProfile(String login, UserProfile up);
     public UserProfile deleteUserProfile(Long id);
-	public UserProfile updateUserProfile(UserProfile userProfile);
+    public UserProfile updateUserProfile(UserProfile userProfile);
     public List<Internship> searchInternship();
     public List<Category> getCategories();
     public List<Company> getCompanies();
     public List<Internship> getInternshipByCriteria(String company, String category, String keywords);
+    
+    public CompanyAccount getCompanyAccountByLogin(String login);
+    public CompanyAccount verifyCompanyAccount(String login, String password);
+    public CompanyAccount addCompanyAccount(String login , String mail , String password);
+    public CompanyAccount deleteCompanyAccountById(Long id);
 }

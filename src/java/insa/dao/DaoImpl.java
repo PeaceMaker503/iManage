@@ -7,6 +7,7 @@ package insa.dao;
 
 import insa.db.Category;
 import insa.db.Company;
+import insa.db.CompanyAccount;
 import insa.db.Internship;
 import insa.db.UserAccount;
 import insa.db.UserProfile;
@@ -375,4 +376,60 @@ public class DaoImpl implements IDao {
             return null;
     }
 
+    
+    
+    /************* Company Account ************/
+    
+    @Override
+    public CompanyAccount addCompanyAccount(CompanyAccount companyAccount)
+    {
+        Long id = hibernateManager.addObjectToDatabase(companyAccount);
+        if(id != null)
+        {
+            companyAccount.setId(id);
+            return companyAccount;
+        }
+        else
+            return null;
+    }
+    
+    @Override
+    public CompanyAccount getCompanyAccountById(Long id)
+    {
+        return hibernateManager.getObjectFromDatabase(CompanyAccount.class, id);
+    }
+    
+    @Override
+    public CompanyAccount deleteCompanyAccountById(Long id) {
+        CompanyAccount companyAccount = hibernateManager.getObjectFromDatabase(CompanyAccount.class, id);
+        boolean res = hibernateManager.deleteObjectFromDatabase(companyAccount);
+        if(res)
+            return companyAccount;
+        else
+            return null;
+    }
+
+    @Override
+    public CompanyAccount updateCompanyAccount(CompanyAccount companyAccount) {
+        boolean res = hibernateManager.updateObjectInDatabase(companyAccount);
+        if(res)
+            return companyAccount;
+        else
+            return null;
+    }
+    
+    
+    @Override
+    public CompanyAccount getCompanyAccountByLogin(String login)
+    {
+       String query = "from UserAccount as u where u.login= :login";
+       HashMap<String, Object> params = new HashMap<>();
+       params.put("login", login);
+       List<CompanyAccount> list = hibernateManager.execute(query, params, CompanyAccount.class);
+       if(list != null && list.size() == 1)
+           return list.get(0);
+       else
+           return null;
+    }
+    
 }
