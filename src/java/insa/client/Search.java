@@ -152,8 +152,7 @@ public class Search extends HttpServlet {
 			}
 			
 		}				
-        
-<<<<<<< HEAD
+
         request.setAttribute("keywords", keywords.toUpperCase());
         if (company.equals("All"))
             request.setAttribute("company", "ALL COMPANIES");
@@ -165,10 +164,6 @@ public class Search extends HttpServlet {
             request.setAttribute("category", category.toUpperCase());
         
         request.setAttribute("internshipList", InternshipService.getInternshipByCriteria(company, category, keywords));
-=======
-        request.setAttribute("test", "keywords: " + keywords + "\tcompany: " + company + "\tcategory: " + category);
-        request.setAttribute("internshipList",internshipList);
->>>>>>> 86a68af88dea9a38c6b9ea88655aa99695b0f4fa
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
     }
 }

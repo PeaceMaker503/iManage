@@ -159,32 +159,7 @@ public class MetierImpl implements IMetier {
         List<Internship> list = dao.getInternshipByCompanyNameCategoryNameWhereTitleContains(company, category, keywords);
         return list;
     }
-    
-    @Override
-    public CompanyAccount verifyCompanyAccount(String login, String password)
-    {
-        CompanyAccount ca = dao.getCompanyAccountByLogin(login);
-        if(ca != null && ca.getPassword().equals(password))
-            return ca;
-        else
-            return null;
-    }
-    
-    public CompanyAccount addCompanyAccount(String login , String password, String mail)
-    {
-        CompanyAccount ca = new CompanyAccount(login, password, mail);
-        return dao.addCompanyAccount(ca);
-    }
-	
-    @Override 
-    public CompanyAccount deleteCompanyAccountById(Long id) {
-            return dao.deleteCompanyAccountById(id);
-    }
-        
-    public CompanyAccount getCompanyAccountByLogin(String login) 
-    {
-            return dao.getCompanyAccountByLogin(login);
-    }
+   
 	
 	@Override
 	public Boolean deleteInternshipById(long offer_id) {
