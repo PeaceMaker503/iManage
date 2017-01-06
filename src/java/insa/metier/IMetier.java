@@ -53,8 +53,10 @@ public interface IMetier
 		
 	// Internships:
 	public Internship getInternshipByID(long id);
+    //	public Boolean deleteInternshipByID(Long id);
 	public List<Internship> searchInternship();
     public List<Internship> getInternshipByCriteria(String company, String category, String keywords);
+	public Boolean deleteInternshipById(long offer_id);
 	
     // Messages:
     public Message getMessageById(Long id);

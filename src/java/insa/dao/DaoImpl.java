@@ -150,13 +150,10 @@ public class DaoImpl implements IDao {
     }
 
     @Override
-    public Internship deleteInternshipById(Long id) {
+    public Boolean deleteInternshipById(Long id) {
         Internship internship = hibernateManager.getObjectFromDatabase(Internship.class, id);
         boolean res = hibernateManager.deleteObjectFromDatabase(internship);
-        if(res)
-            return internship;
-        else
-            return null;
+		return res;
     }
 
     @Override

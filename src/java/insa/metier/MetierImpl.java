@@ -161,6 +161,12 @@ public class MetierImpl implements IMetier {
     }
 	
 	@Override
+	public Boolean deleteInternshipById(long offer_id) {
+		return dao.deleteInternshipById(offer_id);
+	}
+		
+	
+	@Override
 	public Candidature getCandidatureById(Long id) {
 		return dao.getCandidatureById(id);
 	}

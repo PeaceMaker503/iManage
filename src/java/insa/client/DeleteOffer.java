@@ -76,8 +76,8 @@ public class DeleteOffer extends HttpServlet {
 		long user_id = userProfileService.getUserAccountByLogin(login).getId();
 		
 		// Delete the offer instance
-		//Boolean deletedOffer = candidatureService.deleteCandidature(offerID);
-		//request.setAttribute("deletedOffer",deletedOffer);
+		Boolean deletedOffer = internshipService.deleteInternshipByID(offerID);
+		request.setAttribute("deletedOffer",deletedOffer);
 				
 		// Set the new list of offers parameter to the view:
 		
