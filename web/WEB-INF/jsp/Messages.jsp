@@ -292,12 +292,12 @@
                                                                                          contentMsgS.push("<c:out value='${sentMessage.content}'/>");
                                                                                             var j=i;
                                                                                             i++;
-                                                                                            var read = "<c:out value='${sentMessage.read}'/>";
+                                       
 
                                                                                 </script>
                                                                                    
                                                                                   <ul id='prov' class="uMsgS col-xs-12" style="height:20px"><script> 
-                                                                                      if(read==="false"){document.getElementById("prov").style.fontWeight="bold";}
+                                                                                      
                                                                                                     document.getElementById("prov").id=j;
                                                                                       </script>   
                                                                                        <li class="listMsg col-xs-1"></li>                                                                                               
@@ -313,8 +313,7 @@
                                                                                                 </li>  
                                                                                                 <li class="listMsg col-xs-6">${sentMessage.object}</li>
                                                                                                 <li class="listMsg col-xs-2">${sentMessage.date}</li>
-                                                                                                <li style="visibility: hidden" class="listMsg col-xs-0">${sentMessage.id}</li>
-                                                                                                <li style="visibility: hidden" class="listMsg col-xs-0">${sentMessage.read}</li>
+                                
 
                                                                                              </ul> 
                                                                                 </c:forEach>        
@@ -362,19 +361,7 @@
     
     $('.uMsgS').click(function(){
         var id = this.id;
-        var readm = this.children[6].innerHTML;
-        var idMsg = this.children[5].innerHTML;
         document.getElementById("displayContent").innerHTML=contentMsgS[id];
-        if(readm==="false"){
-            $.ajax({
-                url:'Messages',
-                data:{idm:idMsg},
-                type:'post',
-                cache:false
-             });
-         }
-        $(this).css("font-weight","normal");
-
     });
     
     var jObjSelect1 = $( "#divSent2" );
