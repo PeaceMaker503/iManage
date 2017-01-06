@@ -439,6 +439,7 @@ public class DaoImpl implements IDao {
             return null;
     }
 
+
 	
 	@Override
     public Message getMessageById(Long id){
@@ -456,7 +457,7 @@ public class DaoImpl implements IDao {
         else
             return null;
     }
-    
+
 	@Override
     public Message deleteMessageById(Long id){
         Message message = hibernateManager.getObjectFromDatabase(Message.class, id);

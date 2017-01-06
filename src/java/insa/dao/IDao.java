@@ -24,7 +24,8 @@ public interface IDao {
     public UserAccount updateUserAccount(UserAccount id);
     public UserAccount getUserAccountByEmail(String mail);
     public List<UserAccount> getAllUserAccount();
-    
+
+
 	// User profiles:
     public UserProfile getUserProfileById(Long id);
     public UserProfile getUserProfileUsingAccountLogin(String login);

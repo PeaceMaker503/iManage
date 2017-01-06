@@ -92,16 +92,13 @@
 		<!-- Internship Offers --> 		
 		<!-- Offer Template -->
 		<div class="col-sm-10">
-         
-                    
-                    <a><% if(request.getAttribute("test") != null) {
-                         out.print(request.getAttribute("test"));
+                    <br />  
+                    <h4><small><% if (request.getAttribute("company") != null) {
+                        out.print("INTERNSHIP OFFERS OF <b>" + request.getAttribute("company") + "</b> IN <b>" + request.getAttribute("category") + "</b> WITH TAGS : <b>" + request.getAttribute("keywords") + "</b>");
+                    } else {
+                        out.print("ALL INTERNSHIP");
                     }
-                    %></a>
-                    <br /><br />
-        
-        
-		  <h4><small>INTERNSHIP OFFERS OF COMPUTER AND NETWORKS ENGINEERING</small></h4>
+                    %></small></h4>
 		  <hr>
                   <div class="flex-list">
                       <ul>
@@ -138,14 +135,6 @@
     
     <script type="text/javascript">
 
-        $("#category li").on("click", function() {
-            $("#category").find("li").removeClass("active");
-            $(this).addClass("active");
-            $("#sidebarValue").val($(this).text());
-        });
-
-        $('#search').addClass('active');
-  
     </script>
         
 </html>
