@@ -118,6 +118,7 @@ public class DaoImpl implements IDao {
         return hibernateManager.getObjectFromDatabase(UserProfile.class, id);
     }
     
+	@Override
      public UserProfile getUserProfileUsingAccountLogin(String login)
      {
          UserAccount ua= this.getUserAccountByLogin(login);
@@ -149,13 +150,10 @@ public class DaoImpl implements IDao {
     }
 
     @Override
-    public Internship deleteInternshipById(Long id) {
+    public Boolean deleteInternshipById(Long id) {
         Internship internship = hibernateManager.getObjectFromDatabase(Internship.class, id);
         boolean res = hibernateManager.deleteObjectFromDatabase(internship);
-        if(res)
-            return internship;
-        else
-            return null;
+		return res;
     }
 
     @Override
@@ -299,13 +297,10 @@ public class DaoImpl implements IDao {
 	}
 	
 	@Override
-    public Candidature deleteCandidatureById(Long id) {
-        Candidature candidature = hibernateManager.getObjectFromDatabase(Candidature.class, id);
-        boolean res = hibernateManager.deleteObjectFromDatabase(candidature);
-        if(res)
-            return candidature;
-        else
-            return null;	
+    public Boolean deleteCandidatureById(Long cand_id) {
+        Candidature cand = hibernateManager.getObjectFromDatabase(Candidature.class, cand_id);
+        Boolean deleted = hibernateManager.deleteObjectFromDatabase(cand);
+		return deleted;
 	}
 	
 	@Override
@@ -443,12 +438,14 @@ public class DaoImpl implements IDao {
         else
             return null;
     }
-//<<<<<<< HEAD
 
+	
+	@Override
     public Message getMessageById(Long id){
         return hibernateManager.getObjectFromDatabase(Message.class, id);
     }
     
+	@Override
     public Message addMessage(Message message){
         Long id = hibernateManager.addObjectToDatabase(message);
         if(id != null)
@@ -460,6 +457,7 @@ public class DaoImpl implements IDao {
             return null;
     }
     
+	@Override
     public Message deleteMessageById(Long id){
         Message message = hibernateManager.getObjectFromDatabase(Message.class, id);
         boolean res = hibernateManager.deleteObjectFromDatabase(message);
@@ -469,6 +467,7 @@ public class DaoImpl implements IDao {
             return null;	
 	}
     
+	@Override
     public Message updateMessage(Message message){
         boolean res = hibernateManager.updateObjectInDatabase(message);
         if(res)
@@ -493,6 +492,7 @@ public class DaoImpl implements IDao {
         }
     }
     
+	@Override
     public List<Message> getAllSentMessages(Long id){
         //String query = "SELECT Message.id, Message.content, Message.dateMail, Message.objectMail, Message.readMail, Message.sender_id FROM messages_account LEFT JOIN Message ON messages_account.message_id=Message.id WHERE messages_account.userAccount_id= :id_send";
         String query ="from Message as m where m.sender.id= :id";
@@ -508,6 +508,7 @@ public class DaoImpl implements IDao {
         }
     }
 
+	@Override
     public List<UserAccount> getAllUserAccount(){
         String query ="from UserAccount";
         List<UserAccount> list = hibernateManager.execute(query, UserAccount.class);
@@ -519,6 +520,7 @@ public class DaoImpl implements IDao {
         }
     }
     
+	@Override
     public List<UserAccount> getAllReceiverAccount(Message message){
         String query = "from UserAccount as ua where :message MEMBER OF messages";
         HashMap<String, Object> params = new HashMap<>();
@@ -536,9 +538,6 @@ public class DaoImpl implements IDao {
     }
 
 
-
-//=======
-	
 	@Override
 	public List<Candidature> getCandidaturesByUserID(long user_id) {
 		String query = "from Candidature as cand where cand.id_userAccount.id = :user_id";
@@ -551,5 +550,4 @@ public class DaoImpl implements IDao {
             return null;	
 	}
 	
-//>>>>>>> f4d1d5c109e119c7b397c520eace93f88e85e22e
 }

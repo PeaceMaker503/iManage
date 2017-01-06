@@ -133,5 +133,12 @@ public class InternshipWS {
 //		return ((MetierImpl)metier).getCompanyByID(id);
 //	}  
 	
+	/**
+	 * Web service operation
+	 */
+	@WebMethod(operationName = "deleteInternship")
+	public Boolean deleteInternshipByID(@WebParam(name = "offer_id") long offer_id) {
+		return metier.deleteInternshipById(offer_id);
+	}	
 	
 }

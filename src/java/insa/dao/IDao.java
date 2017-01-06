@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package insa.dao;
 
 import insa.db.*;
@@ -12,6 +13,7 @@ import java.util.List;
  *
  * @author Halim
  */
+
 public interface IDao {
     
 	// User accounts:	
@@ -46,7 +48,7 @@ public interface IDao {
     public List<Internship> getInternshipByCompanyName(String name);
     public List<Internship> getInternshipByCompanyNameCategoryNameWhereTitleContains(String companyName, String categoryName, String keywords);
     public Internship addInternship(Internship internship);
-    public Internship deleteInternshipById(Long id);
+    public Boolean deleteInternshipById(Long id);
     public Internship updateInternship(Internship internship);
     public List<Internship> getAllInternships();
     public List<Internship> getInternshipsWhereTitleContains(String title);
@@ -59,19 +61,12 @@ public interface IDao {
     public Category updateCategory(Category category);
     public List<Category> getAllCategories();
 	
-//<<<<<<< HEAD
-    //public Candidature getCandidatureById(Long id);
-    //public Candidature addCandidature(Candidature candidature);
-    //public Candidature deleteCandidatureById(Long id);
-    //public Candidature updateCandidature(Candidature candidature);
-//=======
 	// Candidatures:
 	public Candidature getCandidatureById(Long id);
     public Candidature addCandidature(Candidature candidature);
-    public Candidature deleteCandidatureById(Long id);
+    public Boolean deleteCandidatureById(Long id);
     public Candidature updateCandidature(Candidature candidature);
 	public List<Candidature> getCandidaturesByUserID(long user_id);
-//>>>>>>> f4d1d5c109e119c7b397c520eace93f88e85e22e
     
     public Message getMessageById(Long id);
     public Message addMessage(Message message);

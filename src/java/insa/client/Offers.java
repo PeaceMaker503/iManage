@@ -5,11 +5,17 @@
  */
 package insa.client;
 
+import insa.db.Company;
+import insa.db.Internship;
 import insa.db.UserAccount;
 import insa.ws.CandidatureWS;
+import insa.ws.InternshipWS;
+import insa.ws.UserAccountWS;
 import insa.ws.UserProfileWS;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.nio.charset.StandardCharsets;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,12 +26,14 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author prmm95
  */
-@WebServlet(name = "Candidatures", urlPatterns = {"/Candidatures"})
-public class Candidatures extends HttpServlet {
-
-	private static CandidatureWS candidatureService = new insa.ws.CandidatureWS();
-	private static UserProfileWS userProfileService = new insa.ws.UserProfileWS();
+@WebServlet(name = "Offers", urlPatterns = {"/Offers"})
+public class Offers extends HttpServlet {
 	
+	private static UserAccountWS userAccountService = new insa.ws.UserAccountWS() ;
+    private static UserProfileWS userProfileService = new insa.ws.UserProfileWS() ;
+    private static InternshipWS InternshipService = new InternshipWS() ;
+	private static CandidatureWS candidatureService = new insa.ws.CandidatureWS();
+
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
 	 *
@@ -42,10 +50,10 @@ public class Candidatures extends HttpServlet {
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Servlet Candidatures</title>");			
+			out.println("<title>Servlet Offers</title>");			
 			out.println("</head>");
 			out.println("<body>");
-			out.println("<h1>Servlet Candidatures at " + request.getContextPath() + "</h1>");
+			out.println("<h1>Servlet Offers at " + request.getContextPath() + "</h1>");
 			out.println("</body>");
 			out.println("</html>");
 		}
@@ -61,24 +69,22 @@ public class Candidatures extends HttpServlet {
 	 * @throws IOException if an I/O error occurs
 	 */
 	@Override
-	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
-    {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+			
 		String login = request.getParameter("login");		
-		long user_id = userProfileService.getUserAccountByLogin(login).getId();
-		request.setAttribute("candidatureList",candidatureService.getCandidaturesByUserID(user_id));		
-		request.setAttribute("deletedCand",false);
+		UserAccount companyAccount = userProfileService.getUserAccountByLogin(login);
+		Company companyProfile = userProfileService.getCompanyById(companyAccount.getId_Company_profile().getId());
+				
+		String company = new String(companyProfile.getName().getBytes(),"UTF-8"); 
+        byte[] bytesComp = company.getBytes(StandardCharsets.ISO_8859_1);
+        company = new String(bytesComp, StandardCharsets.UTF_8);
 		
-		UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
-		String userCategory = ua.getUserCategory();
-        if(userCategory.compareTo("Student")==0){
-            request.setAttribute("student","true");
-        }
-        else{
-            request.setAttribute("student","false");
-        }
-		
-        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidatures.jsp").forward(request, response);
-    }
+		List<Internship> internshipList = InternshipService.getInternshipByCriteria(company,"All","");
+
+		request.setAttribute("internshipList",internshipList);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Offers.jsp").forward(request, response);
+	}
 
 	/**
 	 * Handles the HTTP <code>POST</code> method.
@@ -91,32 +97,14 @@ public class Candidatures extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-//		// Parameters:
-//		String login = request.getParameter("login");
-//		//long candidatureID = 0;			
-//		long user_id = userProfileService.getUserAccountByLogin(login).getId();
-//					
-//		System.out.println(request.getParameter("cand_id"));
-//		
-//		
-//		// Delete the candidature instance
-//		//Boolean deletedCand = candidatureService.deleteCandidature(candidatureID);
-//		//request.setAttribute("deletedCand",deletedCand);
-//		
-//		// TODO: Delete the Cover Letter file 
-//		
-//		// Redirect to the Candidatures view 
-//		request.setAttribute("candidatureList",candidatureService.getCandidaturesByUserID(user_id));		
-//        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidatures.jsp").forward(request, response);
-//		
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Offers.jsp").forward(request, response);
 	}
 
 	/**
 	 * Returns a short description of the servlet.
 	 *
 	 * @return a String containing servlet description
-	 */	
+	 */
 	@Override
 	public String getServletInfo() {
 		return "Short description";

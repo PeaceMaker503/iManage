@@ -5,7 +5,6 @@
  */
 package insa.metier;
 
-import insa.dao.DaoImpl;
 import insa.dao.IDao;
 import insa.db.*;
 import java.util.ArrayList;
@@ -13,8 +12,6 @@ import java.util.Collection;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 /**
  *
@@ -42,11 +39,13 @@ public class MetierImpl implements IMetier {
         return dao.addUserProfile(up);
     }
 	
+	@Override
     public UserProfile getUserProfileById(Long id) 
     {
 	return dao.getUserProfileById(id);
     }
         
+	@Override
     public UserAccount getUserAccountByEmail(String mail){
         return dao.getUserAccountByEmail(mail); 
     }
@@ -58,11 +57,13 @@ public class MetierImpl implements IMetier {
 		return dao.getUserAccountByLogin(login);
 	}
         
-         public UserProfile getUserProfileUsingAccountLogin(String login)
-         {
-             return dao.getUserProfileUsingAccountLogin(login);
-         }
+	@Override
+    public UserProfile getUserProfileUsingAccountLogin(String login)
+    {
+        return dao.getUserProfileUsingAccountLogin(login);
+    }
 		    
+	@Override
     public UserAccount addUserAccount(String login , String mail, String password, String userCategory)
     {
         UserAccount ua = new UserAccount(login, mail, password, userCategory);
@@ -135,84 +136,101 @@ public class MetierImpl implements IMetier {
         this.dao = dao;
     }
 
+	@Override
     public List<Internship> searchInternship() {
         List<Internship> list = dao.getAllInternships();
         return list;
     }
     
+	@Override
     public List<Category> getCategories() {
         List<Category> list = dao.getAllCategories();
         return list;
     }
     
+	@Override
     public List<Company> getCompanies() {
         List<Company> list = dao.getAllCompanies();
         return list;
     }
     
+	@Override
     public List<Internship> getInternshipByCriteria(String company, String category, String keywords) {
         List<Internship> list = dao.getInternshipByCompanyNameCategoryNameWhereTitleContains(company, category, keywords);
         return list;
     }
 	
+	@Override
+	public Boolean deleteInternshipById(long offer_id) {
+		return dao.deleteInternshipById(offer_id);
+	}
+		
+	
+	@Override
 	public Candidature getCandidatureById(Long id) {
 		return dao.getCandidatureById(id);
 	}
 	
-/*<<<<<<< HEAD
-    public Candidature addCandidature(Candidature candidature) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-=======*/
+	@Override
     public Candidature createCandidature(String title, String message, String coverLetterPath) {
 		Candidature candidature = new Candidature(title,message,coverLetterPath,null,null,null);
 		return dao.addCandidature(candidature);		
-//>>>>>>> f4d1d5c109e119c7b397c520eace93f88e85e22e
 	}
 	
-    public Candidature deleteCandidatureById(Long id) {
+	@Override
+    public Boolean deleteCandidatureById(Long id) {
 		return dao.deleteCandidatureById(id);		
 	}
 	
+	@Override
     public Candidature updateCandidature(Candidature candidature) {
 		throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
 	}
 	
+	@Override
 	public Internship getInternshipByID(long id) {
 		return dao.getInternshipById(id);
 	}
 
+	@Override
     public Company addCompanyProfile(String name, String phone, String mail, String address){
         Company comp = new Company(name, phone, mail, address);
         return dao.addCompany(comp);
     }
     
+	@Override
     public Company getCompanyById(Long id){
             return dao.getCompanyById(id);
 
     }
     
+	@Override
     public Company updateCompany(Company company){
         return dao.updateCompany(company);
     }
-//<<<<<<< HEAD
     
+	@Override
     public Message getMessageById(Long id){
         return dao.getMessageById(id);
     }
     
+	@Override
     public Message addMessage(String object, String content, Date date, Boolean read){
         Message message = new Message(object, content, date, read); 
         return dao.addMessage(message);
     }
+	@Override
     public Message deleteMessageById(Long id){
         return dao.deleteMessageById(id);
     }
     
+	@Override
     public Message updateMessage(String object, String content, Date date, Boolean read){
         Message message = new Message(object, content, date, read); 
         return dao.updateMessage(message);
     }
     
+	@Override
     public List<Message> searchMessage(UserAccount ua){
         List<Message> list = dao.getAllMessages(ua);
         return list;
@@ -233,9 +251,8 @@ public class MetierImpl implements IMetier {
             res = null;
         return res;
     }
-//=======
-
 	
+	@Override
 	public Candidature linkOfferToCandidature(long candID, Internship offer) {
 		Candidature res = null;
         Candidature ua = dao.getCandidatureById(candID);
@@ -279,16 +296,19 @@ public class MetierImpl implements IMetier {
         return res;
     }
     
+	@Override
     public List<Message> searchSentMessages(Long id){
         List<Message> list = dao.getAllSentMessages(id);
         return list;      
     }
     
+	@Override
     public List<UserAccount> getAllUserAccount(){
         List<UserAccount> list = dao.getAllUserAccount();
         return list;      
     }
     
+	@Override
     public List<UserAccount> getAllReceiverAccount(Message message){
         List<UserAccount> list = dao.getAllReceiverAccount(message);
         return list;
@@ -299,6 +319,7 @@ public class MetierImpl implements IMetier {
     
 
 	
+	@Override
 	public Candidature linkUserToCandidature(long cand_id,UserAccount userAccount) {
 		Candidature res = null;
         Candidature ua = dao.getCandidatureById(cand_id);
@@ -329,11 +350,13 @@ public class MetierImpl implements IMetier {
         return res;	
 	}
 	
+	@Override
 	public List<Candidature> getCandidaturesByUserID(long user_id) {
 		List<Candidature> list = dao.getCandidaturesByUserID(user_id);
         return list; 
 	}
 	
+	@Override
         public Message updateReadMessage(Long id){
             Message message = dao.getMessageById(id);
             message.setRead(true);

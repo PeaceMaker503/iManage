@@ -21,9 +21,19 @@
   <body>
 	  
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	  
-    <!-- Header --> 
-	<jsp:include page="./Header.jsp"/>
+		<!-- Header --> 
+		<%  if(request.getAttribute("student") != null) {
+                                        if((request.getAttribute("student")).equals("true")){
+                                 %>
+                <jsp:include page="./Header.jsp"/>
+         <%}
+            else if((request.getAttribute("student")).equals("false")){
+                                 %>
+                <jsp:include page="./HeaderCompany.jsp"/>       
+         <%}                       
+        }%>
 	
 	<!-- Body -->
 	<div class="container">					
@@ -34,6 +44,7 @@
 			<table class="table table-bordered">
 			  <thead>
 				<tr>
+				  <th>Candidature ID</th>
 				  <th>Company</th>
 				  <th>Offer</th>
 				  <th>Date</th>
@@ -45,11 +56,12 @@
 			  <tbody>	
 				  <c:forEach var="candidature" items="${candidatureList}">
 					<tr>
+					  <td><fmt:formatNumber type="number" pattern="0000" value="${candidature.id}"/></td>			  
 					  <td>${candidature.id_company.name}</td>
 					  <td><a href="${candidature.id_internship.pdfPath}">${candidature.id_internship.name}</a></td>
-					  <td>${candidature.createdAt}</td>
+					  <td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidature.createdAt}"/></td>	  
 					  <td>${candidature.status}</td>
-					  <td><a href="#">Delete candidature</a></td>
+					  <td><a href="<%=request.getContextPath()+"/DeleteCandidature?login=" + request.getParameter("login")%>&cand_id=${candidature.id}" class="btn btn-danger">Delete Candidature</a></td>
 					 </tr>							
 				  </c:forEach>	
 			  </tbody>
@@ -71,7 +83,7 @@
   <script>
     $('#candidatures').addClass('active');
   </script>
-
+  
 </html>
 
 
