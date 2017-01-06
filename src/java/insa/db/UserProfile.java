@@ -44,8 +44,7 @@ public class UserProfile implements Serializable {
     @Pattern(regexp="[0-9A-Za-z_]+[@][0-9A-Za-z_]+[.][0-9A-Za-z_]+")
     private String mail;
     
-    @NotNull
-    @Column(unique=true)
+    @Column
     private String cvPath;
     
     public UserProfile() {}

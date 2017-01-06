@@ -36,8 +36,16 @@
     </head>
     
     <body>
-              
-        <jsp:include page="./Header.jsp"/>
+        <%  if(request.getAttribute("student") != null) {
+                                        if((request.getAttribute("student")).equals("true")){
+                                 %>
+                <jsp:include page="./Header.jsp"/>
+         <%}
+            else if((request.getAttribute("student")).equals("false")){
+                                 %>
+                <jsp:include page="./HeaderCompany.jsp"/>       
+         <%}                       
+        }%>
         
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
         
@@ -106,9 +114,13 @@
                     <p>Category : ${internship.id_category.name}</p>
                     <p>${internship.description}</p>
                     <br><br>
-
                     <a href="<%=request.getContextPath()+"/Pdf?path="%>${internship.pdfPath}" target="_blank" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">View PDF</a>
-                    <a href="#" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
+                    <% if(request.getAttribute("student") != null) {
+                                        if((request.getAttribute("student")).equals("true")){
+                                 %>
+                        <a href="<%=request.getContextPath()+"/SendCandidature?login=" + request.getParameter("login")%>&offer_id=${internship.id}"  class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
+                    <%}
+                                }%>
                       </li><br/>
                   </c:forEach>
                     </ul>

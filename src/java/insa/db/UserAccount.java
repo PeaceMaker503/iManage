@@ -5,13 +5,20 @@
  */
 package insa.db;
 
+import java.beans.PropertyChangeSupport;
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collection;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.PrimaryKeyJoinColumn;
 import javax.validation.constraints.NotNull;
@@ -26,10 +33,17 @@ import org.hibernate.annotations.CascadeType;
 @Entity
 public class UserAccount implements Serializable {
 
+    /**
+     * @return the id_Company_profile
+     */
+   
+    private final transient PropertyChangeSupport propertyChangeSupport = new java.beans.PropertyChangeSupport(this);
+    
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    Long id;
     @Column(unique=true)
     @NotNull
     private String login;
@@ -39,19 +53,33 @@ public class UserAccount implements Serializable {
     private String mail;
     @NotNull
     private String password;
-	
+    
+    @NotNull
+    private String userCategory;
 	
     @OneToOne
     @JoinColumn(referencedColumnName="id")
 	@Cascade(CascadeType.DELETE)
     private UserProfile id_profile;
     
+    @OneToOne
+    @JoinColumn(referencedColumnName="id")
+    @Cascade(CascadeType.DELETE)
+    private Company id_Company_profile;
+    
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(name="messages_account",
+                joinColumns={@JoinColumn(name="userAccount_id", referencedColumnName="id")},
+                inverseJoinColumns={@JoinColumn(name="message_id", referencedColumnName="id")})
+    private Collection<Message> messages=new ArrayList<Message>();
+    
     public UserAccount() {}
     
-    public UserAccount(String login,  String mail , String password) {
+    public UserAccount(String login,  String mail , String password, String userCategory) {
         this.login = login;
         this.mail=mail;
         this.password = password;
+        this.userCategory = userCategory;
     }
 
     public Long getId() {
@@ -86,6 +114,16 @@ public class UserAccount implements Serializable {
         this.id_profile = id_profile;
     }
     
+     public Company getId_Company_profile() {
+        return id_Company_profile;
+    }
+
+    /**
+     * @param id_Company_profile the id_Company_profile to set
+     */
+    public void setId_Company_profile(Company id_Company_profile) {
+        this.id_Company_profile = id_Company_profile;
+    }
 
     @Override
     public int hashCode() {
@@ -121,5 +159,32 @@ public class UserAccount implements Serializable {
         this.mail = mail;
     }
 
+    /**
+     * @return the userCategory
+     */
+    public String getUserCategory() {
+        return userCategory;
+    }
+
+    /**
+     * @param userCategory the userCategory to set
+     */
+    public void setUserCategory(String userCategory) {
+        this.userCategory = userCategory;
+    }
+    
+        /**
+     * @return the messages
+     */
+    public Collection<Message> getMessages() {
+        return messages;
+    }
+
+    /**
+     * @param messages the messages to set
+     */
+    public void setMessages(Collection<Message> messages) {
+        this.messages = messages;
+    }
     
 }

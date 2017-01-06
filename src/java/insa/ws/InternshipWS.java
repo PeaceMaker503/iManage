@@ -122,5 +122,23 @@ public class InternshipWS {
     public List<Internship> getInternshipByCriteria(String company, String category, String keywords) {
         return ((MetierImpl)metier).getInternshipByCriteria(company, category, keywords);
     }
+	
+	@WebMethod(operationName = "getInternshipByID")
+	public Internship getInternshipByID(long id) {
+		return ((MetierImpl)metier).getInternshipByID(id);
+	}
     
+//	@WebMethod(operationName = "getCompanyByID")
+//	public Company getCompanyByID(long id) {
+//		return ((MetierImpl)metier).getCompanyByID(id);
+//	}  
+	
+	/**
+	 * Web service operation
+	 */
+	@WebMethod(operationName = "deleteInternship")
+	public Boolean deleteInternshipByID(@WebParam(name = "offer_id") long offer_id) {
+		return metier.deleteInternshipById(offer_id);
+	}	
+	
 }

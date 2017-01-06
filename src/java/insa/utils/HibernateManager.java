@@ -169,9 +169,12 @@ public class HibernateManager {
             Query query = s.createQuery(sQuery);
             Set<String> set = params.keySet();
             Iterator<String> it = set.iterator();
+            System.out.println("----------- Happy");
+
             while(it.hasNext())
             {
                 String key = it.next();
+                System.out.println("----------- valeur de la clé : "+key);
                 Object param = params.get(key);
                 query.setParameter(key, param);
                 
@@ -181,6 +184,7 @@ public class HibernateManager {
         } 
         catch(HibernateException e)
         {
+            System.out.println("----------- Exception : "+ e.toString());
             list = null;
         }
         finally

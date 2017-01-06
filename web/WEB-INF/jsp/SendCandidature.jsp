@@ -40,7 +40,7 @@
 							 
 			  <!-- edit form column -->
 			  <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
-				<h3>Offer: (Name of the offer) - # XXXX</h3>
+				<h3>Offer: <c:out value="${internshipOffer.name}"/> - #<c:out value="${internshipOffer.id}"/></h3>
 				<br>				
 				<form class="form-horizontal" method="post">
 				  <div class="form-group">

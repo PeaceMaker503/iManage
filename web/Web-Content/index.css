@@ -81,6 +81,10 @@ html,body, #main{
     height: 80%;
 }
 
+.formulaireBoutons{
+    text-align : center;
+}
+
 #liens, #liensCr{
     height: 20%;
 }
@@ -118,3 +122,4 @@ a:hover {color: grey;}
 #creationCompte:hover{
     color: grey;
 }
+
