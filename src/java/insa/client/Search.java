@@ -109,9 +109,9 @@ public class Search extends HttpServlet {
     {
         String url = "http://localhost:11223/getInternship";
         
-        //httpWrapper httpW = new httpWrapper(url, request.getParameterMap());
-        //System.out.println("******************************************"+ httpW.sendRequest());
-        //System.out.println("******************************************");     
+        httpWrapper httpW = new httpWrapper(url, request.getParameterMap());
+        System.out.println("******************************************"+ httpW.sendRequest());
+        System.out.println("******************************************");     
     
         response.setContentType("text/html");
 	String login = request.getParameter("login");		
