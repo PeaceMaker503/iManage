@@ -70,10 +70,10 @@ public class MetierImpl implements IMetier {
         return dao.addUserAccount(ua);
     }
 	
-	@Override 
-	public UserAccount deleteUserAccountById(Long id) {
-		return dao.deleteUserAccountById(id);
-	}
+    @Override 
+    public UserAccount deleteUserAccountById(Long id) {
+            return dao.deleteUserAccountById(id);
+    }
 	    
     @Override
     public UserProfile deleteUserProfile(Long id)
@@ -159,6 +159,13 @@ public class MetierImpl implements IMetier {
         List<Internship> list = dao.getInternshipByCompanyNameCategoryNameWhereTitleContains(company, category, keywords);
         return list;
     }
+   
+	
+	@Override
+	public Boolean deleteInternshipById(long offer_id) {
+		return dao.deleteInternshipById(offer_id);
+	}
+		
 	
 	@Override
 	public Candidature getCandidatureById(Long id) {
@@ -361,5 +368,4 @@ public class MetierImpl implements IMetier {
                 return null;
             
         }
-
 }

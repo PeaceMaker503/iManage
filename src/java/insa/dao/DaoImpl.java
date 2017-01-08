@@ -150,13 +150,10 @@ public class DaoImpl implements IDao {
     }
 
     @Override
-    public Internship deleteInternshipById(Long id) {
+    public Boolean deleteInternshipById(Long id) {
         Internship internship = hibernateManager.getObjectFromDatabase(Internship.class, id);
         boolean res = hibernateManager.deleteObjectFromDatabase(internship);
-        if(res)
-            return internship;
-        else
-            return null;
+		return res;
     }
 
     @Override
@@ -442,6 +439,7 @@ public class DaoImpl implements IDao {
             return null;
     }
 
+
 	
 	@Override
     public Message getMessageById(Long id){
@@ -459,7 +457,7 @@ public class DaoImpl implements IDao {
         else
             return null;
     }
-    
+
 	@Override
     public Message deleteMessageById(Long id){
         Message message = hibernateManager.getObjectFromDatabase(Message.class, id);

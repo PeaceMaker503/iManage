@@ -5,16 +5,10 @@
  */
 package insa.client;
 
-import insa.db.Company;
-import insa.db.Internship;
 import insa.db.UserAccount;
-import insa.ws.CandidatureWS;
-import insa.ws.InternshipWS;
 import insa.ws.UserProfileWS;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -25,13 +19,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author prmm95
  */
-@WebServlet(name = "DeleteOffer", urlPatterns = {"/DeleteOffer"})
-public class DeleteOffer extends HttpServlet {
-	
-	private static InternshipWS internshipService = new insa.ws.InternshipWS();
-	private static CandidatureWS candidatureService = new insa.ws.CandidatureWS();
-	private static UserProfileWS userProfileService = new insa.ws.UserProfileWS();
+@WebServlet(name = "Convention", urlPatterns = {"/Convention"})
+public class Convention extends HttpServlet {
 
+	private static UserProfileWS userProfileService = new insa.ws.UserProfileWS();
+	
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
 	 *
@@ -48,10 +40,10 @@ public class DeleteOffer extends HttpServlet {
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Servlet DeleteOffer</title>");			
+			out.println("<title>Servlet Convention</title>");			
 			out.println("</head>");
 			out.println("<body>");
-			out.println("<h1>Servlet DeleteOffer at " + request.getContextPath() + "</h1>");
+			out.println("<h1>Servlet Convention at " + request.getContextPath() + "</h1>");
 			out.println("</body>");
 			out.println("</html>");
 		}
@@ -70,30 +62,19 @@ public class DeleteOffer extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-		// Parameters:
-		String login = request.getParameter("login");
-		long offerID = Long.valueOf(request.getParameter("offer_id"));			
-		long user_id = userProfileService.getUserAccountByLogin(login).getId();
+		UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+		String userCategory = ua.getUserCategory();
+        if(userCategory.compareTo("Student")==0){
+            request.setAttribute("student","true");
+        }
+        else{
+            request.setAttribute("student","false");
+        }
 		
-		// Delete the offer instance
-		Boolean deletedOffer = internshipService.deleteInternshipByID(offerID);
-		request.setAttribute("deletedOffer",deletedOffer);
-				
-		// Set the new list of offers parameter to the view:
 		
-		UserAccount companyAccount = userProfileService.getUserAccountByLogin(login);
-		Company companyProfile = userProfileService.getCompanyById(companyAccount.getId_Company_profile().getId());
-				
-		String company = new String(companyProfile.getName().getBytes(),"UTF-8"); 
-        byte[] bytesComp = company.getBytes(StandardCharsets.ISO_8859_1);
-        company = new String(bytesComp, StandardCharsets.UTF_8);
 		
-		List<Internship> internshipList = internshipService.getInternshipByCriteria(company,"All","");
-
-		request.setAttribute("internshipList",internshipList);
 		
-        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Offers.jsp").forward(request, response);
-		
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Convention.jsp").forward(request, response);
 	}
 
 	/**

@@ -109,9 +109,9 @@ public class Search extends HttpServlet {
     {
         String url = "http://localhost:11223/getInternship";
         
-        httpWrapper httpW = new httpWrapper(url, request.getParameterMap());
-        System.out.println("******************************************"+ httpW.sendRequest());
-        System.out.println("******************************************");     
+        //httpWrapper httpW = new httpWrapper(url, request.getParameterMap());
+        //System.out.println("******************************************"+ httpW.sendRequest());
+        //System.out.println("******************************************");     
     
         response.setContentType("text/html");
 	String login = request.getParameter("login");		
@@ -167,13 +167,20 @@ public class Search extends HttpServlet {
 			}
 			
 		}				
-        
+
+        request.setAttribute("keywords", keywords.toUpperCase());
+        if (company.equals("All"))
+            request.setAttribute("company", "ALL COMPANIES");
+        else
+            request.setAttribute("company", company.toUpperCase());
+        if (category.equals("All"))
+            request.setAttribute("category", "ALL CATEGORIES");
+        else
+            request.setAttribute("category", category.toUpperCase());
+       
         request.setAttribute("test", "keywords: " + keywords + "\tcompany: " + company + "\tcategory: " + category);
-        request.setAttribute("internshipList",internshipList);
-        /*for (int ind=0; ind < internshipList.size();ind++)
-        {
-            System.out.println("++++++++++++++++++++++++++++++++++++" + internshipList.get(ind));
-        }*/
+        //request.setAttribute("internshipList",internshipList);
+        request.setAttribute("internshipList", InternshipService.getInternshipByCriteria(company, category, keywords));
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
     }
 }

@@ -7,7 +7,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
-<html>
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
       <title>iManage - My Candidatures</title>
@@ -49,11 +48,15 @@
 				  <th>Offer</th>
 				  <th>Date</th>
 				  <th>Status</th>
+				  <th>Internship Convention</th>
 				  <th>Cancel</th>
 				</tr>
 			  </thead>
 
 			  <tbody>	
+				  
+				  
+				  
 				  <c:forEach var="candidature" items="${candidatureList}">
 					<tr>
 					  <td><fmt:formatNumber type="number" pattern="0000" value="${candidature.id}"/></td>			  
@@ -61,7 +64,25 @@
 					  <td><a href="${candidature.id_internship.pdfPath}">${candidature.id_internship.name}</a></td>
 					  <td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidature.createdAt}"/></td>	  
 					  <td>${candidature.status}</td>
+										  
+					  <!--TODO:  A student should not be able to send a convention if he has not been accepted -->
+					  
+					  <c:choose>
+						  						  
+						  <c:when test="${candidature.conventionPath == null}">
+							  <td><a href="<%=request.getContextPath()+"/Convention?login=" + request.getParameter("login")%>&cand_id=${candidature.id}" class="btn btn-success" >Send the convention</a></td>
+						  </c:when>
+						  
+						  <c:when test="${candidature.conventionPath != null}">
+							  <td><a href="<%=request.getContextPath()+"/Convention?login=" + request.getParameter("login")%>&cand_id=${candidature.id}" class="btn btn-success" >View the convention</a></td>
+						  </c:when>
+						  
+					  </c:choose>
+					
 					  <td><a href="<%=request.getContextPath()+"/DeleteCandidature?login=" + request.getParameter("login")%>&cand_id=${candidature.id}" class="btn btn-danger">Delete Candidature</a></td>
+					  
+					  
+					  
 					 </tr>							
 				  </c:forEach>	
 			  </tbody>

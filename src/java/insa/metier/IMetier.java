@@ -37,9 +37,15 @@ public interface IMetier
     public UserProfile getUserProfileById(Long id);
     public UserProfile getUserProfileUsingAccountLogin(String login);
     public UserProfile addUserProfile(String firstName, String lastName, String mail, String phone, String cvPath);
+
     public UserAccount linkUserProfile(String login, UserProfile up);
     public UserProfile deleteUserProfile(Long id);
-	public UserProfile updateUserProfile(UserProfile userProfile);
+    public UserProfile updateUserProfile(UserProfile userProfile);
+    public List<Internship> searchInternship();
+    public List<Category> getCategories();
+    public List<Company> getCompanies();
+    public List<Internship> getInternshipByCriteria(String company, String category, String keywords);
+
         
 	// Candidatures:
 	public Candidature getCandidatureById(Long id);
@@ -53,8 +59,8 @@ public interface IMetier
 		
 	// Internships:
 	public Internship getInternshipByID(long id);
-	public List<Internship> searchInternship();
-    public List<Internship> getInternshipByCriteria(String company, String category, String keywords);
+    //	public Boolean deleteInternshipByID(Long id);
+	public Boolean deleteInternshipById(long offer_id);
 	
     // Messages:
     public Message getMessageById(Long id);
@@ -69,8 +75,6 @@ public interface IMetier
     public Message updateReadMessage(Long id);
 		
 	// Companies and categories:
-	public List<Category> getCategories();
-    public List<Company> getCompanies();
     public Company addCompanyProfile(String name, String phone, String mail, String address);
 	public UserAccount linkCompanyProfile(String login, Company comp);
     public Company deleteCompanyProfile(Long id);
