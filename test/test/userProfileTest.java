@@ -40,7 +40,7 @@ public class userProfileTest {
     public void AddNewUserAccountTest()
     {
         //compte qui n'existe pas
-        UserAccount u = metier.addUserAccount("monlogin", "mail@m.fr", "toto");
+        UserAccount u = metier.addUserAccount("monlogin", "mail@m.fr", "toto","Student");
         assertTrue(u != null);
     }
     
@@ -48,7 +48,7 @@ public class userProfileTest {
     public void AddUserAccountAlreadyExistTest()
     {
         //compte déjà présent dans la bdd
-        UserAccount u = metier.addUserAccount("user", "user@mail.com", "passwd");
+        UserAccount u = metier.addUserAccount("user", "user@mail.com", "passwd","Student");
         assertTrue(u == null);
     }
     
@@ -56,7 +56,7 @@ public class userProfileTest {
     public void AddNewUserAccountEmptyFieldsTest()
     {
         /* nom vide et regex email non valide*/
-        UserAccount u = metier.addUserAccount("", "", "bisounours");
+        UserAccount u = metier.addUserAccount("", "", "bisounours","Student");
         assertTrue(u == null);
     }
     
@@ -64,7 +64,7 @@ public class userProfileTest {
     public void AddNewUserAccountNullFieldsTest()
     {
         /* champs à null*/
-        UserAccount u = metier.addUserAccount(null, null, null);
+        UserAccount u = metier.addUserAccount(null, null, null,null);
         assertTrue(u == null);
     }
     

@@ -36,14 +36,14 @@ class databaseManager:
 			print str(e)
 			self.conn.rollback()
 
-	def addUserAccount(self,name,password,mail,id_profile_id=None):
+	def addUserAccount(self,name,password,mail,userCategory,id_profile_id=None):
 		try:
 			if id_profile_id==None:
-				self.cursor.execute(""" INSERT INTO UserAccount (login, password, mail) VALUES ('%s', '%s', '%s'); """ 
-									% (name, password,mail))
+				self.cursor.execute(""" INSERT INTO UserAccount (login, password, mail,userCategory) VALUES ('%s', '%s', '%s','%s'); """ 
+									% (name, password,mail,userCategory))
 			else:
-				self.cursor.execute(""" INSERT INTO UserAccount (login, password, mail,id_profile_id) VALUES ('%s', '%s', '%s','%s'); """ 
-									% (name, password,mail,id_profile_id))
+				self.cursor.execute(""" INSERT INTO UserAccount (login, password, mail,userCategory,id_profile_id) VALUES ('%s','%s' ,'%s', '%s','%s'); """ 
+									% (name, password,mail,userCategory,id_profile_id))
 
 			self.conn.commit()
 		except Exception as e:
@@ -110,7 +110,7 @@ if __name__ == '__main__':
 	d1.emptyDatase()
 	#========================================================================
 	#new account (test create account already exist)
-	d1.addUserAccount("user","passwd","user@mail.com")
+	d1.addUserAccount("user","passwd","user@mail.com","Student")
 	#========================================================================
 
 	#new profile(test create profile already exist)
@@ -118,13 +118,13 @@ if __name__ == '__main__':
 
 	#========================================================================
 	#account to delete (test delete account already exist)
-	d1.addUserAccount("ichigo","bleach","manga@cool.com")
+	d1.addUserAccount("ichigo","bleach","manga@cool.com","Student")
 	#========================================================================
 
 	#profile to delete, must be link to accound (test delete profile already exist)
 	d1.addUserProfile("BelleFontaine","fred","fred@mail.com","0494668842","/home/fredcv.pdf")
 	id_profile = d1.getIdProfile("BelleFontaine","fred")
-	d1.addUserAccount("BelleFontaine","fred@mail.com","popoye",id_profile)
+	d1.addUserAccount("BelleFontaine","fred@mail.com","popoye","Student",id_profile)
 	#========================================================================
 
 	#add some categories
