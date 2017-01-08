@@ -48,9 +48,15 @@ public class httpWrapper
             {
                 postJsonData += "\""+entry.getKey() + "\"" +  ":";
                 for (String value : entry.getValue())
-                    postJsonData += "\""+ value + "\"" +  ",";
+                {
+                    if (!value.equals(""))
+                        postJsonData += "\""+ value + "\"" +  ",";
+                    else
+                        postJsonData += "\"\"" +  ",";
+                        
+                }
             }
-            String finalPostJsonData =  postJsonData.substring(0, postJsonData.length()-2)+"}";
+            String finalPostJsonData =  postJsonData.substring(0, postJsonData.length()-1)+"}";
             
            // System.out.println("************** ==================" + finalPostJsonData); 
             //System.out.println("******************************************");

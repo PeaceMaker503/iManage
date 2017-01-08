@@ -133,7 +133,7 @@ if __name__ == '__main__':
 	idInfo= d1.getCategoryId("informatique")
 	idBio =  d1.getCategoryId("biologie")
 	#add some internships 
-	listOfinternships = [("prototype application critique","/home/appCritique.pdf","entreprise à taille humaine cherche petit stagiaire",idInfo),\
+	listOfinternships = [("prototype application critique","/home/appCritique.pdf","entreprise a taille humaine cherche petit stagiaire",idInfo),\
 						("developpement web services","/home/webServiveces","expert SOA qui doit travailler dur",idInfo),\
 						("developpement Objet connecte","/home/iot.pdf","prototype toilettes connectees",idInfo),\
 						('amelioration nouvelle enzyme',"/home/enzyme.pdf","amelioration process developpement enzyme",idBio)]

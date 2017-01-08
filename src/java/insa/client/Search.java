@@ -13,7 +13,13 @@ import insa.ws.CandidatureWS;
 import insa.ws.InternshipWS;
 import insa.ws.UserAccountWS;
 import insa.ws.UserProfileWS;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import insa.bus.httpWrapper;
+import java.net.URL;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +29,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Map;
+import java.util.Map.Entry;
+import static javax.ws.rs.core.HttpHeaders.USER_AGENT;
 
 /**
  *
@@ -98,9 +107,15 @@ public class Search extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
+        String url = "http://localhost:11223/getInternship";
+        
+        httpWrapper httpW = new httpWrapper(url, request.getParameterMap());
+        System.out.println("******************************************"+ httpW.sendRequest());
+        System.out.println("******************************************");     
+    
         response.setContentType("text/html");
-		String login = request.getParameter("login");		
-		long user_id = userProfileService.getUserAccountByLogin(login).getId();
+	String login = request.getParameter("login");		
+	long user_id = userProfileService.getUserAccountByLogin(login).getId();
         
         UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
         String userCategory = ua.getUserCategory();
@@ -155,6 +170,10 @@ public class Search extends HttpServlet {
         
         request.setAttribute("test", "keywords: " + keywords + "\tcompany: " + company + "\tcategory: " + category);
         request.setAttribute("internshipList",internshipList);
+        /*for (int ind=0; ind < internshipList.size();ind++)
+        {
+            System.out.println("++++++++++++++++++++++++++++++++++++" + internshipList.get(ind));
+        }*/
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
     }
 }
