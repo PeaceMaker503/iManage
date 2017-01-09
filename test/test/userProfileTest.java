@@ -159,6 +159,6 @@ public class userProfileTest {
         /*recherche stage dans la catégorie biologie*/
         List<Internship> listInternship = metier.getInternshipByCriteria("All", "math", "");
         //System.out.println("************* size internship list :" + listInternship.size());
-        assertTrue(listInternship.size()==0);
+        assertTrue(listInternship.size()==0);;
     }
 }
