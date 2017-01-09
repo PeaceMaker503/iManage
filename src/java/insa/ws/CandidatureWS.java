@@ -80,4 +80,20 @@ public class CandidatureWS {
 		return metier.getCandidaturesByUserID(user_id);
 	}
 
+	/**
+	 * Web service operation
+	 */
+	@WebMethod(operationName = "getCandidatureById")
+	public Candidature getCandidatureById(@WebParam(name="cand_id") long cand_id) {
+		return metier.getCandidatureById(cand_id);
+	}
+
+	/**
+	 * Web service operation
+	 */
+	@WebMethod(operationName = "updateCandidature")
+	public Candidature updateCandidature(@WebParam(name="candidature") Candidature candidature) {
+		return metier.updateCandidature(candidature);
+	}
+	
 }
