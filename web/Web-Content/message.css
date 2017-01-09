@@ -13,6 +13,8 @@ and open the template in the editor.
     border-top-width: 3px;
     border-top-style: solid;
     border-top-color: black;
+    overflow-x:auto;
+    overflow-y: auto;
 }
 
 

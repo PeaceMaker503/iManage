@@ -112,7 +112,38 @@ public class WriteMessage extends HttpServlet {
                 String login=request.getParameter("login");
                 String object = request.getParameter("object");
                 String content = request.getParameter("message");
-
+                String[] contents = content.split("\r\n|\r|\n");
+                
+                String contentFinal=new String("");
+                for (int x=0; x<contents.length; x++){
+                    contentFinal = contentFinal + contents[x] + " <br> ";
+                }
+                //System.out.println("/////////// "+contentFinal);
+                
+                
+                /*char character1, character2;
+                String compo;
+                String auxContent=new String();
+                int indiceCourant=0;*/
+                
+                /*for (int x=0; x<content.length(); x++){
+                    character1 = content.charAt(x);
+                    if((x+1)<content.length()){
+                        character2 = content.charAt(x+1);
+                        StringBuilder sb = new StringBuilder();
+                        sb.append(character1);
+                        sb.append(character2);
+                        compo = sb.toString();
+                        if(compo.compareTo("\n")==0){
+                            auxContent = content.substring(indiceCourant, x-1)+"\n";
+                            System.out.println("/////////////// auxContent");
+                            if((x+2)<content.length())
+                                indiceCourant=x+2;
+                        }
+                    }
+                }*/
+                
+                
                 UserAccount sender = userProfileService.getUserAccountByLogin(request.getParameter("login"));
                 Boolean read=false;
                 Boolean error= false;
@@ -126,7 +157,7 @@ public class WriteMessage extends HttpServlet {
                     UserAccount uar= userAccountService.getUserAccountByLogin(arrayRecipients[i]);
                     if(uar==null){
                         request.setAttribute("error", "true" );
-                        System.out.println("--------------------"+arrayRecipients[i]);
+                        //System.out.println("--------------------"+arrayRecipients[i]);
                         request.setAttribute("wrongLogin", arrayRecipients[i]);
                         error=true;
                         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/WriteMessage.jsp").forward(request, response);
@@ -152,7 +183,7 @@ public class WriteMessage extends HttpServlet {
                     UserAccount item = i.next();
                     System.out.println("--------------------- Oui"+item.getLogin());
                 }*/
-                Message message = messageService.addMessage(object, content, date, read);
+                Message message = messageService.addMessage(object, contentFinal, date, read);
                 message = messageService.linkUserAccountSender(sender, message.getId());
                 message = messageService.linkUserAccountListRecipients(listRecipients,message.getId());
                 if(message!=null){
