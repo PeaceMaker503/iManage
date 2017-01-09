@@ -73,7 +73,7 @@ public class WriteMessage extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         response.setContentType("text/html");
-        
+        request.setCharacterEncoding("UTF-8");
         UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
         String userCategory = ua.getUserCategory();
         if(userCategory.compareTo("Student")==0){
@@ -97,6 +97,7 @@ public class WriteMessage extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+            request.setCharacterEncoding("UTF-8");
                 Collection<UserAccount> listRecipients = new ArrayList<UserAccount>();;
             
                 UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
