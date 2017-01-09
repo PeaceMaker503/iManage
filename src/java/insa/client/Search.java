@@ -13,7 +13,14 @@ import insa.ws.CandidatureWS;
 import insa.ws.InternshipWS;
 import insa.ws.UserAccountWS;
 import insa.ws.UserProfileWS;
+import java.io.BufferedReader;
+import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import insa.bus.httpWrapper;
+import java.io.PrintWriter;
+import java.net.URL;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -23,6 +30,9 @@ import java.nio.charset.StandardCharsets;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
+import java.util.Map;
+import java.util.Map.Entry;
+import static javax.ws.rs.core.HttpHeaders.USER_AGENT;
 
 /**
  *
@@ -36,6 +46,31 @@ public class Search extends HttpServlet {
     private static InternshipWS InternshipService = new InternshipWS() ;
 	private static CandidatureWS candidatureService = new insa.ws.CandidatureWS();
 
+    /**
+	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
+	 *
+	 * @param request servlet request
+	 * @param response servlet response
+	 * @throws ServletException if a servlet-specific error occurs
+	 * @throws IOException if an I/O error occurs
+	 */
+	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		try (PrintWriter out = response.getWriter()) {
+			/* TODO output your page here. You may use following sample code. */
+			out.println("<!DOCTYPE html>");
+			out.println("<html>");
+			out.println("<head>");
+			out.println("<title>Servlet EditOffer</title>");			
+			out.println("</head>");
+			out.println("<body>");
+			out.println("<h1>Servlet EditOffer at " + request.getContextPath() + "</h1>");
+			out.println("</body>");
+			out.println("</html>");
+		}
+	}    
+            
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
@@ -98,9 +133,15 @@ public class Search extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
+        String url = "http://localhost:11223/getInternship";
+        
+        httpWrapper httpW = new httpWrapper(url, request.getParameterMap());
+        System.out.println("******************************************"+ httpW.sendRequest());
+        System.out.println("******************************************");     
+    
         response.setContentType("text/html");
-		String login = request.getParameter("login");		
-		long user_id = userProfileService.getUserAccountByLogin(login).getId();
+	String login = request.getParameter("login");		
+	long user_id = userProfileService.getUserAccountByLogin(login).getId();
         
         UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
         String userCategory = ua.getUserCategory();
@@ -162,7 +203,9 @@ public class Search extends HttpServlet {
             request.setAttribute("category", "ALL CATEGORIES");
         else
             request.setAttribute("category", category.toUpperCase());
-        
+       
+        request.setAttribute("test", "keywords: " + keywords + "\tcompany: " + company + "\tcategory: " + category);
+        //request.setAttribute("internshipList",internshipList);
         request.setAttribute("internshipList", InternshipService.getInternshipByCriteria(company, category, keywords));
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
     }

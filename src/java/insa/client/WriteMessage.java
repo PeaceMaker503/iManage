@@ -73,7 +73,7 @@ public class WriteMessage extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
         response.setContentType("text/html");
-        
+        request.setCharacterEncoding("UTF-8");
         UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
         String userCategory = ua.getUserCategory();
         if(userCategory.compareTo("Student")==0){
@@ -97,15 +97,25 @@ public class WriteMessage extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+            request.setCharacterEncoding("UTF-8");
                 Collection<UserAccount> listRecipients = new ArrayList<UserAccount>();;
             
+                UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+                String userCategory = ua.getUserCategory();
+                if(userCategory.compareTo("Student")==0){
+                    request.setAttribute("student","true");
+                }
+                else{
+                    request.setAttribute("student","false");
+                }
+                
                 String login=request.getParameter("login");
                 String object = request.getParameter("object");
                 String content = request.getParameter("message");
 
                 UserAccount sender = userProfileService.getUserAccountByLogin(request.getParameter("login"));
                 Boolean read=false;
-                
+                Boolean error= false;
                 
                 String recipients = request.getParameter("recipients");
                 String delim = "[,]";
@@ -113,8 +123,15 @@ public class WriteMessage extends HttpServlet {
                 
                 for (int i = 0; i < arrayRecipients.length; i++){
                     //System.out.println("--------- valeur de l'email : " + arrayRecipients[i]);
-                    UserAccount uar= userAccountService.getUserAccountByEmail(arrayRecipients[i]);
-                    //if(uar==null){System.out.println("//////////// c'est nul uar");}
+                    UserAccount uar= userAccountService.getUserAccountByLogin(arrayRecipients[i]);
+                    if(uar==null){
+                        request.setAttribute("error", "true" );
+                        System.out.println("--------------------"+arrayRecipients[i]);
+                        request.setAttribute("wrongLogin", arrayRecipients[i]);
+                        error=true;
+                        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/WriteMessage.jsp").forward(request, response);
+                        break;
+                    }
                     //else{System.out.println("//////////// c'est pas nul uar");}
                     boolean r = listRecipients.add(uar);
                     if(r==false){
@@ -123,7 +140,8 @@ public class WriteMessage extends HttpServlet {
                     
                 }
                 
-                Date date = new Date();
+                if(!error){
+                    Date date = new Date();
                 
                 /*if(object==null || content==null || date==null || read==null || sender==null  || listRecipients==null){
                      System.out.println("^^^^^^^^^^^^^^^^^^^^^ Un éléméent est null");
@@ -138,10 +156,13 @@ public class WriteMessage extends HttpServlet {
                 message = messageService.linkUserAccountSender(sender, message.getId());
                 message = messageService.linkUserAccountListRecipients(listRecipients,message.getId());
                 if(message!=null){
-                    response.sendRedirect("Messages?login=" + login);                }
+                    response.sendRedirect("Messages?login=" + login);                
+                }
                 else{
                     request.setAttribute("send","false");
-                    response.sendRedirect("WriteMessage?login=" + login);                 }
+                    response.sendRedirect("WriteMessage?login=" + login);                 
+                }
+            }
         
         }
                 
