@@ -34,10 +34,10 @@ public class Message implements Serializable  {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String objectMail;
     
-    @Column
+    @Column(columnDefinition = "TEXT")
     private String content;
     
     @Column

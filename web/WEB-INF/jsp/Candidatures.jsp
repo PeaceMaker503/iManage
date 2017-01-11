@@ -70,11 +70,11 @@
 					  <c:choose>
 						  						  
 						  <c:when test="${candidature.conventionPath == null}">
-							  <td><a href="<%=request.getContextPath()+"/Convention?login=" + request.getParameter("login")%>&cand_id=${candidature.id}" class="btn btn-success" >Send the convention</a></td>
+							  <td><a href="<%=request.getContextPath()+"/Convention?login=" + request.getParameter("login")%>&cand_id=${candidature.id}&comp_id=${candidature.id_company.id}" class="btn btn-success" >Send the convention</a></td>
 						  </c:when>
 						  
 						  <c:when test="${candidature.conventionPath != null}">
-							  <td><a href="<%=request.getContextPath()+"/Convention?login=" + request.getParameter("login")%>&cand_id=${candidature.id}" class="btn btn-success" >View the convention</a></td>
+							  <td><a href="<%=request.getContextPath()+"/Pdf?path="%>${candidature.conventionPath}" class="btn btn-success" >View the convention</a></td>
 						  </c:when>
 						  
 					  </c:choose>

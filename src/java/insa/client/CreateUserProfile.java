@@ -89,7 +89,7 @@ public class CreateUserProfile extends HttpServlet {
             UserProfile userPro = userProfileService.addUserProfile(firstname, lastname, phone, cvPath, mail);
             if(userPro == null)
             {
-				System.out.println("test");
+                System.out.println("test");
                 this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CreateUserProfile.jsp").forward(request, response);
             }
             else
