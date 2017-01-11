@@ -35,6 +35,8 @@ and open the template in the editor.
     border-top-width: 2px;
     border-top-style: solid;
     border-top-color: #dddddd;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 .scroll{
