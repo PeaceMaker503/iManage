@@ -15,7 +15,7 @@ class GetInternshipDetails(Service):
                 keywords=self.request.payload["keywords"]
 
                 self.logger.info("********* company : " + company +" category :"+ category + " keywords :" + keywords)
-                listOfInternship=client.service.getInternshipByCriteria(company,category,keywords)
+                listOfInternship=client.service.getInternshipByCriteria(category,keywords)
                 self.logger.info("================ result : " + str (listOfInternship) + "  "+str(type(listOfInternship)))
                 
                 # #let's build the final response 
