@@ -21,8 +21,10 @@ class GetInternshipDetails(Service):
                 # #let's build the final response 
                 finalResponse = {}
                 for ind, internship in enumerate(listOfInternship):
-                    finalResponse[str(ind)]=str(internship)
-                # #    self.logger.info("+++type of internship " + str(ind )+"  "+ str(type(internship)))
+                    finalResponse[str(ind)]={"description":str(internship.description),"elementId":str(internship.id),\
+                    "category_id":str(internship.id_category.id),"category_name":str(internship.id_category.name),\
+                    "name":str(internship.name),"pdfPath":str(internship.pdfPath)} 
+                    self.logger.info("////////////////////type of internship " + str(internship.id_category.name))
 
                 # #return response to the caller
                 self.response.payload="\""+str(finalResponse)+"\""
