@@ -5,6 +5,7 @@
  */
 package insa.ws;
 
+
 import insa.db.Internship;
 import insa.metier.IMetier;
 import javax.jws.WebService;
@@ -19,13 +20,12 @@ import java.util.List;
  *
  * @author Halim
  */
-@WebService(serviceName = "InternshipWS")
+@WebService(serviceName = "CompanyInternshipWS")
 @Stateless()
-public class InternshipWS {
-
-    private IMetier metier;
+public class CompanyInternshipWS {
+private IMetier metier;
     
-    public InternshipWS()
+    public CompanyInternshipWS()
     {
         ApplicationContext ap = new ClassPathXmlApplicationContext("../../WEB-INF/applicationContext.xml");
         metier = (IMetier)ap.getBean("metier");
@@ -45,10 +45,4 @@ public class InternshipWS {
     public Internship getInternshipByID(long id) {
         return metier.getInternshipByID(id);
     }
-    
-    @WebMethod(operationName = "deleteInternship")
-    public Boolean deleteInternshipByID(@WebParam(name = "offer_id") long offer_id) {
-        return metier.deleteInternshipById(offer_id);
-    }	
-	
 }
