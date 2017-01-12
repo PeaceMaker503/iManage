@@ -67,7 +67,7 @@ public class UserAccount implements Serializable {
     @Cascade(CascadeType.DELETE)
     private Company id_Company_profile;
     
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="messages_account",
                 joinColumns={@JoinColumn(name="userAccount_id", referencedColumnName="id")},
                 inverseJoinColumns={@JoinColumn(name="message_id", referencedColumnName="id")})
