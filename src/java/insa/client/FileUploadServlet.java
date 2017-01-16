@@ -18,28 +18,6 @@ import javax.servlet.http.Part;
 @MultipartConfig
 public class FileUploadServlet extends HttpServlet {
 	
-	private static UserAccountWS userAccountService = new insa.ws.UserAccountWS();
-	private static UserProfileWS userProfileService = new insa.ws.UserProfileWS();
-    private final static Logger LOGGER =
-            Logger.getLogger(FileUploadServlet.class.getCanonicalName());
-
-     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet connexionServlet</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet connexionServlet at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-        }
-    }
-
     private String getFileName(final Part part) {
         final String partHeader = part.getHeader("content-disposition");
         LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);
@@ -51,28 +29,10 @@ public class FileUploadServlet extends HttpServlet {
         }
         return null;
     }
-
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        processRequest(request, response);
-    }
-
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
 		
-		String login = request.getParameter("login");
-		response.setContentType("text/html;charset=UTF-8");
-        final String path = "/home/prmm95/NetBeansProjects/iManage/static/pdf";
-        final Part filePart = request.getPart("file");
-        final String fileName = "cv_" + request.getParameter("login") + ".pdf";
-		long userProfileID = userProfileService.getUserAccountByLogin(login).getId_profile().getId();
-		UserProfile userProfile = userProfileService.getUserProfileById(userProfileID);
-		userProfile.setCvPath(path + "/" + fileName);		
-		userProfileService.updateUserProfile(userProfile);
+	private Boolean uploadFile(HttpServletRequest request, HttpServletResponse response, String path, String fileName, Part filePart, UserProfile userProfile) throws IOException, ServletException {
 		
-        OutputStream out = null;
+		OutputStream out = null;
         InputStream filecontent = null;
         final PrintWriter writer = response.getWriter();
 
@@ -91,7 +51,8 @@ public class FileUploadServlet extends HttpServlet {
 			request.setAttribute("login",request.getParameter("login"));
 			request.setAttribute("userProfile",userProfile);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ViewUpdateUserProfile.jsp").forward(request, response);
-
+			return true;
+			
         } catch (FileNotFoundException fne) {
             writer.println("You either did not specify a file to upload or are "
                     + "trying to upload a file to a protected or nonexistent "
@@ -111,5 +72,77 @@ public class FileUploadServlet extends HttpServlet {
                 writer.close();
             }
         }
+		
+		return false;
+
+	}
+	
+	private static UserAccountWS userAccountService = new insa.ws.UserAccountWS();
+	private static UserProfileWS userProfileService = new insa.ws.UserProfileWS();
+    private final static Logger LOGGER = Logger.getLogger(FileUploadServlet.class.getCanonicalName());
+
+     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
+            /* TODO output your page here. You may use following sample code. */
+            out.println("<!DOCTYPE html>");
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet connexionServlet</title>");            
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet connexionServlet at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
+        }
+    }
+	
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        processRequest(request, response);
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+		
+		// Parameters definition:
+		response.setContentType("text/html;charset=UTF-8");
+		String login = request.getParameter("login");
+		long userProfileID = userProfileService.getUserAccountByLogin(login).getId_profile().getId();
+		UserProfile userProfile = userProfileService.getUserProfileById(userProfileID);
+		Boolean fileUploaded = false;
+		
+		// TODO: Parameter
+		String uploadType = "userCV";
+		//String uploadType = "coverLetter";
+		//String uploadType = "messageFile";
+		
+		switch (uploadType) {
+			
+			case "coverLetter":
+				System.out.println("Not implemented");
+				break;
+				
+			case "userCV":				
+				final String path = "/home/prmm95/NetBeansProjects/iManage/static/pdf";
+				final Part filePart = request.getPart("file");
+				final String fileName = "cv_" + request.getParameter("login") + ".pdf";
+				userProfile.setCvPath(path + "/" + fileName);		
+				userProfileService.updateUserProfile(userProfile);				
+				fileUploaded = uploadFile(request, response, path, fileName, filePart, userProfile);				
+				break;
+			
+			case "messageFile":
+				System.out.println("Not implemented");
+				break;	
+				
+			default:
+				System.out.println("Error");
+			
+		}
+		
     }
 }
