@@ -68,7 +68,7 @@
 			  <div class="col-md-4 col-sm-6 col-xs-12">
 				<br>
 				<div class="col-xs-12">				
-					<form method="post" action="<%="Upload?login=" + request.getParameter("login")%>" enctype="multipart/form-data" >
+					<form method="post" action="<%="Upload?login=" + request.getParameter("login")%>&uploadType=userCV" enctype="multipart/form-data" >
 						<label class="col-xs-12 control-label" for="cv">Curriculum Vitae</label>
 						<input type="file" accept="application/pdf" name="file" id="file" class="btn btn-default" />
 						<br>

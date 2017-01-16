@@ -104,12 +104,15 @@ public class FileUploadServlet extends HttpServlet {
 		// Parameters definition:
 		response.setContentType("text/html;charset=UTF-8");
 		String login = request.getParameter("login");
+		String uploadType = request.getParameter("uploadType");
 		long userProfileID = userProfileService.getUserAccountByLogin(login).getId_profile().getId();
 		UserProfile userProfile = userProfileService.getUserProfileById(userProfileID);
+		final Part filePart = request.getPart("file");
 		Boolean fileUploaded;
 		
-		// TODO: Parameter
-		String uploadType = "userCV";
+		System.out.println(uploadType);
+		
+		// TODO: Parameter		
 		//String uploadType = "coverLetter";
 		//String uploadType = "messageFile";
 		
@@ -121,11 +124,11 @@ public class FileUploadServlet extends HttpServlet {
 				
 			case "userCV":				
 				final String path = "/home/prmm95/NetBeansProjects/iManage/static/pdf";
-				final Part filePart = request.getPart("file");
-				final String fileName = "cv_" + request.getParameter("login") + ".pdf";
-				userProfile.setCvPath(path + "/" + fileName);		
-				userProfileService.updateUserProfile(userProfile);				
+				final String fileName = "cv_" + request.getParameter("login") + ".pdf";				
 				fileUploaded = uploadFile(request, response, path, fileName, filePart, userProfile);				
+				// Verify if they were errors uploading the file:
+				userProfile.setCvPath(path + "/" + fileName);		
+				userProfileService.updateUserProfile(userProfile);
 				request.setAttribute("login",request.getParameter("login"));
 				request.setAttribute("userProfile",userProfile);
 				this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ViewUpdateUserProfile.jsp").forward(request, response);
