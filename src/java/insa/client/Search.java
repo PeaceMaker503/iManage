@@ -30,6 +30,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
@@ -82,10 +83,25 @@ public class Search extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-        response.setContentType("text/html");
-        String login = request.getParameter("login");		
+        try
+        {
+            String url = "http://localhost:11223/getInternship";
+            Map<String,String[]> mapRequestParameters = new HashMap<String,String[]>();
+            mapRequestParameters.put("selectCompany",new String[]{"All"});
+            mapRequestParameters.put("selectCategory",new String[]{"All"});
+            mapRequestParameters.put("keywords",new String[]{""});
+            
+            httpWrapper httpW = new httpWrapper(url, mapRequestParameters);
+            
+            //received json object with internship information (from zato)
+            String httpRes =  httpW.sendRequest() ;
+            BusResultTreatment thebusResultTreatment = new BusResultTreatment(httpRes);
+            
+            
+                response.setContentType("text/html");
+                String login = request.getParameter("login");		
 		long user_id = userProfileService.getUserAccountByLogin(login).getId();
-		List<Internship> internshipList = InternshipService.searchInternship();
+		List<Internship> internshipList = thebusResultTreatment.getListOfInternship();
 		List<Candidature> candidatureList = candidatureService.getCandidaturesByUserID(user_id);
 				
 		Iterator<Internship> iOffer = internshipList.iterator();
@@ -111,31 +127,35 @@ public class Search extends HttpServlet {
 			
 		}		
 		
-        request.setAttribute("internshipList",internshipList);
-        request.setAttribute("companyList", InternshipService.getCompanies());
-        request.setAttribute("categoryList", InternshipService.getCategories());
+            request.setAttribute("internshipList",internshipList);
+            request.setAttribute("companyList", InternshipService.getCompanies());
+            request.setAttribute("categoryList", InternshipService.getCategories());
         
-        UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
-        if(ua==null){
+            UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+            if(ua==null){
                 System.out.println("////////////ua est null");
-        }
-        else{
-            System.out.println("////////////ua n'est pas null");
+            }
+            else{
+                System.out.println("////////////ua n'est pas null");
+            }
+            System.out.println("---------------- valeur du login en haut : "+request.getParameter("login"));
+            System.out.println("---------------- valeur du login : " +ua.getLogin());
+            System.out.println("---------------- valeur de category : " +ua.getUserCategory());
 
-        }
-        System.out.println("---------------- valeur du login en haut : "+request.getParameter("login"));
-        System.out.println("---------------- valeur du login : " +ua.getLogin());
-        System.out.println("---------------- valeur de category : " +ua.getUserCategory());
-
-        String userCategory = ua.getUserCategory();
-        if(userCategory.compareTo("Student")==0){
-            request.setAttribute("student","true");
-        }
-        else{
-            request.setAttribute("student","false");
-        }
+            String userCategory = ua.getUserCategory();
+            if(userCategory.compareTo("Student")==0){
+                request.setAttribute("student","true");
+            }
+            else{
+                request.setAttribute("student","false");
+            }
         
-        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
+        } catch (JSONException ex) {
+            System.out.println("+++++++++++++++++++++++++++++++++++++++ ERROR ");
+            //System.out.println("******************************************");
+            Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     @Override
