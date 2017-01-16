@@ -91,6 +91,16 @@ class databaseManager:
 			print str(e)
 			self.conn.rollback()
 
+	def addCompanies(self,listOfCompanies):
+		try:
+			for com in listOfCompanies:
+				self.cursor.execute(""" INSERT INTO Company (name) VALUES ('%s'); """ 
+									% (com))
+			self.conn.commit()
+		except Exception as e:
+			print str(e)
+			self.conn.rollback()
+
 	def getCategoryId(self,name):
 		try: 
 			self.cursor.execute("""SELECT id FROM Category WHERE name ='%s' """ % (name))
@@ -130,11 +140,13 @@ if __name__ == '__main__':
 	#add some categories
 	listOfCategories=["informatique","biologie","genie civil"]
 	d1.addCategories(listOfCategories)
-	idInfo= d1.getCategoryId("informatique")
-	idBio =  d1.getCategoryId("biologie")
-	#add some internships 
-	listOfinternships = [("prototype application critique","/home/appCritique.pdf","entreprise a taille humaine cherche petit stagiaire",idInfo),\
-						("developpement web services","/home/webServiveces","expert SOA qui doit travailler dur",idInfo),\
-						("developpement Objet connecte","/home/iot.pdf","prototype toilettes connectees",idInfo),\
-						('amelioration nouvelle enzyme',"/home/enzyme.pdf","amelioration process developpement enzyme",idBio)]
-	d1.addListOfInterships(listOfinternships)
+	listOfCompanies=["entreprisea","entrepriseb"]
+	d1.addCompanies(listOfCompanies)
+	# idInfo= d1.getCategoryId("informatique")
+	# idBio =  d1.getCategoryId("biologie")
+	# #add some internships 
+	# listOfinternships = [("prototype application critique","/home/appCritique.pdf","entreprise a taille humaine cherche petit stagiaire",idInfo),\
+	# 					("developpement web services","/home/webServiveces","expert SOA qui doit travailler dur",idInfo),\
+	# 					("developpement Objet connecte","/home/iot.pdf","prototype toilettes connectees",idInfo),\
+	# 					('amelioration nouvelle enzyme',"/home/enzyme.pdf","amelioration process developpement enzyme",idBio)]
+	# d1.addListOfInterships(listOfinternships)
