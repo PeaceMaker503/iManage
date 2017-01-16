@@ -60,17 +60,20 @@ class databaseManager:
 
 
 if __name__ == '__main__':
-	d1= databaseManager("entreprisea")
+	d1= databaseManager("entrepriseb")
 	d1.emptyDatase()
 
 	#add some categories
-	listOfCategories=["informatique","biologie"]
+	listOfCategories=["informatique","biologie","genie civil"]
 	d1.addCategories(listOfCategories)
 	idInfo= d1.getCategoryId("informatique")
 	idBio =  d1.getCategoryId("biologie")
+	idGC=d1.getCategoryId("genie civil")
 	#add some internships 
-	listOfinternships = [("prototype projet qui ne sert a rien et qui va mal ","/home/appCritique.pdf","entreprise a taille humaine cherche petit stagiaire",idInfo),\
-						("developpement Amazon web services de la mort","/home/webServiveces","expert SOA qui doit travailler dur",idInfo),\
-						("developpement Objet connecte","/home/iot.pdf","prototype toilettes connectees",idInfo),\
-						('amelioration process enzyme de la life qui tue',"/home/enzyme.pdf","amelioration process developpement enzyme de la life",idBio)]
+	listOfinternships = [("developpement soft avion","/home/appCritique.pdf","entreprise a taille pour votre futur carrire",idInfo),\
+						("developpement soft banque evasion fiscale","/home/webServiveces","expert SOA qui n a pas d ethique",idInfo),\
+						("developpement compilateur","/home/compilateur.pdf","llvm is fucking awesome ",idInfo),\
+						('amelioration biologie moleculaire',"/home/enzyme.pdf","amelioration de l enzyme de digestion",idBio),\
+						('construction pont Rangueil',"/home/pont.pdf","il faut le construire ce pont",idGC),\
+						('Amelioration rotation des travailleurs sur un chantier',"/home/chantier.pdf","amelioration d un chantier",idGC)]
 	d1.addListOfInterships(listOfinternships)

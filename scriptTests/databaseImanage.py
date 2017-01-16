@@ -128,7 +128,7 @@ if __name__ == '__main__':
 	#========================================================================
 
 	#add some categories
-	listOfCategories=["informatique","biologie"]
+	listOfCategories=["informatique","biologie","genie civil"]
 	d1.addCategories(listOfCategories)
 	idInfo= d1.getCategoryId("informatique")
 	idBio =  d1.getCategoryId("biologie")
