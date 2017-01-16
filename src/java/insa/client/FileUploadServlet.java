@@ -32,9 +32,9 @@ public class FileUploadServlet extends HttpServlet {
 		
 	private Boolean uploadFile(HttpServletRequest request, HttpServletResponse response, String path, String fileName, Part filePart, UserProfile userProfile) throws IOException, ServletException {
 		
+		Boolean uploaded = false;
 		OutputStream out = null;
         InputStream filecontent = null;
-        final PrintWriter writer = response.getWriter();
 
         try {
             out = new FileOutputStream(new File(path + File.separator
@@ -48,17 +48,13 @@ public class FileUploadServlet extends HttpServlet {
                 out.write(bytes, 0, read);
             }
 			
-			request.setAttribute("login",request.getParameter("login"));
-			request.setAttribute("userProfile",userProfile);
-			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ViewUpdateUserProfile.jsp").forward(request, response);
 			return true;
 			
         } catch (FileNotFoundException fne) {
-            writer.println("You either did not specify a file to upload or are "
-                    + "trying to upload a file to a protected or nonexistent "
-                    + "location.");
-            writer.println("<br/> ERROR: " + fne.getMessage());
-
+            //writer.println("You either did not specify a file to upload or are "
+            //        + "trying to upload a file to a protected or nonexistent "
+            //        + "location.");
+            //writer.println("<br/> ERROR: " + fne.getMessage());
             LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
                     new Object[]{fne.getMessage()});
         } finally {
@@ -68,13 +64,10 @@ public class FileUploadServlet extends HttpServlet {
             if (filecontent != null) {
                 filecontent.close();
             }
-            if (writer != null) {
-                writer.close();
-            }
+
+			return uploaded;
         }
 		
-		return false;
-
 	}
 	
 	private static UserAccountWS userAccountService = new insa.ws.UserAccountWS();
@@ -113,7 +106,7 @@ public class FileUploadServlet extends HttpServlet {
 		String login = request.getParameter("login");
 		long userProfileID = userProfileService.getUserAccountByLogin(login).getId_profile().getId();
 		UserProfile userProfile = userProfileService.getUserProfileById(userProfileID);
-		Boolean fileUploaded = false;
+		Boolean fileUploaded;
 		
 		// TODO: Parameter
 		String uploadType = "userCV";
@@ -133,6 +126,9 @@ public class FileUploadServlet extends HttpServlet {
 				userProfile.setCvPath(path + "/" + fileName);		
 				userProfileService.updateUserProfile(userProfile);				
 				fileUploaded = uploadFile(request, response, path, fileName, filePart, userProfile);				
+				request.setAttribute("login",request.getParameter("login"));
+				request.setAttribute("userProfile",userProfile);
+				this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ViewUpdateUserProfile.jsp").forward(request, response);
 				break;
 			
 			case "messageFile":
