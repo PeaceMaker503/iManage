@@ -6,6 +6,7 @@
 package insa.client;
 
 import insa.db.UserAccount;
+import insa.models.AddUserAccountRequest;
 import insa.ws.UserAccountWS;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -55,7 +56,8 @@ public class CreateUserAccount extends HttpServlet
        String password = request.getParameter("motDePasseCr");
        String mail = request.getParameter("emailAddressCr");
        String userCategory = request.getParameter("selectUserCategory");
-       UserAccount u = userAccountService.addUserAccount(userName, mail, password, userCategory);
+       AddUserAccountRequest req = new AddUserAccountRequest(userName, mail, password, userCategory);
+       UserAccount u = userAccountService.addUserAccount(req);
        if(u==null)
        {
            response.sendRedirect("CreateUserAccount");

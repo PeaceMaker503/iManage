@@ -22,8 +22,8 @@ userProfile = {
 
 class databaseManager:
 
-	def __init__(self):
-		self.conn = pymysql.connect(host="localhost",user="root",password="mamaya", database="imanage")
+	def __init__(self,dbName):
+		self.conn = pymysql.connect(host="localhost",user="root",password="mamaya", database=dbName)
 		self.cursor = self.conn.cursor()
 	
 
@@ -106,7 +106,7 @@ class databaseManager:
 
 
 if __name__ == '__main__':
-	d1= databaseManager()
+	d1= databaseManager("imanage")
 	d1.emptyDatase()
 	#========================================================================
 	#new account (test create account already exist)
@@ -128,7 +128,7 @@ if __name__ == '__main__':
 	#========================================================================
 
 	#add some categories
-	listOfCategories=["informatique","biologie"]
+	listOfCategories=["informatique","biologie","genie civil"]
 	d1.addCategories(listOfCategories)
 	idInfo= d1.getCategoryId("informatique")
 	idBio =  d1.getCategoryId("biologie")

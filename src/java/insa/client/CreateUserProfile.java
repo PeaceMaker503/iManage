@@ -7,6 +7,7 @@ package insa.client;
 
 import insa.db.UserAccount;
 import insa.db.UserProfile;
+import insa.models.LinkUserProfileRequest;
 import insa.ws.UserAccountWS;
 import insa.ws.UserProfileWS;
 import java.io.IOException;
@@ -89,14 +90,15 @@ public class CreateUserProfile extends HttpServlet {
             UserProfile userPro = userProfileService.addUserProfile(firstname, lastname, phone, cvPath, mail);
             if(userPro == null)
             {
-				System.out.println("test");
+                System.out.println("test");
                 this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CreateUserProfile.jsp").forward(request, response);
             }
             else
             {
                 String login = request.getParameter("login");
                 System.out.println(login + " " + userPro.getId());
-                UserAccount ua = userAccountService.linkUserProfile(login, userPro);
+                LinkUserProfileRequest req = new LinkUserProfileRequest(login, userPro);
+                UserAccount ua = userAccountService.linkUserProfile(req);
                 if(ua == null)
                     userProfileService.deleteUserProfile(userPro.getId());
                 else

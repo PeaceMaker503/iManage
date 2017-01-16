@@ -45,7 +45,11 @@
             li.ui-state-default { font-size : 18px;} 
 
             /* modifie le contenu des onglets */
-            div.ui-tabs-panel { font-size: 12px;} 
+            div.ui-tabs-panel { font-size: 12px;}
+            
+            #displayContent{
+                height: 200px;
+            }
         </style>
     </head>
     <body>
@@ -101,7 +105,9 @@
                                                                                     var i=0;</script>
                                                                                 <c:forEach var="message" items="${messagesList}">
                                                                                     <script>
-                                                                                        contentMsgR.push("<c:out value='${message.content}'/>");
+                                                                                        messageAuxR = "<c:out value='${message.content}'/>";
+                                                                                        messageAuxR = messageAuxR.replace(/&lt;br&gt;/g, "<br>");
+                                                                                        contentMsgR.push(messageAuxR);
                                                                                         var j =i;
                                                                                         i++;
                                                                                         var read = "<c:out value='${message.read}'/>";
@@ -290,7 +296,9 @@
                                                                               </c:forEach>
                                                                               <c:forEach var="sentMessage" items="${SentMessagesList}">
                                                                                   <script>
-                                                                                         contentMsgS.push("<c:out value='${sentMessage.content}'/>");
+                                                                                         messageAuxS = "<c:out value='${sentMessage.content}'/>";
+                                                                                        messageAuxS = messageAuxS.replace(/&lt;br&gt;/g, "<br>");
+                                                                                        contentMsgS.push(messageAuxS);
                                                                                             var j=i;
                                                                                             i++;
                                        
@@ -348,7 +356,7 @@
         var id = this.id;
         var readm = this.children[6].innerHTML;
         var idMsg = this.children[5].innerHTML;
-        document.getElementById("displayContent").innerHTML=contentMsgR[id];
+        $('#displayContent').html("\""+contentMsgR[id]+"\"");
         if(readm==="false"){
             $.ajax({
             url:'Messages',
@@ -359,10 +367,10 @@
      }
         $(this).css("font-weight","normal");
     });
-    
+        
     $('.uMsgS').click(function(){
         var id = this.id;
-        document.getElementById("displayContent").innerHTML=contentMsgS[id];
+        $('#displayContent').html(contentMsgS[id]);
     });
     
     var jObjSelect1 = $( "#divSent2" );

@@ -7,6 +7,7 @@ package insa.client;
 
 import insa.db.UserAccount;
 import insa.db.Company;
+import insa.models.LinkCompanyProfileRequest;
 import insa.ws.UserAccountWS;
 import insa.ws.UserProfileWS;
 import java.io.IOException;
@@ -94,7 +95,8 @@ public class CreateCompanyProfile extends HttpServlet {
                 //System.out.println("--------------////// c'est pas null");
                 String login = request.getParameter("login");
                 System.out.println(login + " " + company.getId());
-                UserAccount ua = userAccountService.linkCompanyProfile(login, company);
+                LinkCompanyProfileRequest req = new LinkCompanyProfileRequest(login, company);
+                UserAccount ua = userAccountService.linkCompanyProfile(req);
                 if(ua == null)
                     userProfileService.deleteCompanyProfile(company.getId());
                 else

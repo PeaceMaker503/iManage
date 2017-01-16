@@ -6,83 +6,104 @@
 package insa.ws;
 
 import insa.dao.IDao;
+import insa.db.Company;
 import insa.db.UserAccount;
 import insa.db.UserProfile;
-import insa.db.Company;
 import insa.metier.IMetier;
 import insa.metier.MetierImpl;
-import java.util.List;
-import javax.jws.WebService;
 import javax.jws.WebMethod;
 import javax.jws.WebParam;
+import javax.ws.rs.core.Context;
+import javax.ws.rs.core.UriInfo;
+import javax.ws.rs.Produces;
+import javax.ws.rs.Consumes;
+import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.Path;
+import javax.ws.rs.PUT;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import insa.models.AddUserAccountRequest;
+import insa.models.LinkCompanyProfileRequest;
+import insa.models.LinkUserProfileRequest;
+import java.util.List;
+import javax.ws.rs.PathParam;
 
 /**
+ * REST Web Service
  *
- * @author zaurelzo
+ * @author Halim
  */
-@WebService(serviceName = "UserAccountWS")
-public class UserAccountWS 
-{
-    private IMetier metier;
+@Path("Accounts")
+@Produces(MediaType.APPLICATION_JSON)
+public class UserAccountWS {
+
+    @Context
+    private UriInfo context;
     
-    public UserAccountWS()
-    {
+    private IMetier metier;
+    /**
+     * Creates a new instance of AccountsResource
+     */
+    public UserAccountWS() {
         ApplicationContext ap = new ClassPathXmlApplicationContext("../../WEB-INF/applicationContext.xml");
         metier = (IMetier)ap.getBean("metier");
     }
-
-    @WebMethod(operationName = "addUserAccount")
-    public UserAccount addUserAccount(@WebParam(name = "login") String login, @WebParam(name = "mail") String mail, @WebParam(name = "password") String password, @WebParam(name = "selectUserCategory") String userCategory) {
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/account")
+    public UserAccount addUserAccount(AddUserAccountRequest request) {
         //TODO write your implementation code here:
-       return metier.addUserAccount(login, mail, password, userCategory);
-    }
-
-    @WebMethod(operationName = "verifyUserAccount")
-    public UserAccount verifyUserAccount(@WebParam(name = "login") String login, @WebParam(name = "password") String password) {
-        //TODO write your implementation code here:
-        return metier.verifyUserAccount(login, password);
-    }
-
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "linkUserProfile")
-    public UserAccount linkUserProfile(@WebParam(name = "login") String login, @WebParam(name = "profile") UserProfile profile) {
-        //TODO write your implementation code here:
-        return metier.linkUserProfile(login, profile);
+       return metier.addUserAccount(request.getLogin(), request.getMail(), request.getPassword(), request.getUserCategory());
     }
     
-    @WebMethod(operationName = "linkCompanyProfile")
-    public UserAccount linkCompanyProfile(@WebParam(name = "login") String login, @WebParam(name = "company") Company comp) {
-        //TODO write your implementation code here:
-        return metier.linkCompanyProfile(login, comp);
-    }
-
-    /**
-     * Web service operation
-     */
-    @WebMethod(operationName = "linkPassword")
-    public UserAccount linkPassword(@WebParam(name = "login") String login, @WebParam(name = "mail") String mail) {
-        IDao dao = ((MetierImpl)metier).getDao();
-        return dao.getUserAccountByLogin(login);
-    }
-
-    
-    @WebMethod(operationName = "getUserAccountByEmail")
-    public UserAccount getUserAccountByEmail(@WebParam(name = "mail") String mail) {
-        return metier.getUserAccountByEmail(mail);
-    }
-    
-    @WebMethod(operationName = "getUserAccountByLogin")
-    public UserAccount getUserAccountByLogin(@WebParam(name = "login") String login) {
+    @GET
+    @Path("/login")
+    public UserAccount getUserAccountByLogin(@QueryParam("login") String login) {
         return metier.getUserAccountByLogin(login);
     }
     
-    @WebMethod(operationName = "getAllUserAccount")
+    @GET
+    @Path("/mail")
+    public UserAccount getUserAccountByEmail(@QueryParam("mail") String mail) {
+        return metier.getUserAccountByEmail(mail);
+    }
+    
+    @GET
+    @Path("/verify")
+    public UserAccount verifyUserAccount(@QueryParam("login") String login, @QueryParam("password") String password) {
+        //TODO write your implementation code here:
+        return metier.verifyUserAccount(login, password);
+    }
+    
+    @GET
+    @Path("/accounts")
     public List<UserAccount> getAllUserAccount(){
         return metier.getAllUserAccount();
     }
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/link/userProfile")
+    public UserAccount linkUserProfile(LinkUserProfileRequest request) {
+        //TODO write your implementation code here:
+        return metier.linkUserProfile(request.getLogin(), request.getUserProfile());
+    }
+    
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/link/company")
+    public UserAccount linkCompanyProfile(LinkCompanyProfileRequest request) {
+        //TODO write your implementation code here:
+        return metier.linkCompanyProfile(request.getLogin(), request.getCompany());
+    }
 
+    @GET
+    @Path("/link/password")
+    public UserAccount linkPassword(@QueryParam("login") String login, @QueryParam("mail") String mail) {
+        return metier.getUserAccountByLogin(login);
+    }
 }

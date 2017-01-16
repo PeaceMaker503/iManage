@@ -5,6 +5,7 @@
  */
 package insa.client;
 
+import insa.bus.BusResultTreatment;
 import insa.db.Candidature;
 import insa.db.Company;
 import insa.db.Internship;
@@ -19,6 +20,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import insa.bus.httpWrapper;
+import insa.db.Category;
 import java.io.PrintWriter;
 import java.net.URL;
 import javax.servlet.ServletException;
@@ -27,12 +29,18 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import static javax.ws.rs.core.HttpHeaders.USER_AGENT;
+import org.*;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 /**
  *
@@ -133,80 +141,98 @@ public class Search extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-        String url = "http://localhost:11223/getInternship";
+        try {
+            
+            String url = "http://localhost:11223/getInternship";
         
-        httpWrapper httpW = new httpWrapper(url, request.getParameterMap());
-        System.out.println("******************************************"+ httpW.sendRequest());
-        System.out.println("******************************************");     
-    
-        response.setContentType("text/html");
-	String login = request.getParameter("login");		
-	long user_id = userProfileService.getUserAccountByLogin(login).getId();
+            httpWrapper httpW = new httpWrapper(url, request.getParameterMap());
+            
+            //received json object with internship information (from zato)
+            String httpRes =  httpW.sendRequest() ;
+            BusResultTreatment thebusResultTreatment = new BusResultTreatment(httpRes);
+   
+            response.setContentType("text/html");
+            String login = request.getParameter("login");		
+            long user_id = userProfileService.getUserAccountByLogin(login).getId();
         
-        UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
-        String userCategory = ua.getUserCategory();
-        if(userCategory.compareTo("Student")==0){
-            request.setAttribute("student","true");
-        }
-        else{
-            request.setAttribute("student","false");
-        }
+            UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+            String userCategory = ua.getUserCategory();
+            if(userCategory.compareTo("Student")==0)
+            {
+                request.setAttribute("student","true");
+            }
+            else
+            {
+                request.setAttribute("student","false");
+            }
         
-        request.setAttribute("companyList", InternshipService.getCompanies());
-        request.setAttribute("categoryList", InternshipService.getCategories());
+            request.setAttribute("companyList", InternshipService.getCompanies());
+            request.setAttribute("categoryList", InternshipService.getCategories());
         
-        String keywords = new String(request.getParameter("keywords").getBytes(),"UTF-8");
-        byte[] bytesKeyW = keywords.getBytes(StandardCharsets.ISO_8859_1);
-        keywords = new String(bytesKeyW, StandardCharsets.UTF_8);
+            String keywords = new String(request.getParameter("keywords").getBytes(),"UTF-8");
+            byte[] bytesKeyW = keywords.getBytes(StandardCharsets.ISO_8859_1);
+            keywords = new String(bytesKeyW, StandardCharsets.UTF_8);
         
-        String company = new String(request.getParameter("selectCompany").getBytes(),"UTF-8"); 
-        byte[] bytesComp = company.getBytes(StandardCharsets.ISO_8859_1);
-        company = new String(bytesComp, StandardCharsets.UTF_8);
+            String company = new String(request.getParameter("selectCompany").getBytes(),"UTF-8"); 
+            byte[] bytesComp = company.getBytes(StandardCharsets.ISO_8859_1);
+            company = new String(bytesComp, StandardCharsets.UTF_8);
         
         
-        String category = new String(request.getParameter("selectCategory").getBytes(),"UTF-8");
-        byte[] bytesCat = category.getBytes(StandardCharsets.ISO_8859_1);
-        category = new String(bytesCat, StandardCharsets.UTF_8);
-		
-		List<Internship> internshipList = InternshipService.getInternshipByCriteria(company, category, keywords);
-		List<Candidature> candidatureList = candidatureService.getCandidaturesByUserID(user_id);
-				
-		Iterator<Internship> iOffer = internshipList.iterator();
-		Iterator<Candidature> iCandidature = candidatureList.iterator();
+            String category = new String(request.getParameter("selectCategory").getBytes(),"UTF-8");
+            byte[] bytesCat = category.getBytes(StandardCharsets.ISO_8859_1);
+            category = new String(bytesCat, StandardCharsets.UTF_8);
+            
+            //let rebuild the internship list using  the received json object
+            //List<Internship> internshipList = InternshipService.getInternshipByCriteria(company, category, keywords);
+            
+            List<Internship> internshipList=  thebusResultTreatment.getListOfInternship();
+            
+            List<Candidature> candidatureList = candidatureService.getCandidaturesByUserID(user_id);			
+            Iterator<Internship> iOffer = internshipList.iterator();
+            Iterator<Candidature> iCandidature = candidatureList.iterator();
 				 
-		// Delete candidatures from the list where there is a Candidature sent
-		// from the current student:
-		while (iCandidature.hasNext()) {
+            // Delete candidatures from the list where there is a Candidature sent
+            // from the current student:
+            while (iCandidature.hasNext()) 
+            {
 			
-			Candidature currentCandidature = iCandidature.next();
+                Candidature currentCandidature = iCandidature.next();
 			
-			while (iOffer.hasNext()) {
+                while (iOffer.hasNext()) 
+                {
 		
-				Internship currentOffer = iOffer.next();
+                    Internship currentOffer = iOffer.next();
 			
-				if (Objects.equals(currentOffer, currentCandidature.getId_internship())) {
-					iOffer.remove();
-					iCandidature.remove();
-					break;
-				}
+                    if (Objects.equals(currentOffer, currentCandidature.getId_internship())) 
+                    {
+                        iOffer.remove();
+                        iCandidature.remove();
+                        break;
+                    }
 			
-			}
+                }
 			
-		}				
+            }				
 
-        request.setAttribute("keywords", keywords.toUpperCase());
-        if (company.equals("All"))
-            request.setAttribute("company", "ALL COMPANIES");
-        else
-            request.setAttribute("company", company.toUpperCase());
-        if (category.equals("All"))
-            request.setAttribute("category", "ALL CATEGORIES");
-        else
-            request.setAttribute("category", category.toUpperCase());
+            request.setAttribute("keywords", keywords.toUpperCase());
+            if (company.equals("All"))
+                request.setAttribute("company", "ALL COMPANIES");
+            else
+                request.setAttribute("company", company.toUpperCase());
+            if (category.equals("All"))
+                request.setAttribute("category", "ALL CATEGORIES");
+            else
+                request.setAttribute("category", category.toUpperCase());
        
-        request.setAttribute("test", "keywords: " + keywords + "\tcompany: " + company + "\tcategory: " + category);
-        //request.setAttribute("internshipList",internshipList);
-        request.setAttribute("internshipList", InternshipService.getInternshipByCriteria(company, category, keywords));
-        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
+            request.setAttribute("test", "keywords: " + keywords + "\tcompany: " + company + "\tcategory: " + category);
+            //request.setAttribute("internshipList",internshipList);
+            request.setAttribute("internshipList", internshipList);
+            this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
+         
+        } catch (JSONException ex) {
+            System.out.println("+++++++++++++++++++++++++++++++++++++++ ERROR ");
+            //System.out.println("******************************************");
+            Logger.getLogger(Search.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
