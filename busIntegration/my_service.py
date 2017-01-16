@@ -18,7 +18,7 @@ class GetInternshipDetails(Service):
 	                self.logger.info("********* company : " + company +" category :"+ category + " keywords :" + keywords)
 	                #permet de savoir si on a envoyé une requête à l'entreprise A 
 	                RequestedEntrepriseA=0
-	                
+
 	                ListInternshipCompA=[]
 	                if company=="entreprisea" or company=="All":
 	                	ListInternshipCompA=companyA.service.getInternshipByCriteria(category,keywords)
@@ -36,13 +36,13 @@ class GetInternshipDetails(Service):
 	                for ind, internship in enumerate(ListInternshipCompA):
 	                    finalResponse[str(ind)]={"description":str(internship.description),"elementId":str(internship.id),\
 	                    "category_id":str(internship.id_category.id),"category_name":str(internship.id_category.name),\
-	                    "name":str(internship.name),"pdfPath":str(internship.pdfPath)} 
+	                    "name":str(internship.name),"pdfPath":str(internship.pdfPath),"company":"entreprisea"} 
 	                    #self.logger.info("////////////////////type of internship " + str(internship.id_category.name))
 
 	                for ind, internship in enumerate(ListInternshipCompB):
 	                    finalResponse[str(ind+RequestedEntrepriseA)]={"description":str(internship.description),"elementId":str(internship.id),\
 	                    "category_id":str(internship.id_category.id),"category_name":str(internship.id_category.name),\
-	                    "name":str(internship.name),"pdfPath":str(internship.pdfPath)} 
+	                    "name":str(internship.name),"pdfPath":str(internship.pdfPath),"company":"entrepriseb"} 
 	                
 	                ##return response to the caller
 	                self.response.payload="\""+str(finalResponse)+"\""
