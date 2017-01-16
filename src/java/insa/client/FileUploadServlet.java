@@ -18,10 +18,61 @@ import javax.servlet.http.Part;
 @MultipartConfig
 public class FileUploadServlet extends HttpServlet {
 	
+    private String getFileName(final Part part) {
+        final String partHeader = part.getHeader("content-disposition");
+        LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);
+        for (String content : part.getHeader("content-disposition").split(";")) {
+            if (content.trim().startsWith("filename")) {
+                return content.substring(
+                        content.indexOf('=') + 1).trim().replace("\"", "");
+            }
+        }
+        return null;
+    }
+		
+	private Boolean uploadFile(HttpServletRequest request, HttpServletResponse response, String path, String fileName, Part filePart, UserProfile userProfile) throws IOException, ServletException {
+		
+		Boolean uploaded = false;
+		OutputStream out = null;
+        InputStream filecontent = null;
+
+        try {
+            out = new FileOutputStream(new File(path + File.separator
+                    + fileName));
+            filecontent = filePart.getInputStream();
+			
+			int read = 0;
+			final byte[] bytes = new byte[1024];
+	
+            while ((read = filecontent.read(bytes)) != -1) {
+                out.write(bytes, 0, read);
+            }
+			
+			return true;
+			
+        } catch (FileNotFoundException fne) {
+            //writer.println("You either did not specify a file to upload or are "
+            //        + "trying to upload a file to a protected or nonexistent "
+            //        + "location.");
+            //writer.println("<br/> ERROR: " + fne.getMessage());
+            LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
+                    new Object[]{fne.getMessage()});
+        } finally {
+            if (out != null) {
+                out.close();
+            }
+            if (filecontent != null) {
+                filecontent.close();
+            }
+
+			return uploaded;
+        }
+		
+	}
+	
 	private static UserAccountWS userAccountService = new insa.ws.UserAccountWS();
 	private static UserProfileWS userProfileService = new insa.ws.UserProfileWS();
-    private final static Logger LOGGER =
-            Logger.getLogger(FileUploadServlet.class.getCanonicalName());
+    private final static Logger LOGGER = Logger.getLogger(FileUploadServlet.class.getCanonicalName());
 
      protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -39,19 +90,7 @@ public class FileUploadServlet extends HttpServlet {
             out.println("</html>");
         }
     }
-
-    private String getFileName(final Part part) {
-        final String partHeader = part.getHeader("content-disposition");
-        LOGGER.log(Level.INFO, "Part Header = {0}", partHeader);
-        for (String content : part.getHeader("content-disposition").split(";")) {
-            if (content.trim().startsWith("filename")) {
-                return content.substring(
-                        content.indexOf('=') + 1).trim().replace("\"", "");
-            }
-        }
-        return null;
-    }
-
+	
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -62,54 +101,47 @@ public class FileUploadServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 		
-		String login = request.getParameter("login");
+		// Parameters definition:
 		response.setContentType("text/html;charset=UTF-8");
-        final String path = "/home/prmm95/NetBeansProjects/iManage/static/pdf";
-        final Part filePart = request.getPart("file");
-        final String fileName = "cv_" + request.getParameter("login") + ".pdf";
+		String login = request.getParameter("login");
+		String uploadType = request.getParameter("uploadType");
 		long userProfileID = userProfileService.getUserAccountByLogin(login).getId_profile().getId();
 		UserProfile userProfile = userProfileService.getUserProfileById(userProfileID);
-		userProfile.setCvPath(path + "/" + fileName);		
-		userProfileService.updateUserProfile(userProfile);
+		final Part filePart = request.getPart("file");
+		Boolean fileUploaded;
 		
-        OutputStream out = null;
-        InputStream filecontent = null;
-        final PrintWriter writer = response.getWriter();
-
-        try {
-            out = new FileOutputStream(new File(path + File.separator
-                    + fileName));
-            filecontent = filePart.getInputStream();
+		System.out.println(uploadType);
+		
+		// TODO: Parameter		
+		//String uploadType = "coverLetter";
+		//String uploadType = "messageFile";
+		
+		switch (uploadType) {
 			
-			int read = 0;
-			final byte[] bytes = new byte[1024];
-	
-            while ((read = filecontent.read(bytes)) != -1) {
-                out.write(bytes, 0, read);
-            }
+			case "coverLetter":
+				System.out.println("Not implemented");
+				break;
+				
+			case "userCV":				
+				final String path = "/home/prmm95/NetBeansProjects/iManage/static/pdf";
+				final String fileName = "cv_" + request.getParameter("login") + ".pdf";				
+				fileUploaded = uploadFile(request, response, path, fileName, filePart, userProfile);				
+				// Verify if they were errors uploading the file:
+				userProfile.setCvPath(path + "/" + fileName);		
+				userProfileService.updateUserProfile(userProfile);
+				request.setAttribute("login",request.getParameter("login"));
+				request.setAttribute("userProfile",userProfile);
+				this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ViewUpdateUserProfile.jsp").forward(request, response);
+				break;
 			
-			request.setAttribute("login",request.getParameter("login"));
-			request.setAttribute("userProfile",userProfile);
-			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ViewUpdateUserProfile.jsp").forward(request, response);
-
-        } catch (FileNotFoundException fne) {
-            writer.println("You either did not specify a file to upload or are "
-                    + "trying to upload a file to a protected or nonexistent "
-                    + "location.");
-            writer.println("<br/> ERROR: " + fne.getMessage());
-
-            LOGGER.log(Level.SEVERE, "Problems during file upload. Error: {0}",
-                    new Object[]{fne.getMessage()});
-        } finally {
-            if (out != null) {
-                out.close();
-            }
-            if (filecontent != null) {
-                filecontent.close();
-            }
-            if (writer != null) {
-                writer.close();
-            }
-        }
+			case "messageFile":
+				System.out.println("Not implemented");
+				break;	
+				
+			default:
+				System.out.println("Error");
+			
+		}
+		
     }
 }
