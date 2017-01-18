@@ -5,6 +5,7 @@
  */
 package insa.client;
 
+import insa.db.UserAccount;
 import insa.ws.CandidatureWS;
 import insa.ws.InternshipWS;
 import insa.ws.UserProfileWS;
@@ -67,6 +68,17 @@ public class DeleteCandidature extends HttpServlet {
 		String login = request.getParameter("login");
 		long candidatureID = Long.valueOf(request.getParameter("cand_id"));			
 		long user_id = userProfileService.getUserAccountByLogin(login).getId();
+		
+		UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+        String userCategory = ua.getUserCategory();
+        
+		if(userCategory.compareTo("Student")==0){
+            request.setAttribute("student","true");
+        }
+		else {
+            request.setAttribute("student","false");
+        } 
+		
 		
 		// Delete the candidature instance
 		Boolean deletedCand = candidatureService.deleteCandidature(candidatureID);
