@@ -173,8 +173,8 @@ public class MetierImpl implements IMetier {
 	}
 	
 	@Override
-    public Candidature createCandidature(String title, String message, String coverLetterPath) {
-		Candidature candidature = new Candidature(title,message,coverLetterPath,null,null,null);
+    public Candidature createCandidature(String title, String message, String coverLetterPath,String offer_name) {
+		Candidature candidature = new Candidature(title,message,coverLetterPath,offer_name,null,null);
 		return dao.addCandidature(candidature);		
 	}
 	

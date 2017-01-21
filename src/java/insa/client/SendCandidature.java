@@ -107,7 +107,7 @@ public class SendCandidature extends HttpServlet {
 		String coverLetterPath = "/Users/jordycabannes/Desktop/iManage/web/Web-content/pdf/internshipOffer/Offre1.pdf"; 
 		//		+ login + "/" + offer_id + ".pdf"; 
 					
-		Candidature candidature = candidatureService.createCandidature(candTitle,candMessage,coverLetterPath);
+		Candidature candidature = candidatureService.createCandidature(candTitle,candMessage,coverLetterPath,offer_name);
 		
 		// Link candidature with the respective user:
 		UserAccount userAccount = userProfileService.getUserAccountByLogin(login);

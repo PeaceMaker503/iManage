@@ -49,8 +49,8 @@ public class CandidatureWS {
 	 * @return 
 	 */
 	@WebMethod(operationName = "createCandidature")
-	public Candidature createCandidature(@WebParam(name="candTitle") String title, @WebParam(name="candMessage") String message, @WebParam(name="coverLetterPath") String coverLetterPath) {
-		return metier.createCandidature(title,message,coverLetterPath);
+	public Candidature createCandidature(@WebParam(name="candTitle") String title, @WebParam(name="candMessage") String message, @WebParam(name="coverLetterPath") String coverLetterPath,@WebParam(name="offer_name") String offer_name) {
+		return metier.createCandidature(title,message,coverLetterPath,offer_name);
 	}
 	
 	/**

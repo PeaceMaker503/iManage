@@ -49,7 +49,7 @@ public interface IMetier
         
 	// Candidatures:
 	public Candidature getCandidatureById(Long id);
-    public Candidature createCandidature(String title, String message, String coverLetterPath);
+    public Candidature createCandidature(String title, String message, String coverLetterPath, String offer_name);
     public Boolean deleteCandidatureById(Long id);
     public Candidature updateCandidature(Candidature candidature);
 	//public Candidature linkOfferToCandidature(long candID, Internship offer);
