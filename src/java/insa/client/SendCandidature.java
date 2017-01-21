@@ -69,14 +69,10 @@ public class SendCandidature extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		long offer_id = Long.valueOf(request.getParameter("offer_id"));
-		Internship internshipOffer = internshipService.getInternshipByID(offer_id);
-		request.setAttribute("internshipOffer",internshipOffer);
+		request.setAttribute("offer_name",request.getParameter("offer_name"));
+		request.setAttribute("company_name",request.getParameter("company_name"));
 		request.setAttribute("login",request.getParameter("login"));
-		System.out.println(request.getParameter("login"));
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/SendCandidature.jsp").forward(request, response);
-		
 	}
 
 	/**
@@ -115,7 +111,7 @@ public class SendCandidature extends HttpServlet {
 		
 		// Link candidature with the respective internship offer:
 		Internship offer = internshipService.getInternshipByID(offer_id);
-		candidatureService.linkOfferToCandidature(candidature.getId(),offer);
+//		candidatureService.linkOfferToCandidature(candidature.getId(),offer);
 		
 		// Link candidature with the respective user:
 		UserAccount userAccount = userProfileService.getUserAccountByLogin(login);
