@@ -105,14 +105,9 @@
                   <c:forEach var="internship" items="${internshipList}">
                       <li style="width:100%">
                     <h2>${internship.name}</h2>
-                    <h5><span class="glyphicon glyphicon-time"></span> Sep 27th, 2016.</h5>
-                    <h5><span class="label label-danger">LABEL</span> <span class="label label-primary">Label</span></h5><br>
-                    <div class="col-sm-2 text-center">
-                          <img src="/iManage/Web-Content/StyleHome/img/air-france.jpg" class="img-circle" height="65" width="65" alt="Avatar">
-                    </div>
+                    <h5><span class="label label-primary">${internship.id_category.name}</span></h5><br>
                     <p>Company : ${internship.id_company.name}</p>
-                    <p>Category : ${internship.id_category.name}</p>
-                    <p>${internship.description}</p>
+                    <p>Description: ${internship.description}</p>
                     <br><br>
                     <a href="<%=request.getContextPath()+"/Pdf?path="%>${internship.pdfPath}" target="_blank" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">View PDF</a>
                     <% if(request.getAttribute("student") != null) {
