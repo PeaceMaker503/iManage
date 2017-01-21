@@ -97,35 +97,34 @@ public class Search extends HttpServlet {
             String httpRes =  httpW.sendRequest() ;
             BusResultTreatment thebusResultTreatment = new BusResultTreatment(httpRes);
             
-            
-                response.setContentType("text/html");
-                String login = request.getParameter("login");		
-		long user_id = userProfileService.getUserAccountByLogin(login).getId();
-		List<Internship> internshipList = thebusResultTreatment.getListOfInternship();
-		List<Candidature> candidatureList = candidatureService.getCandidaturesByUserID(user_id);
+            response.setContentType("text/html");
+            String login = request.getParameter("login");		
+			long user_id = userProfileService.getUserAccountByLogin(login).getId();
+			List<Internship> internshipList = thebusResultTreatment.getListOfInternship();
+			List<Candidature> candidatureList = candidatureService.getCandidaturesByUserID(user_id);
 				
-		Iterator<Internship> iOffer = internshipList.iterator();
-		Iterator<Candidature> iCandidature = candidatureList.iterator();
+			Iterator<Internship> iOffer = internshipList.iterator();
+			Iterator<Candidature> iCandidature = candidatureList.iterator();
 				 
-		// Delete candidatures from the list where there is a Candidature sent
-		// from the current student:
-//		while (iCandidature.hasNext()) {
-//			
-//			Candidature currentCandidature = iCandidature.next();
-//			
-//			while (iOffer.hasNext()) {
-//		
-//				Internship currentOffer = iOffer.next();
-//			
-//				if (Objects.equals(currentOffer, currentCandidature.getId_internship())) {
-//					iOffer.remove();
-//					iCandidature.remove();
-//					break;
-//				}
-//			
-//			}
-//			
-//		}		
+			// Delete candidatures from the list where there is a Candidature sent
+			// from the current student:
+			//		while (iCandidature.hasNext()) {
+			//			
+			//			Candidature currentCandidature = iCandidature.next();
+			//			
+			//			while (iOffer.hasNext()) {
+			//		
+			//				Internship currentOffer = iOffer.next();
+			//			
+			//				if (Objects.equals(currentOffer, currentCandidature.getId_internship())) {
+			//					iOffer.remove();
+			//					iCandidature.remove();
+			//					break;
+			//				}
+			//			
+			//			}
+			//			
+			//		}		
 		
             request.setAttribute("internshipList",internshipList);
             request.setAttribute("companyList", InternshipService.getCompanies());
