@@ -109,23 +109,23 @@ public class Search extends HttpServlet {
 				 
 		// Delete candidatures from the list where there is a Candidature sent
 		// from the current student:
-		while (iCandidature.hasNext()) {
-			
-			Candidature currentCandidature = iCandidature.next();
-			
-			while (iOffer.hasNext()) {
-		
-				Internship currentOffer = iOffer.next();
-			
-				if (Objects.equals(currentOffer, currentCandidature.getId_internship())) {
-					iOffer.remove();
-					iCandidature.remove();
-					break;
-				}
-			
-			}
-			
-		}		
+//		while (iCandidature.hasNext()) {
+//			
+//			Candidature currentCandidature = iCandidature.next();
+//			
+//			while (iOffer.hasNext()) {
+//		
+//				Internship currentOffer = iOffer.next();
+//			
+//				if (Objects.equals(currentOffer, currentCandidature.getId_internship())) {
+//					iOffer.remove();
+//					iCandidature.remove();
+//					break;
+//				}
+//			
+//			}
+//			
+//		}		
 		
             request.setAttribute("internshipList",internshipList);
             request.setAttribute("companyList", InternshipService.getCompanies());
@@ -213,26 +213,26 @@ public class Search extends HttpServlet {
 				 
             // Delete candidatures from the list where there is a Candidature sent
             // from the current student:
-            while (iCandidature.hasNext()) 
-            {
-			
-                Candidature currentCandidature = iCandidature.next();
-			
-                while (iOffer.hasNext()) 
-                {
-		
-                    Internship currentOffer = iOffer.next();
-			
-                    if (Objects.equals(currentOffer, currentCandidature.getId_internship())) 
-                    {
-                        iOffer.remove();
-                        iCandidature.remove();
-                        break;
-                    }
-			
-                }
-			
-            }				
+//            while (iCandidature.hasNext()) 
+//            {
+//			
+//                Candidature currentCandidature = iCandidature.next();
+//			
+//                while (iOffer.hasNext()) 
+//                {
+//		
+//                    Internship currentOffer = iOffer.next();
+//			
+//                    if (Objects.equals(currentOffer, currentCandidature.getId_internship())) 
+//                    {
+//                        iOffer.remove();
+//                        iCandidature.remove();
+//                        break;
+//                    }
+//			
+//                }
+//			
+//            }				
 
             request.setAttribute("keywords", keywords.toUpperCase());
             if (company.equals("All"))
