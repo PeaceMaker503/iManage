@@ -21,7 +21,7 @@
 		
 		<!-- Body -->
 		<br>
-		<h2>Candidatures of the offer: ${internshipOffer.name}</h2>
+		<h2>Candidatures of the offer: <%= request.getAttribute("offer_name") %></h2>
 		<br>
 		<table class="table table-bordered">
 			  <thead>

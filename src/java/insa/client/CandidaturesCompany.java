@@ -69,11 +69,13 @@ public class CandidaturesCompany extends HttpServlet {
 			throws ServletException, IOException {
 
 		String login = request.getParameter("login");
-		long offer_id = Long.valueOf(request.getParameter("offer_id"));
-		Internship internshipOffer = internshipService.getInternshipByID(offer_id);
-		long user_id = userProfileService.getUserAccountByLogin("alejandra").getId();
-		request.setAttribute("internshipOffer",internshipOffer);
-		request.setAttribute("candidatesList",candidatureService.getCandidaturesByUserID(user_id));
+		String offer_name = request.getParameter("offer_name");
+		
+		//long offer_id = Long.valueOf(request.getParameter("offer_id"));
+		//Internship internshipOffer = internshipService.getInternshipByID(offer_id);
+		//long user_id = userProfileService.getUserAccountByLogin(login).getId();
+		//request.setAttribute("candidatesList",candidatureService.getCandidaturesByUserID(user_id));
+		request.setAttribute("offer_name",offer_name);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CandidaturesCompany.jsp").forward(request, response);
 	}
 

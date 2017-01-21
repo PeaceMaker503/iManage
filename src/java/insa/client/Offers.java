@@ -84,10 +84,11 @@ public class Offers extends HttpServlet {
 			String login = request.getParameter("login");		
 			UserAccount companyAccount = userProfileService.getUserAccountByLogin(login);
 			Company companyProfile = userProfileService.getCompanyById(companyAccount.getId_Company_profile().getId());
+			String company_name = companyProfile.getName();
 			
 			String url = "http://localhost:11223/getInternship";
             Map<String,String[]> mapRequestParameters = new HashMap<String,String[]>();
-            mapRequestParameters.put("selectCompany",new String[]{companyProfile.getName()});
+            mapRequestParameters.put("selectCompany",new String[]{company_name});
             mapRequestParameters.put("selectCategory",new String[]{"All"});
             mapRequestParameters.put("keywords",new String[]{""});
             
@@ -105,6 +106,7 @@ public class Offers extends HttpServlet {
 
 			List<Internship> internshipList = thebusResultTreatment.getListOfInternship();
 
+			request.setAttribute("company_name",company_name);
 			request.setAttribute("internshipList",internshipList);
 			this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Offers.jsp").forward(request, response);
 			

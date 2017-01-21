@@ -46,7 +46,7 @@
 					  <c:forEach var="offer" items="${internshipList}">
 						<tr>
 						  <td>${offer.name}</td>
-						  <td><a href="<%=request.getContextPath()+"/CandidaturesCompany?login=" + request.getParameter("login")%>&offer_id=${offer.id}">View Candidatures</a></td>
+						  <td><a href="<%=request.getContextPath()+"/CandidaturesCompany?login=" + request.getParameter("login")%>&company_name=<%= request.getAttribute("company_name") %>&offer_name=${offer.name}">View candidatures</a></td>
 						 </tr>							
 					  </c:forEach>	
 				  </tbody>
