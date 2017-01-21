@@ -71,10 +71,8 @@ public class CandidaturesCompany extends HttpServlet {
 		String login = request.getParameter("login");
 		String offer_name = request.getParameter("offer_name");
 		
-		//long offer_id = Long.valueOf(request.getParameter("offer_id"));
-		//Internship internshipOffer = internshipService.getInternshipByID(offer_id);
-		//long user_id = userProfileService.getUserAccountByLogin(login).getId();
-		//request.setAttribute("candidatesList",candidatureService.getCandidaturesByUserID(user_id));
+		long user_id = userProfileService.getUserAccountByLogin("user").getId();
+		request.setAttribute("candidatesList",candidatureService.getCandidaturesByOfferName(offer_name));
 		request.setAttribute("offer_name",offer_name);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CandidaturesCompany.jsp").forward(request, response);
 	}

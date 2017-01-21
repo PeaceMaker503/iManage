@@ -56,6 +56,7 @@ public interface IMetier
 	public Candidature linkUserToCandidature(long cand_id,UserAccount userAccount);
 	public Candidature linkCompanyToCandidature(long cand_id,Company company);
 	public List<Candidature> getCandidaturesByUserID(long user_id);
+	public List<Candidature> getCandidaturesByOfferName(String offer_name);
 		
 	// Internships:
 	public Internship getInternshipByID(long id);

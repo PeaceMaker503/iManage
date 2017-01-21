@@ -79,6 +79,11 @@ public class CandidatureWS {
 	public List<Candidature> getCandidaturesByUserID(long user_id) {
 		return metier.getCandidaturesByUserID(user_id);
 	}
+	
+	public List<Candidature> getCandidaturesByOfferName(String offer_name) {
+		return metier.getCandidaturesByOfferName(offer_name);
+	}
+	
 
 	/**
 	 * Web service operation

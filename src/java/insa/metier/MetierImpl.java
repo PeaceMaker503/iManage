@@ -358,6 +358,13 @@ public class MetierImpl implements IMetier {
 	}
 	
 	@Override
+	public List<Candidature> getCandidaturesByOfferName(String offer_name) {
+		List<Candidature> list = dao.getCandidaturesByOfferName(offer_name);
+        return list; 
+	}
+	
+	
+	@Override
         public Message updateReadMessage(Long id){
             Message message = dao.getMessageById(id);
             message.setRead(true);

@@ -551,4 +551,16 @@ public class DaoImpl implements IDao {
             return null;	
 	}
 	
+	@Override
+	public List<Candidature> getCandidaturesByOfferName(String offer_name) {
+		String query = "from Candidature as cand where cand.offer_name = :offer_name";
+		HashMap<String, Object> params = new HashMap<>();
+        params.put("offer_name", offer_name);
+        List<Candidature> list = hibernateManager.execute(query, params, Candidature.class);
+        if(list != null)
+            return list;
+        else
+            return null;	
+	}
+	
 }
