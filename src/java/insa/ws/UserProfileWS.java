@@ -92,6 +92,10 @@ public class UserProfileWS
 	{
 		return metier.updateCompany(company);
         }
+
+	public Company getCompanyByName(String company_name) {
+		return metier.getCompanyByName(company_name);
+	}
 		
 
 }

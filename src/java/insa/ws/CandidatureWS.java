@@ -61,10 +61,10 @@ public class CandidatureWS {
 		return metier.deleteCandidatureById(cand_id);
 	}	
 	
-	@WebMethod(operationName = "linkOfferToCandidature")
-	public Candidature linkOfferToCandidature(@WebParam(name="cand_id") long cand_id, @WebParam(name="offer") Internship offer) {
-		return metier.linkOfferToCandidature(cand_id,offer);
-	}
+//	@WebMethod(operationName = "linkOfferToCandidature")
+//	public Candidature linkOfferToCandidature(@WebParam(name="cand_id") long cand_id, @WebParam(name="offer") Internship offer) {
+//		return metier.linkOfferToCandidature(cand_id,offer);
+//	}
 	
 	@WebMethod(operationName = "linkUserToCandidature")
 	public Candidature linkUserToCandidature(@WebParam(name="cand_id") long cand_id, @WebParam(name="userAccount") UserAccount userAccount){

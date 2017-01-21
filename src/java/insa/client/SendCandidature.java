@@ -6,6 +6,7 @@
 package insa.client;
 
 import insa.db.Candidature;
+import insa.db.Company;
 import insa.db.UserAccount;
 import insa.ws.InternshipWS;
 import insa.ws.CandidatureWS;
@@ -101,7 +102,6 @@ public class SendCandidature extends HttpServlet {
 		String offer_name = request.getParameter("offer_name");
 		String company_name = request.getParameter("company_name");
 		
-		
 		// TODO: Verify if a file was sent 
 		// TODO: Save the file on the correct path 
 		String coverLetterPath = "/Users/jordycabannes/Desktop/iManage/web/Web-content/pdf/internshipOffer/Offre1.pdf"; 
@@ -114,8 +114,8 @@ public class SendCandidature extends HttpServlet {
 		candidatureService.linkUserToCandidature(candidature.getId(),userAccount);
 		
 		// Link candidature with the respective company:
-		//Company company = offer.getId_company();
-		//candidatureService.linkCompanyToCandidature(candidature.getId(),company);
+		Company company = userProfileService.getCompanyByName(company_name);
+		candidatureService.linkCompanyToCandidature(candidature.getId(),company);
 
 		// Redirect to Candidatures view:
 		request.setAttribute("login",login);

@@ -253,20 +253,20 @@ public class MetierImpl implements IMetier {
         return res;
     }
 	
-	@Override
-	public Candidature linkOfferToCandidature(long candID, Internship offer) {
-		Candidature res = null;
-        Candidature ua = dao.getCandidatureById(candID);
-        if(ua != null)
-        {
-            ua.setId_internship(offer);
-            ua = dao.updateCandidature(ua);
-            res = ua;
-         }
-        else
-            res = null;
-        return res;
-    }
+//	@Override
+//	public Candidature linkOfferToCandidature(long candID, Internship offer) {
+//		Candidature res = null;
+//        Candidature ua = dao.getCandidatureById(candID);
+//        if(ua != null)
+//        {
+//            ua.setId_internship(offer);
+//            ua = dao.updateCandidature(ua);
+//            res = ua;
+//         }
+//        else
+//            res = null;
+//        return res;
+//    }
         
         
     
@@ -368,4 +368,9 @@ public class MetierImpl implements IMetier {
                 return null;
             
         }
+
+	@Override
+	public Company getCompanyByName(String company_name) {
+		return dao.getCompanyByName(company_name);
+	}
 }

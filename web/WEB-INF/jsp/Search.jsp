@@ -118,7 +118,7 @@
                     <% if(request.getAttribute("student") != null) {
                                         if((request.getAttribute("student")).equals("true")){
                                  %>
-                        <a href="<%=request.getContextPath()+"/SendCandidature?login=" + request.getParameter("login")%>&offer_id=${internship.id}"  class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
+                        <a href="<%=request.getContextPath()+"/SendCandidature?login=" + request.getParameter("login")%>&company_name=${internship.id_company.name}&offer_name=${internship.name}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
                     <%}
                                 }%>
                       </li><br/>
