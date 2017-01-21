@@ -61,7 +61,7 @@
 					<tr>
 					  <td><fmt:formatNumber type="number" pattern="0000" value="${candidature.id}"/></td>			  
 					  <td>${candidature.id_company.name}</td>
-					  <td><a href="${candidature.id_internship.pdfPath}">${candidature.id_internship.name}</a></td>
+					  <td>${candidature.offer_name}</a></td>
 					  <td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidature.createdAt}"/></td>	  
 					  <td>${candidature.status}</td>
 										  

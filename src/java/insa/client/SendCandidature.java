@@ -5,8 +5,6 @@
  */
 package insa.client;
 
-import insa.db.Company;
-import insa.db.Internship;
 import insa.db.Candidature;
 import insa.db.UserAccount;
 import insa.ws.InternshipWS;
@@ -87,20 +85,22 @@ public class SendCandidature extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-                UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
-                String userCategory = ua.getUserCategory();
-                if(userCategory.compareTo("Student")==0){
-                    request.setAttribute("student","true");
-                }
-                else{
-                    request.setAttribute("student","false");
-                }            
+        UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+        String userCategory = ua.getUserCategory();
+        if(userCategory.compareTo("Student")==0){
+            request.setAttribute("student","true");
+        }
+		else {
+            request.setAttribute("student","false");
+        }            
 		// Parameters:
 		String login = request.getParameter("login");
-		long user_id = userProfileService.getUserAccountByLogin(login).getId();
+		long user_id = ua.getId();
 		String candTitle = request.getParameter("title");
 		String candMessage = request.getParameter("message");
-		long offer_id = Long.parseLong(request.getParameter("offer_id"));
+		String offer_name = request.getParameter("offer_name");
+		String company_name = request.getParameter("company_name");
+		
 		
 		// TODO: Verify if a file was sent 
 		// TODO: Save the file on the correct path 
@@ -109,17 +109,13 @@ public class SendCandidature extends HttpServlet {
 					
 		Candidature candidature = candidatureService.createCandidature(candTitle,candMessage,coverLetterPath);
 		
-		// Link candidature with the respective internship offer:
-		Internship offer = internshipService.getInternshipByID(offer_id);
-//		candidatureService.linkOfferToCandidature(candidature.getId(),offer);
-		
 		// Link candidature with the respective user:
 		UserAccount userAccount = userProfileService.getUserAccountByLogin(login);
 		candidatureService.linkUserToCandidature(candidature.getId(),userAccount);
 		
 		// Link candidature with the respective company:
-		Company company = offer.getId_company();
-		candidatureService.linkCompanyToCandidature(candidature.getId(),company);
+		//Company company = offer.getId_company();
+		//candidatureService.linkCompanyToCandidature(candidature.getId(),company);
 
 		// Redirect to Candidatures view:
 		request.setAttribute("login",login);
