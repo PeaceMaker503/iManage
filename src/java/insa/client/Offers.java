@@ -81,9 +81,13 @@ public class Offers extends HttpServlet {
 		
 		try {
 			
+			String login = request.getParameter("login");		
+			UserAccount companyAccount = userProfileService.getUserAccountByLogin(login);
+			Company companyProfile = userProfileService.getCompanyById(companyAccount.getId_Company_profile().getId());
+			
 			String url = "http://localhost:11223/getInternship";
             Map<String,String[]> mapRequestParameters = new HashMap<String,String[]>();
-            mapRequestParameters.put("selectCompany",new String[]{"All"});
+            mapRequestParameters.put("selectCompany",new String[]{companyProfile.getName()});
             mapRequestParameters.put("selectCategory",new String[]{"All"});
             mapRequestParameters.put("keywords",new String[]{""});
             
@@ -95,10 +99,6 @@ public class Offers extends HttpServlet {
             
             response.setContentType("text/html");
 						
-			String login = request.getParameter("login");		
-			UserAccount companyAccount = userProfileService.getUserAccountByLogin(login);
-			Company companyProfile = userProfileService.getCompanyById(companyAccount.getId_Company_profile().getId());
-				
 			String company = new String(companyProfile.getName().getBytes(),"UTF-8"); 
 			byte[] bytesComp = company.getBytes(StandardCharsets.ISO_8859_1);
 			company = new String(bytesComp, StandardCharsets.UTF_8);

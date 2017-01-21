@@ -196,7 +196,6 @@ public class Search extends HttpServlet {
             byte[] bytesComp = company.getBytes(StandardCharsets.ISO_8859_1);
             company = new String(bytesComp, StandardCharsets.UTF_8);
         
-        
             String category = new String(request.getParameter("selectCategory").getBytes(),"UTF-8");
             byte[] bytesCat = category.getBytes(StandardCharsets.ISO_8859_1);
             category = new String(bytesCat, StandardCharsets.UTF_8);
