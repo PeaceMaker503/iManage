@@ -109,20 +109,22 @@
                   <div class="flex-list">
                       <ul>
                   <c:forEach var="internship" items="${internshipList}">
-                      <li style="width:100%">
+                    <li style="width:100%">
                     <h2>${internship.name}</h2>
                     <h5><span class="label label-primary">${internship.id_category.name}</span></h5><br>
                     <p>Company : ${internship.id_company.name}</p>
                     <p>Description: ${internship.description}</p>
-                    <br><br>
+                    <br><br>					
                     <a href="<%=request.getContextPath()+"/Pdf?path="%>${internship.pdfPath}" target="_blank" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">View PDF</a>
-                    <% if(request.getAttribute("student") != null) {
-                                        if((request.getAttribute("student")).equals("true")){
-                                 %>
-                        <a href="<%=request.getContextPath()+"/SendCandidature?login=" + request.getParameter("login")%>&company_name=${internship.id_company.name}&offer_name=${internship.name}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
-                    <%}
-                                }%>
-                      </li><br/>
+					
+					<c:choose>					  
+						<c:when test="${requestScope['userType'] == 'Student'}">
+							<a href="<%=request.getContextPath()+"/SendCandidature?login=" + request.getParameter("login")%>&company_name=${internship.id_company.name}&offer_name=${internship.name}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
+						</c:when>
+					</c:choose>
+					
+                    </li>
+					<br/>
                   </c:forEach>
                     </ul>
                   </div>
@@ -133,11 +135,7 @@
         <jsp:include page="./Footer.jsp"/>
         
     </body>
-    
-    <script type="text/javascript">
 
-    </script>
-        
 </html>
 
 
