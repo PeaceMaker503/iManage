@@ -69,8 +69,33 @@ if __name__ == '__main__':
 	idInfo= d1.getCategoryId("informatique")
 	idBio =  d1.getCategoryId("biologie")
 	#add some internships 
-	listOfinternships = [("prototype projet qui ne sert a rien et qui va mal ","/home/appCritique.pdf","entreprise a taille humaine cherche petit stagiaire",idInfo),\
-						("developpement Amazon web services de la mort","/home/webServiveces","expert SOA qui doit travailler dur",idInfo),\
-						("developpement Objet connecte","/home/iot.pdf","prototype toilettes connectees",idInfo),\
-						('amelioration process enzyme de la life qui tue',"/home/enzyme.pdf","amelioration process developpement enzyme de la life",idBio)]
+	listOfinternships = [
+						(
+							"Stage de fin detudes - INGENIEUR - Java J2EE / Agile Lyon",
+							"/home/appCritique.pdf",
+							"Vous etes passione(e) de technologies et vous avez envie de vous investir dans une equipe et un projet. \n Vous etes une \
+							personne rigoureuse et autonome, et etes force de proposition. \n Nous vous proposons de decouvrir notre approche.",
+							idInfo), 
+						
+						(
+							"Stagiaire Java JEE",
+							"/home/webServiveces",
+							"Votre mission consistera a intervenir sur les phases de conception techique, developpement, tests et recettes dapplications \
+							developpees au forfait.",
+							idInfo),
+						
+						( 
+							"Stage Developpement Web/Mobile H/F",
+							"/home/iot.pdf",
+							"Au sein dune equipe de 7 personnes directement en contact avec le client, vous participerez au developpement dune application \
+							cross-platform sur des technologies innovantes.",
+							idInfo),
+						
+
+						(
+							'Amelioration process enzyme de la life qui tue',
+							"/home/enzyme.pdf",
+							"amelioration process developpement enzyme de la life",
+							idBio)
+						]
 	d1.addListOfInterships(listOfinternships)
