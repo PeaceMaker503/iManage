@@ -73,10 +73,6 @@ public class CandidaturesStaff extends HttpServlet {
 		Category category = ua.getType_staff();
 		List<Candidature> candidatesList = candidatureService.getCandidaturesByCategory(category);		
 		
-		if (candidatesList == null){
-			System.out.println("EMPTY!!");
-		}
-		
 		request.setAttribute("category_name",category.getName());
 		request.setAttribute("candidatesList",candidatesList);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CandidaturesStaff.jsp").forward(request, response);
@@ -93,7 +89,23 @@ public class CandidaturesStaff extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		processRequest(request, response);
+		
+		String login = request.getParameter("login");
+		String newStatus = request.getParameter("selectStatus");
+		long cand_id = Long.parseLong(request.getParameter("candId"));
+		
+		Candidature candidature = candidatureService.getCandidatureById(cand_id);
+		candidature.setStatus(newStatus);
+		candidatureService.updateCandidature(candidature);
+		
+		UserAccount ua = userProfileService.getUserAccountByLogin(login);
+		Category category = ua.getType_staff();
+		List<Candidature> candidatesList = candidatureService.getCandidaturesByCategory(category);		
+		
+		request.setAttribute("category_name",category.getName());
+		request.setAttribute("candidatesList",candidatesList);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CandidaturesStaff.jsp").forward(request, response);
+		
 	}
 
 	/**
