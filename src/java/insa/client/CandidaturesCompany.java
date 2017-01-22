@@ -5,6 +5,7 @@
  */
 package insa.client;
 
+import insa.db.Candidature;
 import insa.db.Internship;
 import insa.ws.CandidatureWS;
 import insa.ws.InternshipWS;
@@ -70,8 +71,6 @@ public class CandidaturesCompany extends HttpServlet {
 
 		String login = request.getParameter("login");
 		String offer_name = request.getParameter("offer_name");
-		
-		long user_id = userProfileService.getUserAccountByLogin("user").getId();
 		request.setAttribute("candidatesList",candidatureService.getCandidaturesByOfferName(offer_name));
 		request.setAttribute("offer_name",offer_name);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CandidaturesCompany.jsp").forward(request, response);
@@ -88,6 +87,17 @@ public class CandidaturesCompany extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+				
+		String newStatus = request.getParameter("selectStatus");
+		long cand_id = Long.parseLong(request.getParameter("candId"));
+		String offer_name = request.getParameter("offer_name");
+		
+		Candidature candidature = candidatureService.getCandidatureById(cand_id);
+		candidature.setStatus(newStatus);
+		candidatureService.updateCandidature(candidature);
+		
+		request.setAttribute("candidatesList",candidatureService.getCandidaturesByOfferName(offer_name));
+		request.setAttribute("offer_name",offer_name);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CandidaturesCompany.jsp").forward(request, response);
 	}
 

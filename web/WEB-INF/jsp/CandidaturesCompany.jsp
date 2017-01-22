@@ -31,28 +31,33 @@
 				  <th>Cover Letter</th>
 				  <th>Date</th>
 				  <th>Status</th>
+				  <th>Save</th>
 				</tr>
 			  </thead>
 
 			  <tbody>	
 				  <c:forEach var="candidate" items="${candidatesList}">
 					<tr>
-					  <td>${candidate.id_userAccount.id_profile.firstName}  ${candidate.id_userAccount.id_profile.lastName} </td>			  
-					  <td><a href="${candidate.id_userAccount.id_profile.cvPath}">CV</a></td>
-					  <td><a href="${candidate.coverLetterPath}>">Cover Letter</a></td>
-					  <td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidate.createdAt}"/></td>
-					  <td>		
-						<div class="labelForm form-group">
-							<select class="selectpicker col-xs-12 " id="selectUserCategory" name="selectUserCategory" data-style="btn-default">
-								<option>Current: ${candidate.status} </option>
-								<option>-------------</option>
-								<option>Not yet studied</option> 
-								<option>In study</option>
-								<option>Rejected</option>
-								<option>Accepted</option>
+				      <form method="post">
+					    <td>${candidate.id_userAccount.id_profile.firstName}  ${candidate.id_userAccount.id_profile.lastName} </td>			  
+					    <td><a href="${candidate.id_userAccount.id_profile.cvPath}">CV</a></td>
+					    <td><a href="${candidate.coverLetterPath}>">Cover Letter</a></td>
+					    <td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidate.createdAt}"/></td>
+					    <td>		
+						  <div class="labelForm form-group">
+						   	<select class="selectpicker col-xs-12 " id="selectStatus" name="selectStatus" data-style="btn-default">
+							  <option>Current: ${candidate.status} </option>
+							  <option>-------------</option>
+							  <option>Not yet studied</option> 
+							  <option>In study</option>
+							  <option>Rejected</option>
+							  <option>Accepted</option>
 							</select>
-						</div>
-					  <td>
+						  </div>
+					    </td>
+					    <td><input class="btn btn-primary" value="Save" type="submit" name="saveChanges"/></td>
+						<input type="hidden" id="candId" name="candId" value="${candidate.id}"/>
+				      </form>	
 					 </tr>							
 				  </c:forEach>	
 			  </tbody>
