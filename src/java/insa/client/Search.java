@@ -141,14 +141,18 @@ public class Search extends HttpServlet {
             System.out.println("---------------- valeur du login en haut : "+request.getParameter("login"));
             System.out.println("---------------- valeur du login : " +ua.getLogin());
             System.out.println("---------------- valeur de category : " +ua.getUserCategory());
+			
+			String userCategory = ua.getUserCategory();
 
-            String userCategory = ua.getUserCategory();
-            if(userCategory.compareTo("Student")==0){
-                request.setAttribute("student","true");
-            }
-            else{
-                request.setAttribute("student","false");
-            }
+			if(userCategory.compareTo("Student")==0){
+				request.setAttribute("userType","Student");
+			}
+			else if (userCategory.compareTo("Company")==0) {
+				request.setAttribute("userType","Company");
+			}
+			else if (userCategory.compareTo("INSA Staff")==0){
+				request.setAttribute("userType","INSA Staff");
+			}
         
             this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
 			
@@ -177,15 +181,16 @@ public class Search extends HttpServlet {
             long user_id = userProfileService.getUserAccountByLogin(login).getId();
         
             UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
-            String userCategory = ua.getUserCategory();
-            if(userCategory.compareTo("Student")==0)
-            {
-                request.setAttribute("student","true");
-            }
-            else
-            {
-                request.setAttribute("student","false");
-            }
+			String userCategory = ua.getUserCategory();
+			if(userCategory.compareTo("Student")==0){
+				request.setAttribute("userType","Student");
+			}
+			else if (userCategory.compareTo("Company")==0) {
+				request.setAttribute("userType","Company");
+			}
+			else if (userCategory.compareTo("INSA Staff")==0){
+				request.setAttribute("userType","INSA Staff");
+			}
         
             request.setAttribute("companyList", InternshipService.getCompanies());
             request.setAttribute("categoryList", InternshipService.getCategories());

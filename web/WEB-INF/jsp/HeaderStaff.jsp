@@ -22,7 +22,7 @@
         <nav class="navbar navbar-inverse" style="margin-bottom: 0px;">
            <div class="container-fluid">
                         <ul class="nav navbar-nav">
-                <li id="home"><a href="<%=request.getContextPath()+"/HomeCompany?login=" + request.getParameter("login")%>" style="font-weight: bold;"><span class="glyphicon glyphicon-home"></span> Home</a></li>
+                <li id="home"><a href="<%=request.getContextPath()+"/HomeStaff?login=" + request.getParameter("login")%>" style="font-weight: bold;"><span class="glyphicon glyphicon-home"></span> Home</a></li>
                 <li id="search"><a href="<%=request.getContextPath()+"/Search?login=" + request.getParameter("login")%>" style="font-weight:bold;"><span class="glyphicon glyphicon-search"></span> Search</a></li>
                         <li id="messages"><a href="<%=request.getContextPath()+"/Messages?login=" + request.getParameter("login")%>" style="font-weight: bold;"><span class="glyphicon glyphicon-envelope"></span> Messages</a></li> 
 						<li id="candidatures"><a href="<%=request.getContextPath()+"/CandidaturesStaff?login=" + request.getParameter("login")%>" style="font-weight: bold;"><span class="glyphicon glyphicon-inbox"></span> Student Candidatures</a></li>

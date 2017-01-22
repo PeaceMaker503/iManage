@@ -36,18 +36,24 @@
     </head>
     
     <body>
-        <%  if(request.getAttribute("student") != null) {
-                                        if((request.getAttribute("student")).equals("true")){
-                                 %>
-                <jsp:include page="./Header.jsp"/>
-         <%}
-            else if((request.getAttribute("student")).equals("false")){
-                                 %>
-                <jsp:include page="./HeaderCompany.jsp"/>       
-         <%}                       
-        }%>
-        
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+		
+		<!-- Header --> 
+		<c:choose>					  
+		  <c:when test="${requestScope['userType'] == 'Student'}">
+			  <jsp:include page="./Header.jsp"/>
+		  </c:when>
+		 
+		  <c:when test="${requestScope['userType'] == 'Company'}">
+			  <jsp:include page="./HeaderCompany.jsp"/>
+		  </c:when>			  
+		
+		  <c:when test="${requestScope['userType'] == 'INSA Staff'}">
+			  <jsp:include page="./HeaderStaff.jsp"/>
+		  </c:when>	  
+		</c:choose>
+		
+		
         
         <form action="<%="Search?login=" + request.getParameter("login")%>" method="post">
 		<!-- Sidebar -->
