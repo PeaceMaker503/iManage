@@ -57,9 +57,23 @@ public class ViewUpdateCompanyProfile extends HttpServlet
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
-        long companyProfileID = userProfileService.getUserAccountByLogin(request.getParameter("login")).getId_Company_profile().getId();
-	Company company = userProfileService.getCompanyById(companyProfileID);
-	request.setAttribute("company",company);
+                
+        UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+		String userCategory = ua.getUserCategory();
+		if(userCategory.compareTo("Student")==0){
+			request.setAttribute("userType","Student");
+		}
+		else if (userCategory.compareTo("Company")==0) {
+			request.setAttribute("userType","Company");
+		}
+		else if (userCategory.compareTo("INSA Staff")==0){
+			request.setAttribute("userType","INSA Staff");
+		}
+		
+		long companyProfileID = userProfileService.getUserAccountByLogin(request.getParameter("login")).getId_Company_profile().getId();
+		Company company = userProfileService.getCompanyById(companyProfileID);
+				
+		request.setAttribute("company",company);
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/ViewUpdateCompanyProfile.jsp").forward(request, response);
     }
 
@@ -67,6 +81,19 @@ public class ViewUpdateCompanyProfile extends HttpServlet
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException 
     {
 		UserAccount userAccount = userProfileService.getUserAccountByLogin(request.getParameter("login")); 
+		       
+        UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+		String userCategory = ua.getUserCategory();
+		if(userCategory.compareTo("Student")==0){
+			request.setAttribute("userType","Student");
+		}
+		else if (userCategory.compareTo("Company")==0) {
+			request.setAttribute("userType","Company");
+		}
+		else if (userCategory.compareTo("INSA Staff")==0){
+			request.setAttribute("userType","INSA Staff");
+		}
+		
 		long companyProfileID = userAccount.getId_Company_profile().getId();
 		Company company = userProfileService.getCompanyById(companyProfileID);
 		company.setName(request.getParameter("name"));
