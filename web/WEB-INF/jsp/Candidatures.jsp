@@ -22,18 +22,9 @@
 	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 	<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 	  
-		<!-- Header --> 
-		<%  if(request.getAttribute("student") != null) {
-                                        if((request.getAttribute("student")).equals("true")){
-                                 %>
-                <jsp:include page="./Header.jsp"/>
-         <%}
-            else if((request.getAttribute("student")).equals("false")){
-                                 %>
-                <jsp:include page="./HeaderCompany.jsp"/>       
-         <%}                       
-        }%>
-	
+	<!-- Header --> 
+	<jsp:include page="./Header.jsp"/>
+                     
 	<!-- Body -->
 	<div class="container">					
 	  <h2>My Candidatures</h2>
@@ -68,15 +59,19 @@
 					  <!--TODO:  A student should not be able to send a convention if he has not been accepted -->
 					  
 					  <c:choose>
-						  						  
-						  <c:when test="${candidature.conventionPath == null}">
-							  <td><a href="<%=request.getContextPath()+"/Convention?login=" + request.getParameter("login")%>&cand_id=${candidature.id}&comp_id=${candidature.id_company.id}" class="btn btn-success" >Send the convention</a></td>
+						  
+						  <c:when test="${(candidature.status == 'Accepted') or (candidature.status == 'Rejected by INSA staff')}">
+							    <td><a href="<%=request.getContextPath()+"/Convention?login=" + request.getParameter("login")%>&cand_id=${candidature.id}&comp_id=${candidature.id_company.id}" class="btn btn-success" >Send the convention</a></td>
+						  </c:when>
+								
+						  <c:when test="${(candidature.status == 'Rejected') or (candidature.status == 'Not yet studied') or (candidature.status == 'In study') }">
+							    <td>-------</td>
 						  </c:when>
 						  
-						  <c:when test="${candidature.conventionPath != null}">
-							  <td><a href="<%=request.getContextPath()+"/Pdf?path="%>${candidature.conventionPath}" class="btn btn-success" >View the convention</a></td>
+						  <c:when test="${candidature.status == 'Accepted by INSA staff'}">
+								<td><a href="<%=request.getContextPath()+"/Pdf?path="%>${candidature.conventionPath}" class="btn btn-success" >View the convention</a></td>
 						  </c:when>
-						  
+												  
 					  </c:choose>
 					
 					  <td><a href="<%=request.getContextPath()+"/DeleteCandidature?login=" + request.getParameter("login")%>&cand_id=${candidature.id}" class="btn btn-danger">Delete Candidature</a></td>

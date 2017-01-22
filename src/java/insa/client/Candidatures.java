@@ -67,16 +67,7 @@ public class Candidatures extends HttpServlet {
 		long user_id = userProfileService.getUserAccountByLogin(login).getId();
 		request.setAttribute("candidatureList",candidatureService.getCandidaturesByUserID(user_id));		
 		request.setAttribute("deletedCand",false);
-		
-		UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
-		String userCategory = ua.getUserCategory();
-        if(userCategory.compareTo("Student")==0){
-            request.setAttribute("student","true");
-        }
-        else{
-            request.setAttribute("student","false");
-        }
-		
+				
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Candidatures.jsp").forward(request, response);
     }
 
