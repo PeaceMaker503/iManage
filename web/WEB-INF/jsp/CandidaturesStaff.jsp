@@ -48,10 +48,8 @@
 						   	<select class="selectpicker col-xs-12 " id="selectStatus" name="selectStatus" data-style="btn-default">
 							  <option>Current: ${candidate.status} </option>
 							  <option>-------------</option>
-							  <option>Not yet studied</option> 
-							  <option>In study</option>
-							  <option>Rejected</option>
-							  <option>Accepted</option>
+							  <option>Accepted by INSA staff</option> 
+							  <option>Rejected by INSA staff</option>
 							</select>
 						  </div>
 					    </td>
