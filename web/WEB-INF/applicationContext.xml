@@ -49,7 +49,7 @@
                 <value>insa.db.Category</value>  
                 <value>insa.db.Internship</value>  
                 <value>insa.db.Candidature</value>
-		<value>insa.db.Convention</value>         
+				<value>insa.db.Convention</value>         
             </list>
         </property>
     </bean>

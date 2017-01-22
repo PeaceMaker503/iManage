@@ -380,4 +380,10 @@ public class MetierImpl implements IMetier {
 	public Company getCompanyByName(String company_name) {
 		return dao.getCompanyByName(company_name);
 	}
+
+	@Override
+	public List<Candidature> getCandidaturesByCategory(Category category) {
+		List<Candidature> list = dao.getCandidaturesByCategory(category);
+        return list; 
+	}
 }

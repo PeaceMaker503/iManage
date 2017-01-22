@@ -78,4 +78,6 @@ public interface IDao {
     public List<Message> getAllSentMessages(Long id);
     public List<UserAccount> getAllReceiverAccount(Message message);
 
+	public List<Candidature> getCandidaturesByCategory(Category category);
+
 }

@@ -7,6 +7,7 @@ package insa.ws;
 
 import insa.db.Internship;
 import insa.db.Candidature;
+import insa.db.Category;
 import insa.db.Company;
 import insa.db.UserAccount;
 import insa.metier.IMetier;
@@ -99,6 +100,10 @@ public class CandidatureWS {
 	@WebMethod(operationName = "updateCandidature")
 	public Candidature updateCandidature(@WebParam(name="candidature") Candidature candidature) {
 		return metier.updateCandidature(candidature);
+	}
+
+	public List<Candidature> getCandidaturesByCategory(Category category) {
+		return metier.getCandidaturesByCategory(category);
 	}
 	
 }

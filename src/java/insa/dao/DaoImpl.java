@@ -562,5 +562,17 @@ public class DaoImpl implements IDao {
         else
             return null;	
 	}
+
+	@Override
+	public List<Candidature> getCandidaturesByCategory(Category category) {
+		String query = "from Candidature as cand where cand.id_category = :category";
+		HashMap<String, Object> params = new HashMap<>();
+        params.put("category", category);
+        List<Candidature> list = hibernateManager.execute(query, params, Candidature.class);
+        if(list != null)
+            return list;
+        else
+            return null;
+	}
 	
 }

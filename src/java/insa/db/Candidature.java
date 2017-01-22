@@ -45,6 +45,8 @@ public class Candidature implements Serializable {
 	
 	private String offer_name;
 	
+	private String offer_path;
+	
 	@OneToOne
 	@JoinColumn(referencedColumnName="id")
 	private UserAccount id_userAccount;
@@ -52,7 +54,11 @@ public class Candidature implements Serializable {
 	@OneToOne
 	@JoinColumn(referencedColumnName="id")
 	private Company id_company;
-
+	
+	@OneToOne
+	@JoinColumn(referencedColumnName="id")
+	private Category id_category;
+	
 	@Column 
 	private String status = "Not yet studied";
 	
@@ -153,8 +159,15 @@ public class Candidature implements Serializable {
 	public void setConventionPath(String conventionPath) {
 		this.conventionPath = conventionPath;
 	}
+
+	public String getOffer_path() {
+		return offer_path;
+	}
+
+	public void setOffer_path(String offer_path) {
+		this.offer_path = offer_path;
+	}
 	
-		
 	@Override
 	public int hashCode() {
 		int hash = 0;

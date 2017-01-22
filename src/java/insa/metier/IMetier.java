@@ -95,6 +95,8 @@ public interface IMetier
     //public Company getCompanyById(Long id);
     //public Company updateCompany(Company company);
 
+	public List<Candidature> getCandidaturesByCategory(Category category);
+
 	
 	
 }
