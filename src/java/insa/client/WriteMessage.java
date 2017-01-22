@@ -74,14 +74,18 @@ public class WriteMessage extends HttpServlet {
     {
         response.setContentType("text/html");
         request.setCharacterEncoding("UTF-8");
-        UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+		UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
         String userCategory = ua.getUserCategory();
+		
         if(userCategory.compareTo("Student")==0){
-            request.setAttribute("student","true");
+            request.setAttribute("userType","Student");
         }
-        else{
-            request.setAttribute("student","false");
+		else if (userCategory.compareTo("Company")==0) {
+            request.setAttribute("userType","Company");
         }
+		else if (userCategory.compareTo("INSA Staff")==0){
+			request.setAttribute("userType","INSA Staff");
+		}
         
         this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/WriteMessage.jsp").forward(request, response);
     }
@@ -100,14 +104,18 @@ public class WriteMessage extends HttpServlet {
             request.setCharacterEncoding("UTF-8");
                 Collection<UserAccount> listRecipients = new ArrayList<UserAccount>();;
             
-                UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
-                String userCategory = ua.getUserCategory();
-                if(userCategory.compareTo("Student")==0){
-                    request.setAttribute("student","true");
-                }
-                else{
-                    request.setAttribute("student","false");
-                }
+				UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+				String userCategory = ua.getUserCategory();
+
+				if(userCategory.compareTo("Student")==0){
+					request.setAttribute("userType","Student");
+				}
+				else if (userCategory.compareTo("Company")==0) {
+					request.setAttribute("userType","Company");
+				}
+				else if (userCategory.compareTo("INSA Staff")==0){
+					request.setAttribute("userType","INSA Staff");
+				}
                 
                 String login=request.getParameter("login");
                 String object = request.getParameter("object");
