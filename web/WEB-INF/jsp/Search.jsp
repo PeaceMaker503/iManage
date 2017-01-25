@@ -84,12 +84,12 @@
                                 <div class="title-criteria">
                                    Keywords
                                 </div>
-                                <input type="text" name="keywords" class="form-control" placeholder="Search Internship by Tag..">
+                                <input type="text" name="keywords" class="form-control" placeholder="Tags..">
                                 <span class="input-group-btn">
                                 </span>
                             </div>
                             <div class="col-xs-12">
-                                <input id="paramButton"  class="btn btn-secondary col-xs-12" type="submit" value="Rechercher" style="margin-top:20px"/>
+                                <input id="paramButton"  class="btn btn-secondary col-xs-12" type="submit" value="Search" style="margin-top:20px"/>
                             </div>
                             
                         </div>

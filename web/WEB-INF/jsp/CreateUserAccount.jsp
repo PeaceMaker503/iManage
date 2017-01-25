@@ -46,6 +46,9 @@
                                     <select class="selectpicker col-xs-12 " id="selectUserCategory" name="selectUserCategory" data-style="btn-default">
                                         <option>Student</option> 
                                         <option>Company</option>
+										<option>Admin</option>
+										<option>Security Organization</option>
+										<option>INSA Staff</option>
                                     </select>
                                 </div>
                                 <div>

@@ -73,6 +73,8 @@ public class CandidaturesStaff extends HttpServlet {
 		Category category = ua.getType_staff();
 		List<Candidature> candidatesList = candidatureService.getCandidaturesByCategory(category);		
 		
+		System.out.println("--->" + candidatesList.isEmpty());
+		
 		request.setAttribute("category_name",category.getName());
 		request.setAttribute("candidatesList",candidatesList);
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CandidaturesStaff.jsp").forward(request, response);

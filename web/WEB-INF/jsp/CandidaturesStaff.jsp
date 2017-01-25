@@ -21,7 +21,7 @@
 		
 		<!-- Body -->
 		<br>
-		<h2>Candidatures of : <%= request.getAttribute("category_name") %></h2>
+		<h2>Candidatures of <%= request.getAttribute("category_name") %></h2>
 		<br>
 		<table class="table table-bordered">
 			  <thead>
@@ -29,6 +29,7 @@
 				  <th>Candidate Name</th>
 				  <th>CV</th>
 				  <th>Cover Letter</th>
+				  <th>Internship Convention</th>
 				  <th>Date</th>
 				  <th>Status</th>
 				  <th>Save</th>
@@ -40,8 +41,9 @@
 					<tr>
 				      <form method="post">
 					    <td>${candidate.id_userAccount.id_profile.firstName}  ${candidate.id_userAccount.id_profile.lastName} </td>			  
-					    <td><a href="${candidate.id_userAccount.id_profile.cvPath}">CV</a></td>
-					    <td><a href="${candidate.coverLetterPath}>">Cover Letter</a></td>
+					    <td><a href="<%=request.getContextPath()+"/Pdf?path="%>${candidate.id_userAccount.id_profile.cvPath}">CV</a></td>
+					    <td><a href="<%=request.getContextPath()+"/Pdf?path="%>${candidate.coverLetterPath}">Cover Letter</a></td>
+						<td><a href="<%=request.getContextPath()+"/Pdf?path="%>${candidate.conventionPath}">Internship Convention</a></td>
 					    <td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidate.createdAt}"/></td>
 					    <td>		
 						  <div class="labelForm form-group">

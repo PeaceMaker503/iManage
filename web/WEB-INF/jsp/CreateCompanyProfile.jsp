@@ -42,7 +42,7 @@
 			  </div>
                           <!-- edit form column -->
 			  <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
-				<h3>Conpany Info</h3>
+				<h3>Company Info</h3>
                 <form class="form-horizontal" method="post" action="<%=request.getContextPath()+"/CreateCompanyProfile?login=" + request.getParameter("login")%>">
 				  <div class="form-group">
                     <label class="col-lg-3 control-label" for="name">Name</label>

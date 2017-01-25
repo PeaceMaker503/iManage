@@ -64,7 +64,7 @@
 							    <td><a href="<%=request.getContextPath()+"/Convention?login=" + request.getParameter("login")%>&cand_id=${candidature.id}&comp_id=${candidature.id_company.id}" class="btn btn-success" >Send the convention</a></td>
 						  </c:when>
 								
-						  <c:when test="${(candidature.status == 'Rejected') or (candidature.status == 'Not yet studied') or (candidature.status == 'In study') }">
+						  <c:when test="${(candidature.status == 'Rejected') or (candidature.status == 'Not yet studied') or (candidature.status == 'In study') or (candidature.status == 'Waiting INSA staff approval') }">
 							    <td>-------</td>
 						  </c:when>
 						  
