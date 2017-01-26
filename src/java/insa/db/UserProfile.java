@@ -36,12 +36,13 @@ public class UserProfile implements Serializable {
     private String firstName;
     
     @NotNull
-    @Column(columnDefinition="char(10)")
+    @Column(columnDefinition="char(10)",unique=true)
     @Pattern(regexp="[0-9]{10}")
     private String phone;
     
     @NotNull
     @Pattern(regexp="[0-9A-Za-z_]+[@][0-9A-Za-z_]+[.][0-9A-Za-z_]+")
+    @Column(unique=true)
     private String mail;
     
     @Column
