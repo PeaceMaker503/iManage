@@ -173,8 +173,8 @@ public class MetierImpl implements IMetier {
 	}
 	
 	@Override
-    public Candidature createCandidature(String title, String message, String coverLetterPath) {
-		Candidature candidature = new Candidature(title,message,coverLetterPath,null,null,null);
+    public Candidature createCandidature(String title, String message, String coverLetterPath,String offer_name) {
+		Candidature candidature = new Candidature(title,message,coverLetterPath,offer_name,null,null);
 		return dao.addCandidature(candidature);		
 	}
 	
@@ -253,20 +253,20 @@ public class MetierImpl implements IMetier {
         return res;
     }
 	
-	@Override
-	public Candidature linkOfferToCandidature(long candID, Internship offer) {
-		Candidature res = null;
-        Candidature ua = dao.getCandidatureById(candID);
-        if(ua != null)
-        {
-            ua.setId_internship(offer);
-            ua = dao.updateCandidature(ua);
-            res = ua;
-         }
-        else
-            res = null;
-        return res;
-    }
+//	@Override
+//	public Candidature linkOfferToCandidature(long candID, Internship offer) {
+//		Candidature res = null;
+//        Candidature ua = dao.getCandidatureById(candID);
+//        if(ua != null)
+//        {
+//            ua.setId_internship(offer);
+//            ua = dao.updateCandidature(ua);
+//            res = ua;
+//         }
+//        else
+//            res = null;
+//        return res;
+//    }
         
         
     
@@ -358,6 +358,13 @@ public class MetierImpl implements IMetier {
 	}
 	
 	@Override
+	public List<Candidature> getCandidaturesByOfferName(String offer_name) {
+		List<Candidature> list = dao.getCandidaturesByOfferName(offer_name);
+        return list; 
+	}
+	
+	
+	@Override
         public Message updateReadMessage(Long id){
             Message message = dao.getMessageById(id);
             message.setRead(true);
@@ -368,4 +375,15 @@ public class MetierImpl implements IMetier {
                 return null;
             
         }
+
+	@Override
+	public Company getCompanyByName(String company_name) {
+		return dao.getCompanyByName(company_name);
+	}
+
+	@Override
+	public List<Candidature> getCandidaturesByCategory(Category category) {
+		List<Candidature> list = dao.getCandidaturesByCategory(category);
+        return list; 
+	}
 }

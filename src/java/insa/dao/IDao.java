@@ -68,6 +68,7 @@ public interface IDao {
     public Boolean deleteCandidatureById(Long id);
     public Candidature updateCandidature(Candidature candidature);
 	public List<Candidature> getCandidaturesByUserID(long user_id);
+	public List<Candidature> getCandidaturesByOfferName(String offer_name);
     
     public Message getMessageById(Long id);
     public Message addMessage(Message message);
@@ -76,5 +77,7 @@ public interface IDao {
     public List<Message> getAllMessages(UserAccount ua);
     public List<Message> getAllSentMessages(Long id);
     public List<UserAccount> getAllReceiverAccount(Message message);
+
+	public List<Candidature> getCandidaturesByCategory(Category category);
 
 }

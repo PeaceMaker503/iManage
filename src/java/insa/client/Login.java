@@ -98,13 +98,30 @@ public class Login extends HttpServlet {
             else if(userAccount.getId_Company_profile() == null && userCategory.compareTo("Company")==0){
                     response.sendRedirect("CreateCompanyProfile?login=" + login);    
             }
+			
+			else if (userAccount.getId_Company_profile() == null && userCategory.compareTo("INSA Staff")==0) {
+					response.sendRedirect("CreateCompanyProfile?login=" + login); 
+			}
+		
+			else if (userAccount.getId_Company_profile() == null && userCategory.compareTo("Security Organization")==0) {
+					response.sendRedirect("CreateCompanyProfile?login=" + login); 
+			}
+
             else{
                 if(userCategory.compareTo("Student")==0){
                    response.sendRedirect("Home?login=" + login);
                 }
-                else if(userCategory.compareTo("Company")==0){
+                else if(userCategory.compareTo("Company")==0 | userCategory.compareTo("Security Organization")==0){
                    response.sendRedirect("HomeCompany?login=" + login);
                 }
+				
+				else if (userCategory.compareTo("INSA Staff")==0 ) {
+					response.sendRedirect("HomeStaff?login=" + login);
+				}
+				
+				else {
+					response.sendRedirect("HomeAdmin?login=" + login);
+				}
            }
        }
     }

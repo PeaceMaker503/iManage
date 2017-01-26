@@ -66,7 +66,12 @@ public class UserAccount implements Serializable {
     @JoinColumn(referencedColumnName="id")
     @Cascade(CascadeType.DELETE)
     private Company id_Company_profile;
-    
+	
+	@OneToOne
+    @JoinColumn(referencedColumnName="id")
+    @Cascade(CascadeType.DELETE)
+    private Category type_staff;
+	
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name="messages_account",
                 joinColumns={@JoinColumn(name="userAccount_id", referencedColumnName="id")},
@@ -125,6 +130,14 @@ public class UserAccount implements Serializable {
         this.id_Company_profile = id_Company_profile;
     }
 
+	public Category getType_staff() {
+		return type_staff;
+	}
+
+	public void setType_staff(Category type_staff) {
+		this.type_staff = type_staff;
+	}
+	
     @Override
     public int hashCode() {
         int hash = 0;

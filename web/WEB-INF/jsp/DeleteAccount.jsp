@@ -17,9 +17,23 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </head>
     <body>
+		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+				
         <!-- Header --> 
-		<jsp:include page="./Header.jsp"/>
+		<c:choose>					  
+		  <c:when test="${requestScope['userType'] == 'Student'}">
+			  <jsp:include page="./Header.jsp"/>
+		  </c:when>
+		 
+		  <c:when test="${requestScope['userType'] == 'Company'}">
+			  <jsp:include page="./HeaderCompany.jsp"/>
+		  </c:when>			  
 		
+		  <c:when test="${requestScope['userType'] == 'INSA Staff'}">
+			  <jsp:include page="./HeaderStaff.jsp"/>
+		  </c:when>	  
+		</c:choose>
+				
 		<!-- Body -->
 		<div class="container" style="padding-top: 0px; padding-bottom: 10px;">
 			<h1 class="page-header">Delete Account</h1>

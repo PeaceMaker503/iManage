@@ -49,13 +49,14 @@ public interface IMetier
         
 	// Candidatures:
 	public Candidature getCandidatureById(Long id);
-    public Candidature createCandidature(String title, String message, String coverLetterPath);
+    public Candidature createCandidature(String title, String message, String coverLetterPath, String offer_name);
     public Boolean deleteCandidatureById(Long id);
     public Candidature updateCandidature(Candidature candidature);
-	public Candidature linkOfferToCandidature(long candID, Internship offer);
+	//public Candidature linkOfferToCandidature(long candID, Internship offer);
 	public Candidature linkUserToCandidature(long cand_id,UserAccount userAccount);
 	public Candidature linkCompanyToCandidature(long cand_id,Company company);
 	public List<Candidature> getCandidaturesByUserID(long user_id);
+	public List<Candidature> getCandidaturesByOfferName(String offer_name);
 		
 	// Internships:
 	public Internship getInternshipByID(long id);
@@ -80,6 +81,7 @@ public interface IMetier
     public Company deleteCompanyProfile(Long id);
     public Company getCompanyById(Long id);
     public Company updateCompany(Company company);
+	public Company getCompanyByName(String company_name);
 	
 	// Candidatures:
     //public Candidature getCandidatureById(Long id);
@@ -92,5 +94,9 @@ public interface IMetier
     //public Company deleteCompanyProfile(Long id);
     //public Company getCompanyById(Long id);
     //public Company updateCompany(Company company);
+
+	public List<Candidature> getCandidaturesByCategory(Category category);
+
+	
 	
 }

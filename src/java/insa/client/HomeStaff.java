@@ -17,8 +17,8 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author prmm95
  */
-@WebServlet(name = "EditOffer", urlPatterns = {"/EditOffer"})
-public class EditOffer extends HttpServlet {
+@WebServlet(name = "HomeStaff", urlPatterns = {"/HomeStaff"})
+public class HomeStaff extends HttpServlet {
 
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -36,10 +36,10 @@ public class EditOffer extends HttpServlet {
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Servlet EditOffer</title>");			
+			out.println("<title>Servlet HomeStaff</title>");			
 			out.println("</head>");
 			out.println("<body>");
-			out.println("<h1>Servlet EditOffer at " + request.getContextPath() + "</h1>");
+			out.println("<h1>Servlet HomeStaff at " + request.getContextPath() + "</h1>");
 			out.println("</body>");
 			out.println("</html>");
 		}
@@ -57,7 +57,7 @@ public class EditOffer extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		processRequest(request, response);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/HomeStaff.jsp").forward(request, response);
 	}
 
 	/**

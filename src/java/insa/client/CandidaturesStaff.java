@@ -5,15 +5,14 @@
  */
 package insa.client;
 
-import insa.db.Company;
-import insa.db.Internship;
+import insa.db.Candidature;
+import insa.db.Category;
 import insa.db.UserAccount;
 import insa.ws.CandidatureWS;
 import insa.ws.InternshipWS;
 import insa.ws.UserProfileWS;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,13 +24,13 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author prmm95
  */
-@WebServlet(name = "DeleteOffer", urlPatterns = {"/DeleteOffer"})
-public class DeleteOffer extends HttpServlet {
-	
+@WebServlet(name = "CandidaturesStaff", urlPatterns = {"/CandidaturesStaff"})
+public class CandidaturesStaff extends HttpServlet {
+
 	private static InternshipWS internshipService = new insa.ws.InternshipWS();
 	private static CandidatureWS candidatureService = new insa.ws.CandidatureWS();
 	private static UserProfileWS userProfileService = new insa.ws.UserProfileWS();
-
+	
 	/**
 	 * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
 	 *
@@ -48,10 +47,10 @@ public class DeleteOffer extends HttpServlet {
 			out.println("<!DOCTYPE html>");
 			out.println("<html>");
 			out.println("<head>");
-			out.println("<title>Servlet DeleteOffer</title>");			
+			out.println("<title>Servlet CandidaturesStaff</title>");			
 			out.println("</head>");
 			out.println("<body>");
-			out.println("<h1>Servlet DeleteOffer at " + request.getContextPath() + "</h1>");
+			out.println("<h1>Servlet CandidaturesStaff at " + request.getContextPath() + "</h1>");
 			out.println("</body>");
 			out.println("</html>");
 		}
@@ -69,31 +68,16 @@ public class DeleteOffer extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		// Parameters:
 		String login = request.getParameter("login");
-		long offerID = Long.valueOf(request.getParameter("offer_id"));			
-		long user_id = userProfileService.getUserAccountByLogin(login).getId();
+		UserAccount ua = userProfileService.getUserAccountByLogin(login);
+		Category category = ua.getType_staff();
+		List<Candidature> candidatesList = candidatureService.getCandidaturesByCategory(category);		
 		
-		// Delete the offer instance
-		Boolean deletedOffer = internshipService.deleteInternshipByID(offerID);
-		request.setAttribute("deletedOffer",deletedOffer);
-				
-		// Set the new list of offers parameter to the view:
+		System.out.println("--->" + candidatesList.isEmpty());
 		
-		UserAccount companyAccount = userProfileService.getUserAccountByLogin(login);
-		Company companyProfile = userProfileService.getCompanyById(companyAccount.getId_Company_profile().getId());
-				
-		String company = new String(companyProfile.getName().getBytes(),"UTF-8"); 
-        byte[] bytesComp = company.getBytes(StandardCharsets.ISO_8859_1);
-        company = new String(bytesComp, StandardCharsets.UTF_8);
-		
-		List<Internship> internshipList = internshipService.getInternshipByCriteria(company,"All","");
-
-		request.setAttribute("internshipList",internshipList);
-		
-        this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Offers.jsp").forward(request, response);
-		
+		request.setAttribute("category_name",category.getName());
+		request.setAttribute("candidatesList",candidatesList);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CandidaturesStaff.jsp").forward(request, response);
 	}
 
 	/**
@@ -107,7 +91,23 @@ public class DeleteOffer extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		processRequest(request, response);
+		
+		String login = request.getParameter("login");
+		String newStatus = request.getParameter("selectStatus");
+		long cand_id = Long.parseLong(request.getParameter("candId"));
+		
+		Candidature candidature = candidatureService.getCandidatureById(cand_id);
+		candidature.setStatus(newStatus);
+		candidatureService.updateCandidature(candidature);
+		
+		UserAccount ua = userProfileService.getUserAccountByLogin(login);
+		Category category = ua.getType_staff();
+		List<Candidature> candidatesList = candidatureService.getCandidaturesByCategory(category);		
+		
+		request.setAttribute("category_name",category.getName());
+		request.setAttribute("candidatesList",candidatesList);
+		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/CandidaturesStaff.jsp").forward(request, response);
+		
 	}
 
 	/**

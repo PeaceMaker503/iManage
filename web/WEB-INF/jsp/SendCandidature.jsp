@@ -30,22 +30,23 @@
         <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic,700italic" rel="stylesheet" type="text/css">
     </head>
     <body>
-        <!-- Header --> 
-	
-                <jsp:include page="./Header.jsp"/>
-        
 		
 		<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 		
+        <!-- Header --> 	
+        <jsp:include page="./Header.jsp"/>
+        
+		<!-- Body -->
         <div class="container" style="padding-top: 0px; padding-bottom: 10px;">
 			<h1 class="page-header">Send a candidature</h1>
 			<div class="row">
 							 
 			  <!-- edit form column -->
 			  <div class="col-md-8 col-sm-6 col-xs-12 personal-info">
-				<h3>Offer: <c:out value="${internshipOffer.name}"/> - #<c:out value="${internshipOffer.id}"/></h3>
+				<h3>Offer: <%=request.getParameter("offer_name")%></h3>
+				<h4>Company: <%=request.getParameter("company_name")%></h4>
 				<br>				
-				<form class="form-horizontal" method="post">
+				<form class="form-horizontal" method="post" enctype="multipart/form-data">
 				  <div class="form-group">
 					<label class="col-lg-3 control-label" for="title">Title</label>
 					<div class="col-lg-8">
@@ -58,19 +59,27 @@
                       <textarea rows="4" cols="50" class="form-control" id="message" name="message"></textarea>
 					</div>
 				  </div> 
+					
 				  <div class="form-group">
 					<label class="col-lg-3 control-label" for="cv">Cover Letter</label>
-					<div class="col-lg-8">
-						<input style="display:inline;" type="file" accept="application/pdf" name="file" id="file" class="btn btn-default" />
-					</div>	
+				    <div class="col-lg-8">
+					  <input type="file" accept="application/pdf" name="file" id="file" class="btn btn-default" />
+				    </div>		
 				  </div>
+					
 				  <div class="form-group">
 					<label class="col-md-3 control-label"></label>
 					<div class="col-md-8">
 					  <input class="btn btn-primary" value="Send candidature" type="submit" name="sendCandidature" onclick="buttonSubmitClicked(event)">
 					</div>
-				  </div>
+				  </div>	
+
+				  <!-- Add the hidden parameter that will send the path of the cover letter-->
 				</form>
+				</div>
+				
+
+				
 			  </div>
 			</div>
 		</div>		
@@ -79,8 +88,8 @@
 		
     </body>
 	
-	    <script>
-    $('#profile').addClass('active');
+	<script>
+		$('#profile').addClass('active');
     </script>
 		
 	<script>

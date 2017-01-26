@@ -23,6 +23,7 @@ import insa.bus.httpWrapper;
 import insa.db.Category;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.lang.String;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -97,35 +98,34 @@ public class Search extends HttpServlet {
             String httpRes =  httpW.sendRequest() ;
             BusResultTreatment thebusResultTreatment = new BusResultTreatment(httpRes);
             
-            
-                response.setContentType("text/html");
-                String login = request.getParameter("login");		
-		long user_id = userProfileService.getUserAccountByLogin(login).getId();
-		List<Internship> internshipList = thebusResultTreatment.getListOfInternship();
-		List<Candidature> candidatureList = candidatureService.getCandidaturesByUserID(user_id);
+            response.setContentType("text/html");
+            String login = request.getParameter("login");		
+			long user_id = userProfileService.getUserAccountByLogin(login).getId();
+			List<Internship> internshipList = thebusResultTreatment.getListOfInternship();
+			List<Candidature> candidatureList = candidatureService.getCandidaturesByUserID(user_id);
 				
-		Iterator<Internship> iOffer = internshipList.iterator();
-		Iterator<Candidature> iCandidature = candidatureList.iterator();
+			Iterator<Internship> iOffer = internshipList.iterator();
+			Iterator<Candidature> iCandidature = candidatureList.iterator();
 				 
-		// Delete candidatures from the list where there is a Candidature sent
-		// from the current student:
-		while (iCandidature.hasNext()) {
-			
-			Candidature currentCandidature = iCandidature.next();
-			
-			while (iOffer.hasNext()) {
-		
-				Internship currentOffer = iOffer.next();
-			
-				if (Objects.equals(currentOffer, currentCandidature.getId_internship())) {
-					iOffer.remove();
-					iCandidature.remove();
-					break;
+			// Delete candidatures from the list where there is a Candidature sent
+			// from the current student:
+			while (iCandidature.hasNext()) {
+						
+				Candidature currentCandidature = iCandidature.next();
+					
+				while (iOffer.hasNext()) {
+					
+					Internship currentOffer = iOffer.next();
+				
+					if (currentOffer.getName().replaceAll(" ","").equalsIgnoreCase(currentCandidature.getOffer_name().replaceAll(" ",""))) {
+						iOffer.remove();
+						iCandidature.remove();
+						break;
+					}
+						
 				}
-			
-			}
-			
-		}		
+						
+			}		
 		
             request.setAttribute("internshipList",internshipList);
             request.setAttribute("companyList", InternshipService.getCompanies());
@@ -141,16 +141,21 @@ public class Search extends HttpServlet {
             System.out.println("---------------- valeur du login en haut : "+request.getParameter("login"));
             System.out.println("---------------- valeur du login : " +ua.getLogin());
             System.out.println("---------------- valeur de category : " +ua.getUserCategory());
+			
+			String userCategory = ua.getUserCategory();
 
-            String userCategory = ua.getUserCategory();
-            if(userCategory.compareTo("Student")==0){
-                request.setAttribute("student","true");
-            }
-            else{
-                request.setAttribute("student","false");
-            }
+			if(userCategory.compareTo("Student")==0){
+				request.setAttribute("userType","Student");
+			}
+			else if (userCategory.compareTo("Company")==0) {
+				request.setAttribute("userType","Company");
+			}
+			else if (userCategory.compareTo("INSA Staff")==0){
+				request.setAttribute("userType","INSA Staff");
+			}
         
             this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/Search.jsp").forward(request, response);
+			
         } catch (JSONException ex) {
             System.out.println("+++++++++++++++++++++++++++++++++++++++ ERROR ");
             //System.out.println("******************************************");
@@ -176,15 +181,16 @@ public class Search extends HttpServlet {
             long user_id = userProfileService.getUserAccountByLogin(login).getId();
         
             UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
-            String userCategory = ua.getUserCategory();
-            if(userCategory.compareTo("Student")==0)
-            {
-                request.setAttribute("student","true");
-            }
-            else
-            {
-                request.setAttribute("student","false");
-            }
+			String userCategory = ua.getUserCategory();
+			if(userCategory.compareTo("Student")==0){
+				request.setAttribute("userType","Student");
+			}
+			else if (userCategory.compareTo("Company")==0) {
+				request.setAttribute("userType","Company");
+			}
+			else if (userCategory.compareTo("INSA Staff")==0){
+				request.setAttribute("userType","INSA Staff");
+			}
         
             request.setAttribute("companyList", InternshipService.getCompanies());
             request.setAttribute("categoryList", InternshipService.getCategories());
@@ -196,7 +202,6 @@ public class Search extends HttpServlet {
             String company = new String(request.getParameter("selectCompany").getBytes(),"UTF-8"); 
             byte[] bytesComp = company.getBytes(StandardCharsets.ISO_8859_1);
             company = new String(bytesComp, StandardCharsets.UTF_8);
-        
         
             String category = new String(request.getParameter("selectCategory").getBytes(),"UTF-8");
             byte[] bytesCat = category.getBytes(StandardCharsets.ISO_8859_1);
@@ -211,28 +216,25 @@ public class Search extends HttpServlet {
             Iterator<Internship> iOffer = internshipList.iterator();
             Iterator<Candidature> iCandidature = candidatureList.iterator();
 				 
-            // Delete candidatures from the list where there is a Candidature sent
-            // from the current student:
-            while (iCandidature.hasNext()) 
-            {
-			
-                Candidature currentCandidature = iCandidature.next();
-			
-                while (iOffer.hasNext()) 
-                {
-		
-                    Internship currentOffer = iOffer.next();
-			
-                    if (Objects.equals(currentOffer, currentCandidature.getId_internship())) 
-                    {
-                        iOffer.remove();
-                        iCandidature.remove();
-                        break;
-                    }
-			
-                }
-			
-            }				
+			// Delete candidatures from the list where there is a Candidature sent
+			// from the current student:
+			while (iCandidature.hasNext()) {
+						
+				Candidature currentCandidature = iCandidature.next();
+					
+				while (iOffer.hasNext()) {
+					
+					Internship currentOffer = iOffer.next();
+				
+					if (currentOffer.getName().replaceAll(" ","").equalsIgnoreCase(currentCandidature.getOffer_name().replaceAll(" ",""))) {
+						iOffer.remove();
+						iCandidature.remove();
+						break;
+					}
+						
+				}
+						
+			}			
 
             request.setAttribute("keywords", keywords.toUpperCase());
             if (company.equals("All"))

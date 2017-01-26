@@ -30,34 +30,23 @@
 		
 		<!-- Body -->
 		<h1>My Offers</h1>
-		
-		<a class="btn btn-primary" href="<%=request.getContextPath()+"/AddOffer?login=" + request.getParameter("login")%>" style="float:right">Add Offer</a>
-		<br><br><br>
-		
+				
 		<c:choose>
 						
 			<c:when test="${!internshipList.isEmpty()}">
 				<table class="table table-bordered">
 				  <thead>
 					<tr>
-					  <th>ID</th>
 					  <th>Name</th>
-					  <th>Date</th>
 					  <th>Applications</th>
-					  <th>Edit</th>
-					  <th>Delete</th>
 					</tr>
 				  </thead>
 
 				  <tbody>	
 					  <c:forEach var="offer" items="${internshipList}">
 						<tr>
-						  <td><fmt:formatNumber type="number" pattern="0000" value="${offer.id}"/></td>
 						  <td>${offer.name}</td>
-						  <td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidature.createdAt}"/></td>	  
-						  <td><a href="<%=request.getContextPath()+"/CandidaturesCompany?login=" + request.getParameter("login")%>&offer_id=${offer.id}">View Candidatures</a></td>
-						  <td><a href="<%=request.getContextPath()+"/EditOffer?login=" + request.getParameter("login")%>&offer_id=${offer.id}">Edit Offer</a></td>
-						  <td><a href="<%=request.getContextPath()+"/DeleteOffer?login=" + request.getParameter("login")%>&offer_id=${offer.id}" class="btn btn-danger">Delete Offer</a></td>
+						  <td><a href="<%=request.getContextPath()+"/CandidaturesCompany?login=" + request.getParameter("login")%>&company_name=<%= request.getAttribute("company_name") %>&offer_name=${offer.name}">View candidatures</a></td>
 						 </tr>							
 					  </c:forEach>	
 				  </tbody>

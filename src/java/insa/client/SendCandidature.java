@@ -5,9 +5,8 @@
  */
 package insa.client;
 
-import insa.db.Company;
-import insa.db.Internship;
 import insa.db.Candidature;
+import insa.db.Company;
 import insa.db.UserAccount;
 import insa.ws.InternshipWS;
 import insa.ws.CandidatureWS;
@@ -69,14 +68,10 @@ public class SendCandidature extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
-		long offer_id = Long.valueOf(request.getParameter("offer_id"));
-		Internship internshipOffer = internshipService.getInternshipByID(offer_id);
-		request.setAttribute("internshipOffer",internshipOffer);
+		request.setAttribute("offer_name",request.getParameter("offer_name"));
+		request.setAttribute("company_name",request.getParameter("company_name"));
 		request.setAttribute("login",request.getParameter("login"));
-		System.out.println(request.getParameter("login"));
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/SendCandidature.jsp").forward(request, response);
-		
 	}
 
 	/**
@@ -91,38 +86,35 @@ public class SendCandidature extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		
-                UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
-                String userCategory = ua.getUserCategory();
-                if(userCategory.compareTo("Student")==0){
-                    request.setAttribute("student","true");
-                }
-                else{
-                    request.setAttribute("student","false");
-                }            
+        UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+        String userCategory = ua.getUserCategory();
+        if(userCategory.compareTo("Student")==0){
+            request.setAttribute("student","true");
+        }
+		else {
+            request.setAttribute("student","false");
+        }            
 		// Parameters:
 		String login = request.getParameter("login");
-		long user_id = userProfileService.getUserAccountByLogin(login).getId();
+		long user_id = ua.getId();
 		String candTitle = request.getParameter("title");
 		String candMessage = request.getParameter("message");
-		long offer_id = Long.parseLong(request.getParameter("offer_id"));
+		String offer_name = request.getParameter("offer_name");
+		String company_name = request.getParameter("company_name");
 		
 		// TODO: Verify if a file was sent 
 		// TODO: Save the file on the correct path 
 		String coverLetterPath = "/Users/jordycabannes/Desktop/iManage/web/Web-content/pdf/internshipOffer/Offre1.pdf"; 
 		//		+ login + "/" + offer_id + ".pdf"; 
 					
-		Candidature candidature = candidatureService.createCandidature(candTitle,candMessage,coverLetterPath);
-		
-		// Link candidature with the respective internship offer:
-		Internship offer = internshipService.getInternshipByID(offer_id);
-		candidatureService.linkOfferToCandidature(candidature.getId(),offer);
+		Candidature candidature = candidatureService.createCandidature(candTitle,candMessage,coverLetterPath,offer_name);
 		
 		// Link candidature with the respective user:
 		UserAccount userAccount = userProfileService.getUserAccountByLogin(login);
 		candidatureService.linkUserToCandidature(candidature.getId(),userAccount);
 		
 		// Link candidature with the respective company:
-		Company company = offer.getId_company();
+		Company company = userProfileService.getCompanyByName(company_name);
 		candidatureService.linkCompanyToCandidature(candidature.getId(),company);
 
 		// Redirect to Candidatures view:

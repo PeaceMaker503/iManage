@@ -36,18 +36,24 @@
     </head>
     
     <body>
-        <%  if(request.getAttribute("student") != null) {
-                                        if((request.getAttribute("student")).equals("true")){
-                                 %>
-                <jsp:include page="./Header.jsp"/>
-         <%}
-            else if((request.getAttribute("student")).equals("false")){
-                                 %>
-                <jsp:include page="./HeaderCompany.jsp"/>       
-         <%}                       
-        }%>
-        
         <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+		
+		<!-- Header --> 
+		<c:choose>					  
+		  <c:when test="${requestScope['userType'] == 'Student'}">
+			  <jsp:include page="./Header.jsp"/>
+		  </c:when>
+		 
+		  <c:when test="${requestScope['userType'] == 'Company'}">
+			  <jsp:include page="./HeaderCompany.jsp"/>
+		  </c:when>			  
+		
+		  <c:when test="${requestScope['userType'] == 'INSA Staff'}">
+			  <jsp:include page="./HeaderStaff.jsp"/>
+		  </c:when>	  
+		</c:choose>
+		
+		
         
         <form action="<%="Search?login=" + request.getParameter("login")%>" method="post">
 		<!-- Sidebar -->
@@ -78,12 +84,12 @@
                                 <div class="title-criteria">
                                    Keywords
                                 </div>
-                                <input type="text" name="keywords" class="form-control" placeholder="Search Internship by Tag..">
+                                <input type="text" name="keywords" class="form-control" placeholder="Tags..">
                                 <span class="input-group-btn">
                                 </span>
                             </div>
                             <div class="col-xs-12">
-                                <input id="paramButton"  class="btn btn-secondary col-xs-12" type="submit" value="Rechercher" style="margin-top:20px"/>
+                                <input id="paramButton"  class="btn btn-secondary col-xs-12" type="submit" value="Search" style="margin-top:20px"/>
                             </div>
                             
                         </div>
@@ -103,25 +109,22 @@
                   <div class="flex-list">
                       <ul>
                   <c:forEach var="internship" items="${internshipList}">
-                      <li style="width:100%">
+                    <li style="width:100%">
                     <h2>${internship.name}</h2>
-                    <h5><span class="glyphicon glyphicon-time"></span> Sep 27th, 2016.</h5>
-                    <h5><span class="label label-danger">LABEL</span> <span class="label label-primary">Label</span></h5><br>
-                    <div class="col-sm-2 text-center">
-                          <img src="/iManage/Web-Content/StyleHome/img/air-france.jpg" class="img-circle" height="65" width="65" alt="Avatar">
-                    </div>
+                    <h5><span class="label label-primary">${internship.id_category.name}</span></h5><br>
                     <p>Company : ${internship.id_company.name}</p>
-                    <p>Category : ${internship.id_category.name}</p>
-                    <p>${internship.description}</p>
-                    <br><br>
+                    <p>Description: ${internship.description}</p>
+                    <br><br>					
                     <a href="<%=request.getContextPath()+"/Pdf?path="%>${internship.pdfPath}" target="_blank" class="btn btn-primary btn-lg active" role="button" aria-pressed="true">View PDF</a>
-                    <% if(request.getAttribute("student") != null) {
-                                        if((request.getAttribute("student")).equals("true")){
-                                 %>
-                        <a href="<%=request.getContextPath()+"/SendCandidature?login=" + request.getParameter("login")%>&offer_id=${internship.id}"  class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
-                    <%}
-                                }%>
-                      </li><br/>
+					
+					<c:choose>					  
+						<c:when test="${requestScope['userType'] == 'Student'}">
+							<a href="<%=request.getContextPath()+"/SendCandidature?login=" + request.getParameter("login")%>&company_name=${internship.id_company.name}&offer_name=${internship.name}" class="btn btn-secondary btn-lg active" role="button" aria-pressed="true">Send my Candidature</a>
+						</c:when>
+					</c:choose>
+					
+                    </li>
+					<br/>
                   </c:forEach>
                     </ul>
                   </div>
@@ -132,11 +135,7 @@
         <jsp:include page="./Footer.jsp"/>
         
     </body>
-    
-    <script type="text/javascript">
 
-    </script>
-        
 </html>
 
 

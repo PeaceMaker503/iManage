@@ -21,40 +21,67 @@
 		
 		<!-- Body -->
 		<br>
-		<h2>Candidatures of the offer: ${internshipOffer.name}</h2>
+		<h2>Candidatures of the offer: <%= request.getAttribute("offer_name") %></h2>
 		<br>
-		<table class="table table-bordered">
-			  <thead>
-				<tr>
-				  <th>Candidate Name</th>
-				  <th>CV</th>
-				  <th>Cover Letter</th>
-				  <th>Date</th>
-				  <th>Status</th>
-				</tr>
-			  </thead>
+				  
+				  <c:choose>
+								  
+					  <c:when test="${!candidatesList.isEmpty()}"> 
+						  
+						  <table class="table table-bordered">
+						  <thead>
+						    <tr>
+						  	  <th>Candidate Name</th>
+							  <th>Message</th>
+							  <th>CV</th>
+							  <th>Cover Letter</th>
+							  <th>Date</th>
+							  <th>Status</th>
+							  <th>Save</th>
+						    </tr>
+						  </thead>
 
-			  <tbody>	
-				  <c:forEach var="candidate" items="${candidatesList}">
-					<tr>
-					  <td>${candidate.id_userAccount.id_profile.firstName}  ${candidate.id_userAccount.id_profile.lastName} </td>			  
-					  <td><a href="${candidate.id_userAccount.id_profile.cvPath}">CV</a></td>
-					  <td><a href="${candidate.coverLetterPath}>">Cover Letter</a></td>
-					  <td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidate.createdAt}"/></td>
-					  <td>		
-						<div class="labelForm form-group">
-							<select class="selectpicker col-xs-12 " id="selectUserCategory" name="selectUserCategory" data-style="btn-default">
-								<option>Current: ${candidate.status} </option>
-								<option>-------------</option>
-								<option>Not yet studied</option> 
-								<option>In study</option>
-								<option>Rejected</option>
-								<option>Accepted</option>
-							</select>
-						</div>
-					  <td>
-					 </tr>							
-				  </c:forEach>	
+						  <tbody>
+					  
+						  <c:forEach var="candidate" items="${candidatesList}">
+							<tr>
+							  <form method="post">
+								<td>${candidate.id_userAccount.id_profile.firstName}  ${candidate.id_userAccount.id_profile.lastName} </td>			  
+								<td><a href=""%>${candidate.title}</td>
+								<td><a href="<%=request.getContextPath()+"/Pdf?path="%>${candidate.id_userAccount.id_profile.cvPath}">CV</a></td>
+								<td><a href="<%=request.getContextPath()+"/Pdf?path="%>${candidate.coverLetterPath}>">Cover Letter</a></td>
+								<td><fmt:formatDate type="both" pattern="dd/MM/yyyy 'at' HH:mm" value="${candidate.createdAt}"/></td>
+								<td>		
+								  <div class="labelForm form-group">
+									<select class="selectpicker col-xs-12 " id="selectStatus" name="selectStatus" data-style="btn-default">
+									  <option>Current: ${candidate.status} </option>
+									  <option>-------------</option>
+									  <option>Not yet studied</option> 
+									  <option>In study</option>
+									  <option>Rejected</option>
+									  <option>Accepted</option>
+									</select>
+								  </div>
+								</td>
+								<td><input class="btn btn-primary" value="Save" type="submit" name="saveChanges"/></td>
+								<input type="hidden" id="candId" name="candId" value="${candidate.id}"/>
+							  </form>	
+							 </tr>							
+						  </c:forEach>	
+						  
+					  </c:when>
+					  
+					  <c:when test="${candidatesList.isEmpty()}">
+						  <h3>You have not received candidatures on this offer.</h3>
+						  <br>
+					  </c:when>
+					  
+				  </c:choose>
+				  
+				  
+				  
+				  
+				  
 			  </tbody>
 		</table>
 		

@@ -7,6 +7,7 @@ package insa.ws;
 
 import insa.db.Internship;
 import insa.db.Candidature;
+import insa.db.Category;
 import insa.db.Company;
 import insa.db.UserAccount;
 import insa.metier.IMetier;
@@ -49,8 +50,8 @@ public class CandidatureWS {
 	 * @return 
 	 */
 	@WebMethod(operationName = "createCandidature")
-	public Candidature createCandidature(@WebParam(name="candTitle") String title, @WebParam(name="candMessage") String message, @WebParam(name="coverLetterPath") String coverLetterPath) {
-		return metier.createCandidature(title,message,coverLetterPath);
+	public Candidature createCandidature(@WebParam(name="candTitle") String title, @WebParam(name="candMessage") String message, @WebParam(name="coverLetterPath") String coverLetterPath,@WebParam(name="offer_name") String offer_name) {
+		return metier.createCandidature(title,message,coverLetterPath,offer_name);
 	}
 	
 	/**
@@ -61,10 +62,10 @@ public class CandidatureWS {
 		return metier.deleteCandidatureById(cand_id);
 	}	
 	
-	@WebMethod(operationName = "linkOfferToCandidature")
-	public Candidature linkOfferToCandidature(@WebParam(name="cand_id") long cand_id, @WebParam(name="offer") Internship offer) {
-		return metier.linkOfferToCandidature(cand_id,offer);
-	}
+//	@WebMethod(operationName = "linkOfferToCandidature")
+//	public Candidature linkOfferToCandidature(@WebParam(name="cand_id") long cand_id, @WebParam(name="offer") Internship offer) {
+//		return metier.linkOfferToCandidature(cand_id,offer);
+//	}
 	
 	@WebMethod(operationName = "linkUserToCandidature")
 	public Candidature linkUserToCandidature(@WebParam(name="cand_id") long cand_id, @WebParam(name="userAccount") UserAccount userAccount){
@@ -79,6 +80,11 @@ public class CandidatureWS {
 	public List<Candidature> getCandidaturesByUserID(long user_id) {
 		return metier.getCandidaturesByUserID(user_id);
 	}
+	
+	public List<Candidature> getCandidaturesByOfferName(String offer_name) {
+		return metier.getCandidaturesByOfferName(offer_name);
+	}
+	
 
 	/**
 	 * Web service operation
@@ -94,6 +100,10 @@ public class CandidatureWS {
 	@WebMethod(operationName = "updateCandidature")
 	public Candidature updateCandidature(@WebParam(name="candidature") Candidature candidature) {
 		return metier.updateCandidature(candidature);
+	}
+
+	public List<Candidature> getCandidaturesByCategory(Category category) {
+		return metier.getCandidaturesByCategory(category);
 	}
 	
 }

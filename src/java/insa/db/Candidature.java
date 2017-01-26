@@ -8,17 +8,13 @@ import java.io.Serializable;
 import java.util.*;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
-import org.hibernate.annotations.CascadeType;
 import javax.persistence.TemporalType;
 
 /**
@@ -43,9 +39,13 @@ public class Candidature implements Serializable {
 	@Column
 	private String coverLetterPath;
 	
-	@OneToOne
-	@JoinColumn(referencedColumnName="id")
-	private Internship id_internship;
+	//@OneToOne
+	//@JoinColumn(referencedColumnName="id")
+	//private Internship id_internship;
+	
+	private String offer_name;
+	
+	private String offer_path;
 	
 	@OneToOne
 	@JoinColumn(referencedColumnName="id")
@@ -54,7 +54,11 @@ public class Candidature implements Serializable {
 	@OneToOne
 	@JoinColumn(referencedColumnName="id")
 	private Company id_company;
-
+	
+	@OneToOne
+	@JoinColumn(referencedColumnName="id")
+	private Category id_category;
+	
 	@Column 
 	private String status = "Not yet studied";
 	
@@ -68,11 +72,11 @@ public class Candidature implements Serializable {
 	
 	public Candidature(){}
 
-	public Candidature(String title, String content, String coverLetterPath, Internship id_internship, UserAccount id_userAccount, String status) {
+	public Candidature(String title, String content, String coverLetterPath, String offer_name, UserAccount id_userAccount, String status) {
 		this.title = title;
 		this.content = content;
 		this.coverLetterPath = coverLetterPath;
-		this.id_internship = id_internship;
+		this.offer_name = offer_name;
 		this.id_userAccount = id_userAccount;
 	}
 	
@@ -108,12 +112,12 @@ public class Candidature implements Serializable {
 		this.coverLetterPath = coverLetterPath;
 	}
 
-	public Internship getId_internship() {
-		return id_internship;
+	public String getOffer_name() {
+		return offer_name;
 	}
 
-	public void setId_internship(Internship id_internship) {
-		this.id_internship = id_internship;
+	public void setOffer_name(String offer_name) {
+		this.offer_name = offer_name;
 	}
 
 	public UserAccount getId_userAccount() {
@@ -155,8 +159,15 @@ public class Candidature implements Serializable {
 	public void setConventionPath(String conventionPath) {
 		this.conventionPath = conventionPath;
 	}
+
+	public String getOffer_path() {
+		return offer_path;
+	}
+
+	public void setOffer_path(String offer_path) {
+		this.offer_path = offer_path;
+	}
 	
-		
 	@Override
 	public int hashCode() {
 		int hash = 0;

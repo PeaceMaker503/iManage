@@ -74,14 +74,18 @@ public class Messages extends HttpServlet {
         Collection<UserAccount> uaReceiver = new ArrayList<UserAccount>();
         List<Collection<UserAccount>> uaReceiverList= new ArrayList<Collection<UserAccount>>();
         
-        UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+		UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
         String userCategory = ua.getUserCategory();
+		
         if(userCategory.compareTo("Student")==0){
-            request.setAttribute("student","true");
+            request.setAttribute("userType","Student");
         }
-        else{
-            request.setAttribute("student","false");
+		else if (userCategory.compareTo("Company")==0) {
+            request.setAttribute("userType","Company");
         }
+		else if (userCategory.compareTo("INSA Staff")==0){
+			request.setAttribute("userType","INSA Staff");
+		}
         
         request.setAttribute("messagesList", messageService.searchMessage(ua));
         request.setAttribute("SentMessagesList", messageService.searchSentMessages(ua.getId()));

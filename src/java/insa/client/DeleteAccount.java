@@ -63,6 +63,20 @@ public class DeleteAccount extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		
+		UserAccount ua = userProfileService.getUserAccountByLogin(request.getParameter("login"));
+        String userCategory = ua.getUserCategory();
+		
+        if(userCategory.compareTo("Student")==0){
+            request.setAttribute("userType","Student");
+        }
+		else if (userCategory.compareTo("Company")==0) {
+            request.setAttribute("userType","Company");
+        }
+		else if (userCategory.compareTo("INSA Staff")==0){
+			request.setAttribute("userType","INSA Staff");
+		}
+				
 		this.getServletContext().getRequestDispatcher("/WEB-INF/jsp/DeleteAccount.jsp").forward(request, response);
 	}
 

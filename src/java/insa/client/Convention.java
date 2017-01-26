@@ -166,10 +166,10 @@ public class Convention extends HttpServlet {
 		});
 			
 		// Update the convention path of the candidature on the database:
-		String conventionPath = "/home/prmm95/Bureau/Convention_" + cand_id + ".pdf";
+		String conventionPath = "/home/prmm95/NetBeansProjects/iManage/static/pdf/Convention_" + cand_id + ".pdf";
 		Candidature candidature = candidatureService.getCandidatureById(Long.valueOf(cand_id));
 		candidature.setConventionPath(conventionPath);
-		//candidatureService.updateCandidature(candidature);
+		candidatureService.updateCandidature(candidature);
 		
 		// Save the results and ensure that the document is properly closed:
 		pdfTemplate.save(conventionPath);
