@@ -40,11 +40,10 @@ To use iManage, please clone this repository to the desired folder of your compu
 4. Remember to add the Spring MVC and the Hibernate frameworks.
 5. Create the project.
 6. Set up the connection for the imanage database. You may follow [these instructions](https://netbeans.org/kb/docs/ide/oracle-db.html#connect)
-7. Fix the paths of file savings of the iManage project:
+7. Fix the paths of the file savings of the iManage project:
   * asdas
-    * Internship convention generation: /src/
-    * Save a CV:
-    * Upload a Coverletter:
+    * Internship convention generation: src/java/insa/client/Convention.java
+    * CV and Cover letter: /src/java/insa/client/FileUploadServlet.java
 
 ### Set up the iCompany project (Company A)
 
@@ -65,15 +64,17 @@ To use iManage, please clone this repository to the desired folder of your compu
 6. Set up the connection for the entrepriseb database. You may follow [these instructions](https://netbeans.org/kb/docs/ide/oracle-db.html#connect)
 
 ### Populate the databases of each project:
-1. Python script.
+1. Run the Python script available at /scriptTests/populateDatabases.sh to populate all the databases.
 
 ### Set up the Zato ESB 
-1. Installation
+1. Installation:
   * Follow the instalation instructions available [here](https://zato.io/docs/admin/guide/install/docker.html)
   * Remember to save the web admin password to have access to the zato interface. 
   * After finishing the instructions, you may test that your zato instance is running on the address [http://localhost:8183](http://localhost:8183)
-2. Service configuration.
-3. Response configuration.
+2. Service configuration:
+  *
+3. Response configuration:
+  *
 
 ## Deployment instructions:
 1. Build and deploy iCompany.
