@@ -63,6 +63,6 @@ To use iManage, please clone this repository to the desired folder of your compu
 1. Build and deploy iCompany.
 2. Build and deploy iCompany2.
 3. Start the Zato ESB Docker image by running the following command:
-  *```docker start -a -i <image_id>```
+  * ```docker start -a -i <image_id>```
 4. Build and deploy iManage.
 5. Check the address http://localhost:8080/iManage
