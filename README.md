@@ -3,11 +3,11 @@
 ## Web application based on web services and SOA.
 
 ## Team members:
-- Abdillah Ahamada
-- Halim Chellal
-- Jordy Cabannes
-- Pablo Maldonado
-- Paul Neissen
+  - Abdillah Ahamada
+  - Halim Chellal
+  - Jordy Cabannes
+  - Pablo Maldonado
+  - Paul Neissen
 
 ## Description:
 
@@ -21,39 +21,39 @@ To use iManage, please clone this repository to the desired folder of your compu
 
 ### iManage project
 
-- Create the project from existing sources (web application) 
-- Database name: imanage
-- User: root
-- Password: mamaya
-
-- Database connection
-- Libraries
+1. Create the project from existing sources (web application) 
+2. Set up the database: 
+  * Name: imanage
+  * User: root 
+  * Password: mamaya
 
 ### Set up the iCompany project (Company A)
 
-- Create the project from existing sources (web application) 
-- Database name: entreprisea
-- User: root
-- Password: mamaya
+1. Create the project from existing sources (web application) 
+2. Set up the database: 
+  * Name: entreprisea
+  * User: root 
+  * Password: mamaya
 
 ### Set up the iCompany2 project (Company B)
 
-- Create the project from existing sources (web application) 
-- Database name: entrepriseb
-- User: root 
-- Password: mamaya
+1. Create the project from existing sources (web application) 
+2. Set up the database: 
+  * Name: entrepriseb
+  * User: root 
+  * Password: mamaya
 
 ## Populate the databases:
-1.- Python script.
+1. Python script.
 
 ### Set up the Zato ESB 
-1.- Installation
-2.- Service configuration
-3.- Response configuration
+1. Installation
+2. Service configuration
+3. Response configuration
 
 ## Deployment instructions:
-1.- Build and deploy iCompany
-2.- Build and deploy iCompany2
-3.- Start the Zato ESB Do
-4.- Build and deploy iManage
+1. Build and deploy iCompany
+2. Build and deploy iCompany2
+3. Start the Zato ESB Docker image.
+4. Build and deploy iManage
  
