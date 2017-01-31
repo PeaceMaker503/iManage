@@ -3,11 +3,11 @@
 ## Web application based on web services and SOA.
 
 ## Team members:
-  - Abdillah Ahamada
-  - Halim Chellal
-  - Jordy Cabannes
-  - Pablo Maldonado
-  - Paul Neissen
+  - Abdillah Ahamada.
+  - Halim Chellal.
+  - Jordy Cabannes.
+  - Pablo Maldonado.
+  - Paul Neissen.
 
 ## Description:
 
@@ -56,8 +56,11 @@ To use iManage, please clone this repository to the desired folder of your compu
 
 ### Set up the Zato ESB 
 1. Installation
-2. Service configuration
-3. Response configuration
+  * Follow the instalation instructions available [here](https://zato.io/docs/admin/guide/install/docker.html)
+  * Remember to save the web admin password to have access to the zato interface. 
+  * After finishing the instructions, you may test that your zato instance is running on the address [http://localhost:8183](http://localhost:8183)
+2. Service configuration.
+3. Response configuration.
 
 ## Deployment instructions:
 1. Build and deploy iCompany.
@@ -65,4 +68,4 @@ To use iManage, please clone this repository to the desired folder of your compu
 3. Start the Zato ESB Docker image by running the following command:
   * ```docker start -a -i <image_id>```
 4. Build and deploy iManage.
-5. Check the address http://localhost:8080/iManage
+5. Check the address [http://localhost:8080/iManage](http://localhost:8080/iManage)
