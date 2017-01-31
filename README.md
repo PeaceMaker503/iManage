@@ -12,21 +12,26 @@
 ## Description:
 
 ## Requirements:
-* Netbeans IDE 8.2
-* Docker 
+* Java 8: you may find the installations instructions [here](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* Netbeans IDE 8.2: you may find the installations instructions [here](https://netbeans.org/downloads/)
+* Docker Engine: you may find the installation instructions [here](https://docs.docker.com/engine/installation/)
 
 ## Installation instructions:
 
 To use iManage, please clone this repository to the desired folder of your computer. You will find the required libraries and also the source code of the three projects of iManage. 
 
-### iManage project
+### Set up the iManage project (Web application)
 
 1. Create the project from existing sources (web application) 
 2. Set up the database: 
   * Name: imanage
   * User: root 
   * Password: mamaya
-3. Fix the paths of file savings of the iManage project
+3. Fix the paths of file savings of the iManage project:
+  * asdas
+    * Internship convention generation: /src/
+    * Save a CV:
+    * 
 
 ### Set up the iCompany project (Company A)
 
