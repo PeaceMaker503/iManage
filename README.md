@@ -39,9 +39,8 @@ To use iManage, please clone this repository to the desired folder of your compu
 3. As server and settings select GlassFish Server and Java EE 7 Web.
 4. Remember to add the Spring MVC and the Hibernate frameworks.
 5. Create the project.
-3. Set up the database connection:
-
-4. Fix the paths of file savings of the iManage project:
+6. Set up the connection for the imanage database. You may follow [these instructions](https://netbeans.org/kb/docs/ide/oracle-db.html#connect)
+7. Fix the paths of file savings of the iManage project:
   * asdas
     * Internship convention generation: /src/
     * Save a CV:
@@ -49,11 +48,21 @@ To use iManage, please clone this repository to the desired folder of your compu
 
 ### Set up the iCompany project (Company A)
 
-1. Create the project from existing sources (web application) 
+1. Open Netbeans and create a new project (Java Web -> Web application from existing sources)
+2. Name the project as iCompany and select the /iCompany/src/ folder from the repository.
+3. As server and settings select GlassFish Server and Java EE 7 Web.
+4. Remember to add the Spring MVC and the Hibernate frameworks.
+5. Create the project.
+6. Set up the connection for the entreprisea database. You may follow [these instructions](https://netbeans.org/kb/docs/ide/oracle-db.html#connect)
 
 ### Set up the iCompany2 project (Company B)
 
-1. Create the project from existing sources (web application) 
+1. Open Netbeans and create a new project (Java Web -> Web application from existing sources)
+2. Name the project as iCompany2 and select the /iCompany2/src/ folder from the repository.
+3. As server and settings select GlassFish Server and Java EE 7 Web.
+4. Remember to add the Spring MVC and the Hibernate frameworks.
+5. Create the project.
+6. Set up the connection for the entrepriseb database. You may follow [these instructions](https://netbeans.org/kb/docs/ide/oracle-db.html#connect)
 
 ### Populate the databases of each project:
 1. Python script.
