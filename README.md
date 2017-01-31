@@ -26,6 +26,7 @@ To use iManage, please clone this repository to the desired folder of your compu
   * Name: imanage
   * User: root 
   * Password: mamaya
+3. Fix the paths of file savings of the iManage project
 
 ### Set up the iCompany project (Company A)
 
@@ -43,7 +44,7 @@ To use iManage, please clone this repository to the desired folder of your compu
   * User: root 
   * Password: mamaya
 
-## Populate the databases:
+### Populate the databases of each project:
 1. Python script.
 
 ### Set up the Zato ESB 
@@ -56,4 +57,3 @@ To use iManage, please clone this repository to the desired folder of your compu
 2. Build and deploy iCompany2
 3. Start the Zato ESB Docker image.
 4. Build and deploy iManage
- 
