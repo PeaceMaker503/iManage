@@ -72,14 +72,21 @@ To use iManage, please clone this repository to the desired folder of your compu
   * Remember to save the web admin password to have access to the zato interface. 
   * After finishing the instructions, you may test that your zato instance is running on the address [http://localhost:8183](http://localhost:8183)
 2. Service configuration:
-  *
+  
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+  
+  
 3. Response configuration:
-  *
+
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+
+![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
 
 ## Deployment instructions:
-1. Build and deploy iCompany.
-2. Build and deploy iCompany2.
-3. Start the Zato ESB Docker image by running the following command:
+1. Connect all the databases through the services tab of your Netbeans IDE.
+2. Build and deploy iCompany.
+3. Build and deploy iCompany2.
+4. Start the Zato ESB Docker image by running the following command:
   * ```docker start -a -i <image_id>```
-4. Build and deploy iManage.
-5. Check the address [http://localhost:8080/iManage](http://localhost:8080/iManage)
+5. Build and deploy iManage.
+6. Check the address [http://localhost:8080/iManage](http://localhost:8080/iManage)
