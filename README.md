@@ -12,11 +12,13 @@
 ## Description:
 
 ## Requirements:
-* Java 8: you may find the installations instructions [here](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-* Netbeans IDE 8.2: you may find the installations instructions [here](https://netbeans.org/downloads/)
+* Java 8: you may find the installation instructions [here](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+* Netbeans IDE 8.2: you may find the installation instructions [here](https://netbeans.org/downloads/)
 * Docker Engine: you may find the installation instructions [here](https://docs.docker.com/engine/installation/)
 
 ## Installation instructions:
+
+### Clone the repository
 
 To use iManage, please clone this repository to the desired folder of your computer. You will find the required libraries and also the source code of the three projects of iManage. 
 
@@ -31,7 +33,7 @@ To use iManage, please clone this repository to the desired folder of your compu
   * asdas
     * Internship convention generation: /src/
     * Save a CV:
-    * 
+    * Upload a Coverletter:
 
 ### Set up the iCompany project (Company A)
 
@@ -58,7 +60,9 @@ To use iManage, please clone this repository to the desired folder of your compu
 3. Response configuration
 
 ## Deployment instructions:
-1. Build and deploy iCompany
-2. Build and deploy iCompany2
-3. Start the Zato ESB Docker image.
-4. Build and deploy iManage
+1. Build and deploy iCompany.
+2. Build and deploy iCompany2.
+3. Start the Zato ESB Docker image by running the following command:
+  * ...
+4. Build and deploy iManage.
+5. Check the address http://localhost:8080/iManage
