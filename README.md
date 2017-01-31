@@ -1,6 +1,9 @@
 # iManage Web Application
-## INSA Toulouse - 5IL
-## Web application based on web services and SOA.
+### INSA Toulouse - 5IL
+
+## Description:
+
+iManage is a web application conceived to serve as the sole platform which will help 5th year INSA students through the stages related to their internship application and administrative validation processes. These steps are currently accomplished through different websites but iManage simplifies these processes by reuniting them on the same interface. This product was developed using Java Enterprise Edition, Spring MVC framework, and Hibernate ORM to manipulate the transactions of the application database. In the aim of guaranteeing its scalability and maintainability, this product was developed following the Service Oriented Architecture approach and using the Zato Enterprise Service Bus technology. One of its main features is a search engine which looks for internship offers that are retrieved from several company databases. Students can to apply to multiple offers, and once one of them has attracted the attention of a company, a messaging system will be activated to establish the communication between them. The administrative processes related with the internship validation by the INSA staff and the generation of the internship convention are also managed by the web application.
 
 ## Team members:
   - Abdillah Ahamada.
@@ -8,8 +11,6 @@
   - Jordy Cabannes.
   - Pablo Maldonado.
   - Paul Neissen.
-
-## Description:
 
 ## Requirements:
 * Java 8: you may find the installation instructions [here](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
@@ -22,14 +23,25 @@
 
 To use iManage, please clone this repository to the desired folder of your computer. You will find the required libraries and also the source code of the three projects of iManage. 
 
+## Set up the databases:
+1. You must create three databases with the following names:
+  * imanage
+  * entreprisea 
+  * entrepriseb
+2. Create a user with the following credentials with all the prvileges to all the mentioned databases:
+  * user: root
+  * password: mamaya
+
 ### Set up the iManage project (Web application)
 
-1. Create the project from existing sources (web application) 
-2. Set up the database: 
-  * Name: imanage
-  * User: root 
-  * Password: mamaya
-3. Fix the paths of file savings of the iManage project:
+1. Open Netbeans and create a new project (Java Web -> Web application from existing sources)
+2. Name the project as iManage and select the /src folder from the repository.
+3. As server and settings select GlassFish Server and Java EE 7 Web.
+4. Remember to add the Spring MVC and the Hibernate frameworks.
+5. Create the project.
+3. Set up the database connection:
+
+4. Fix the paths of file savings of the iManage project:
   * asdas
     * Internship convention generation: /src/
     * Save a CV:
@@ -38,18 +50,10 @@ To use iManage, please clone this repository to the desired folder of your compu
 ### Set up the iCompany project (Company A)
 
 1. Create the project from existing sources (web application) 
-2. Set up the database: 
-  * Name: entreprisea
-  * User: root 
-  * Password: mamaya
 
 ### Set up the iCompany2 project (Company B)
 
 1. Create the project from existing sources (web application) 
-2. Set up the database: 
-  * Name: entrepriseb
-  * User: root 
-  * Password: mamaya
 
 ### Populate the databases of each project:
 1. Python script.
