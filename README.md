@@ -73,14 +73,14 @@ To use iManage, please clone this repository to the desired folder of your compu
   * After finishing the instructions, you may test that your zato instance is running on the address [http://localhost:8183](http://localhost:8183)
 2. Service configuration:
   
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/PeaceMaker503/iManage/blob/master/busIntegration/config_channel.png "Logo Title Text 1")
   
   
 3. Response configuration:
 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/PeaceMaker503/iManage/blob/master/busIntegration/config_outgoing_soap1.png "Logo Title Text 1")
 
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/PeaceMaker503/iManage/blob/master/busIntegration/config_outgoing_soap2.png "Logo Title Text 1")
 
 ## Deployment instructions:
 1. Connect all the databases through the services tab of your Netbeans IDE.
